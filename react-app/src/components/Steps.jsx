@@ -1,71 +1,72 @@
-/* Step characters */
+/* Goofy blob step characters — quirky asymmetric faces */
 const Step1Char = () => (
-  <svg viewBox="0 0 90 90" fill="none" className="w-[90px] h-[90px]">
-    <circle cx="45" cy="45" r="40" fill="#FF8FAB" />
-    <ellipse cx="34" cy="38" rx="5" ry="6" fill="white" />
-    <ellipse cx="56" cy="38" rx="5" ry="6" fill="white" />
-    <circle cx="35" cy="39" r="3.5" fill="#2D1B69" />
-    <circle cx="57" cy="39" r="3.5" fill="#2D1B69" />
-    <circle cx="36.5" cy="37" r="1.3" fill="white" />
-    <circle cx="58.5" cy="37" r="1.3" fill="white" />
-    <path d="M35 56 C39 62, 51 62, 55 56" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    <circle cx="25" cy="50" r="5" fill="#FFD23F" opacity="0.3" />
-    <circle cx="65" cy="50" r="5" fill="#FFD23F" opacity="0.3" />
-    {/* Speech bubble */}
-    <rect x="60" y="8" width="22" height="16" rx="6" fill="white" opacity="0.8" />
-    <path d="M64 24 L68 20 L72 24" fill="white" opacity="0.8" />
-    <text x="64" y="19" fontSize="7" fill="#2D1B69" opacity="0.6">?!</text>
+  <svg viewBox="0 0 90 105" fill="none" className="w-[90px] h-[105px]">
+    <ellipse cx="45" cy="42" rx="38" ry="32" fill="#FF8FAB" />
+    <circle cx="28" cy="46" r="3.2" fill="#2D1B69" />
+    <circle cx="52" cy="50" r="3.2" fill="#2D1B69" />
+    <path d="M24 54 C34 62, 48 62, 56 56" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    <ellipse cx="35" cy="80" rx="7" ry="10" fill="#FF8FAB" />
+    <ellipse cx="55" cy="80" rx="7" ry="10" fill="#FF8FAB" />
+    <rect x="62" y="6" width="20" height="15" rx="6" fill="white" opacity="0.8" />
+    <path d="M66 21 L70 18 L74 21" fill="white" opacity="0.8" />
+    <text x="66" y="17" fontSize="7" fill="#2D1B69" opacity="0.6">?!</text>
   </svg>
 )
 
 const Step2Char = () => (
-  <svg viewBox="0 0 90 100" fill="none" className="w-[90px] h-[100px]">
-    <path d="M12 32 C6 16, 28 4, 45 8 C62 4, 84 16, 78 32 C88 44, 84 70, 70 82 C58 92, 32 92, 20 82 C6 70, 2 44, 12 32Z" fill="#B197FC" />
-    <ellipse cx="34" cy="42" rx="5" ry="6" fill="white" />
-    <ellipse cx="56" cy="42" rx="5" ry="6" fill="white" />
-    <circle cx="35" cy="43" r="3.5" fill="#2D1B69" />
-    <circle cx="57" cy="43" r="3.5" fill="#2D1B69" />
-    <circle cx="36.5" cy="41" r="1.3" fill="white" />
-    <circle cx="58.5" cy="41" r="1.3" fill="white" />
-    <path d="M36 60 C40 65, 50 65, 54 60" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    <circle cx="24" cy="54" r="5" fill="#FF8FAB" opacity="0.3" />
-    <circle cx="66" cy="54" r="5" fill="#FF8FAB" opacity="0.3" />
-    {/* Magnifying glass */}
-    <circle cx="72" cy="18" r="8" stroke="white" strokeWidth="2.5" fill="none" opacity="0.6" />
-    <line x1="78" y1="24" x2="84" y2="30" stroke="white" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
+  <svg viewBox="0 0 90 105" fill="none" className="w-[90px] h-[105px]">
+    <path d="M14 28 C8 12, 28 2, 45 6 C62 2, 82 12, 76 28 C84 42, 80 60, 68 68 C58 74, 32 74, 22 68 C10 60, 6 42, 14 28Z" fill="#B197FC" />
+    <circle cx="30" cy="36" r="3.2" fill="#2D1B69" />
+    <circle cx="48" cy="32" r="3.2" fill="#2D1B69" />
+    <path d="M26 44 C34 50, 44 48, 50 42" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    <ellipse cx="35" cy="82" rx="7" ry="10" fill="#B197FC" />
+    <ellipse cx="55" cy="82" rx="7" ry="10" fill="#B197FC" />
+    <circle cx="74" cy="14" r="7" stroke="white" strokeWidth="2.5" fill="none" opacity="0.6" />
+    <line x1="79" y1="19" x2="84" y2="24" stroke="white" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
   </svg>
 )
 
 const Step3Char = () => (
-  <svg viewBox="0 0 90 90" fill="none" className="w-[90px] h-[90px]">
-    <rect x="5" y="5" width="80" height="80" rx="22" fill="#22C55E" />
-    <ellipse cx="34" cy="38" rx="5" ry="6" fill="white" />
-    <ellipse cx="56" cy="38" rx="5" ry="6" fill="white" />
-    <circle cx="35" cy="39" r="3.5" fill="#2D1B69" />
-    <circle cx="57" cy="39" r="3.5" fill="#2D1B69" />
-    <circle cx="36.5" cy="37" r="1.3" fill="white" />
-    <circle cx="58.5" cy="37" r="1.3" fill="white" />
-    <path d="M32 56 C38 64, 52 64, 58 56" stroke="#2D1B69" strokeWidth="3" strokeLinecap="round" fill="none" />
-    <circle cx="24" cy="50" r="5" fill="white" opacity="0.2" />
-    <circle cx="66" cy="50" r="5" fill="white" opacity="0.2" />
-    {/* Sparkle */}
-    <path d="M72 10 C72 14, 72 14, 76 14 C72 14, 72 14, 72 18 C72 14, 72 14, 68 14 C72 14, 72 14, 72 10Z" fill="#FFD23F" />
-    <path d="M14 14 C14 17, 14 17, 17 17 C14 17, 14 17, 14 20 C14 17, 14 17, 11 17 C14 17, 14 17, 14 14Z" fill="#FFD23F" />
-  </svg>
-)
-
-/* Hand-drawn doodle arrow connecting steps */
-const DoodleConnector = () => (
-  <svg viewBox="0 0 100 30" fill="none" className="hidden md:block w-24 h-8 text-coral">
-    <path d="M4 15 C20 8, 45 22, 70 12 C78 9, 84 10, 88 12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="6 5" opacity="0.5" style={{ animation: 'dash-flow 1.5s linear infinite' }} />
-    <path d="M82 6 L92 14 L82 22" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.5" />
+  <svg viewBox="0 0 90 105" fill="none" className="w-[90px] h-[105px]">
+    <rect x="8" y="8" width="74" height="64" rx="26" fill="#22C55E" />
+    <path d="M44 32 C46 28, 50 28, 52 32" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    <path d="M60 36 C62 32, 66 32, 68 36" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    <path d="M40 46 C50 56, 62 56, 72 48" stroke="#2D1B69" strokeWidth="3" strokeLinecap="round" fill="none" />
+    <ellipse cx="35" cy="82" rx="7" ry="10" fill="#22C55E" />
+    <ellipse cx="55" cy="82" rx="7" ry="10" fill="#22C55E" />
+    <path d="M18 16 C18 20, 18 20, 22 20 C18 20, 18 20, 18 24 C18 20, 18 20, 14 20 C18 20, 18 20, 18 16Z" fill="#FFD23F" />
+    <path d="M30 10 C30 13, 30 13, 33 13 C30 13, 30 13, 30 16 C30 13, 30 13, 27 13 C30 13, 30 13, 30 10Z" fill="#FFD23F" />
   </svg>
 )
 
 const steps = [
-  { num: '01', Char: Step1Char, title: 'Расскажите о\u00a0ребёнке', text: 'Анкета из 5\u00a0вопросов: возраст, интересы, район. Занимает 2\u00a0минуты.', delay: '' },
-  { num: '02', Char: Step2Char, title: 'Мы подберём варианты', text: 'Живой специалист вручную подберёт 3-5 занятий. Не\u00a0алгоритм — человек, который знает рынок.', delay: 'sr-d2' },
-  { num: '03', Char: Step3Char, title: 'Получите подборку', text: 'Через 1-2 часа в\u00a0мессенджер: описание, цены, расписание, контакты.', delay: 'sr-d4' },
+  {
+    num: '01',
+    Char: Step1Char,
+    title: 'Расскажите о\u00a0ребёнке',
+    text: 'Анкета из 5\u00a0вопросов: возраст, интересы, район. Занимает 2\u00a0минуты.',
+    accent: '#FF8FAB',
+    borderColor: '#FF8FAB',
+    delay: '',
+  },
+  {
+    num: '02',
+    Char: Step2Char,
+    title: 'Мы подберём варианты',
+    text: 'Живой специалист вручную подберёт 3-5 занятий. Не\u00a0алгоритм\u00a0— человек, который знает рынок.',
+    accent: '#B197FC',
+    borderColor: '#B197FC',
+    delay: 'sr-d2',
+  },
+  {
+    num: '03',
+    Char: Step3Char,
+    title: 'Получите подборку',
+    text: 'Через 1-2 часа в\u00a0мессенджер: описание, цены, расписание, контакты.',
+    accent: '#22C55E',
+    borderColor: '#22C55E',
+    delay: 'sr-d4',
+  },
 ]
 
 export default function Steps() {
@@ -77,31 +78,53 @@ export default function Steps() {
         <h2 className="sr sr-d1 font-display font-black text-[1.875rem] md:text-[2.5rem] text-indigo leading-[1.2] mb-2 text-center mx-auto">
           Три шага — и&nbsp;<span className="text-pill text-pill-green">занятие найдено</span>
         </h2>
-        <p className="sr sr-d2 text-n700 text-[0.9375rem] max-w-[560px] leading-[1.65] mb-12 text-center mx-auto">
+        <p className="sr sr-d2 text-n700 text-[0.9375rem] max-w-[560px] leading-[1.65] mb-14 text-center mx-auto">
           Вы отвечаете — мы&nbsp;ищем, сравниваем, проверяем
         </p>
-        <div className="flex flex-col md:flex-row gap-8 max-w-[960px] mx-auto items-center md:items-start justify-center">
-          {steps.map((s, i) => (
-            <div key={i} className="contents">
-              <div className={`sr ${s.delay} text-center relative z-1 flex-1 max-w-[280px] group`}>
-                <div className="bg-white/70 backdrop-blur-sm rounded-[28px] p-6 pb-5 border border-white/80 shadow-[0_4px_20px_rgba(26,26,46,.04)] transition-all duration-400 hover:shadow-[0_12px_36px_rgba(26,26,46,.08)] hover:-translate-y-1">
-                  <div className="relative inline-block mb-4 transition-transform duration-400 group-hover:scale-105 group-hover:rotate-[-3deg]">
-                    <s.Char />
-                    <div className="absolute -top-2 -left-2 w-10 h-10 rounded-full bg-gradient-to-br from-coral to-gold flex items-center justify-center font-head font-extrabold text-sm text-white shadow-[0_4px_16px_var(--color-coral-glow)]">
-                      {s.num}
+
+        <div className="relative max-w-[1060px] mx-auto">
+          <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:gap-0 items-stretch">
+            {steps.map((s, i) => (
+              <div key={i} className="contents">
+                <div className={`sr ${s.delay} group relative`}>
+                  <div
+                    className="relative rounded-[24px] p-7 bg-white border-l-[4px] h-full transition-all duration-400 hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(26,26,46,.08)]"
+                    style={{ borderLeftColor: s.borderColor }}
+                  >
+                    {/* Character + number */}
+                    <div className="flex items-start gap-4 mb-5">
+                      <div className="relative shrink-0 transition-transform duration-400 group-hover:scale-110 group-hover:rotate-[-4deg]">
+                        <s.Char />
+                        <div
+                          className="absolute -top-1.5 -left-1.5 w-8 h-8 rounded-full flex items-center justify-center font-head font-extrabold text-[0.75rem] text-white shadow-[0_3px_10px_rgba(0,0,0,.15)]"
+                          style={{ background: s.accent }}
+                        >
+                          {s.num}
+                        </div>
+                      </div>
                     </div>
+
+                    <h3 className="font-head font-bold text-[1.15rem] text-indigo mb-2 leading-tight">
+                      {s.title}
+                    </h3>
+                    <p className="text-[0.875rem] text-n700 leading-[1.7]">
+                      {s.text}
+                    </p>
                   </div>
-                  <h3 className="font-head font-bold text-[1.0625rem] text-indigo mb-1.5">{s.title}</h3>
-                  <p className="text-[0.8125rem] text-n700 leading-[1.6] max-w-[260px] mx-auto">{s.text}</p>
                 </div>
+
+                {/* Arrow connector between cards — desktop only */}
+                {i < steps.length - 1 && (
+                  <div className="hidden md:flex items-center justify-center px-3">
+                    <svg width="40" height="24" viewBox="0 0 40 24" fill="none" className="text-n300">
+                      <path d="M0 12 L30 12" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" strokeLinecap="round" />
+                      <path d="M26 6 L34 12 L26 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                    </svg>
+                  </div>
+                )}
               </div>
-              {i < steps.length - 1 && (
-                <div className="flex items-center justify-center mt-8 md:mt-16">
-                  <DoodleConnector />
-                </div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import useScrollReveal from './hooks/useScrollReveal'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import ChildProfile from './components/ChildProfile'
 import Problems from './components/Problems'
 import WhyUs from './components/WhyUs'
 import Categories from './components/Categories'
@@ -26,6 +27,7 @@ export default function App() {
       <div className="grain" />
       <Navbar onQuiz={toQuiz} />
       <Hero onQuiz={toQuiz} />
+      <ChildProfile onQuiz={toQuiz} />
       <Problems />
       <WhyUs />
       <Categories />

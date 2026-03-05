@@ -1,21 +1,25 @@
-/* Category characters — each a unique shape with relevant accessories */
+/* Goofy blob category characters — quirky asymmetric faces */
 const cats = [
   {
     label: 'Спорт',
     color: '#38BDF8',
     lightBg: '#EBF8FF',
     char: (
-      <svg viewBox="0 0 80 80" fill="none">
-        <circle cx="40" cy="40" r="34" fill="#38BDF8" />
-        <ellipse cx="30" cy="34" rx="4.5" ry="5" fill="white" />
-        <ellipse cx="50" cy="34" rx="4.5" ry="5" fill="white" />
-        <circle cx="31" cy="35" r="3" fill="#2D1B69" />
-        <circle cx="51" cy="35" r="3" fill="#2D1B69" />
-        <circle cx="32" cy="33.5" r="1.1" fill="white" />
-        <circle cx="52" cy="33.5" r="1.1" fill="white" />
-        <path d="M30 50 C34 56, 46 56, 50 50" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        <path d="M10 22 C20 17, 60 17, 70 22" stroke="white" strokeWidth="4" strokeLinecap="round" fill="none" opacity="0.5" />
-        <circle cx="40" cy="8" r="4" fill="#FFD23F" />
+      <svg viewBox="0 0 80 95" fill="none">
+        {/* Round blob */}
+        <circle cx="40" cy="38" r="30" fill="#38BDF8" />
+        {/* Eyes low, spread wide, right eye lower */}
+        <circle cx="24" cy="42" r="2.8" fill="#2D1B69" />
+        <circle cx="48" cy="46" r="2.8" fill="#2D1B69" />
+        {/* Wide grin spanning under eyes */}
+        <path d="M20 50 C30 58, 44 58, 52 52" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+        {/* Headband */}
+        <path d="M12 24 C22 18, 58 18, 68 24" stroke="white" strokeWidth="3.5" strokeLinecap="round" fill="none" opacity="0.5" />
+        {/* Tiny legs */}
+        <ellipse cx="32" cy="72" rx="6" ry="9" fill="#38BDF8" />
+        <ellipse cx="48" cy="72" rx="6" ry="9" fill="#38BDF8" />
+        {/* Small arm */}
+        <ellipse cx="12" cy="44" rx="5" ry="4" fill="#38BDF8" />
       </svg>
     ),
   },
@@ -24,15 +28,20 @@ const cats = [
     color: '#B197FC',
     lightBg: '#F3EEFF',
     char: (
-      <svg viewBox="0 0 80 90" fill="none">
-        <path d="M12 30 C6 14, 28 2, 40 6 C52 2, 74 14, 68 30 C78 42, 74 65, 62 76 C52 84, 28 84, 18 76 C6 65, 2 42, 12 30Z" fill="#B197FC" />
-        <ellipse cx="30" cy="40" rx="4" ry="3" fill="white" />
-        <ellipse cx="50" cy="40" rx="4" ry="3" fill="white" />
-        <circle cx="31" cy="40.5" r="2.5" fill="#2D1B69" />
-        <circle cx="51" cy="40.5" r="2.5" fill="#2D1B69" />
-        <path d="M33 56 C37 60, 43 60, 47 56" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        <rect x="58" y="10" width="4" height="24" rx="2" fill="#FF6B35" transform="rotate(25 60 22)" opacity="0.7" />
-        <circle cx="64" cy="6" r="4" fill="#FF6B35" opacity="0.7" />
+      <svg viewBox="0 0 80 95" fill="none">
+        {/* Tall ghost-like blob */}
+        <path d="M14 28 C8 12, 28 2, 40 5 C52 2, 72 12, 66 28 C74 40, 70 60, 58 66 C50 70, 30 70, 22 66 C10 60, 6 40, 14 28Z" fill="#B197FC" />
+        {/* Face offset to upper-right, eyes at different heights */}
+        <circle cx="42" cy="28" r="2.8" fill="#2D1B69" />
+        <circle cx="58" cy="32" r="2.8" fill="#2D1B69" />
+        {/* Small smile tucked under, off-center */}
+        <path d="M42 36 C48 42, 56 40, 60 36" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        {/* Tiny legs */}
+        <ellipse cx="32" cy="76" rx="6" ry="9" fill="#B197FC" />
+        <ellipse cx="50" cy="76" rx="6" ry="9" fill="#B197FC" />
+        {/* Paintbrush */}
+        <rect x="10" y="12" width="3.5" height="22" rx="1.5" fill="#FF6B35" transform="rotate(-15 12 23)" opacity="0.7" />
+        <circle cx="8" cy="8" r="4" fill="#FF6B35" opacity="0.7" />
       </svg>
     ),
   },
@@ -41,15 +50,20 @@ const cats = [
     color: '#FFD23F',
     lightBg: '#FFF8E1',
     char: (
-      <svg viewBox="0 0 80 80" fill="none">
-        <path d="M40 4 L54 30 L74 30 L58 48 L64 72 L40 58 L16 72 L22 48 L6 30 L26 30Z" fill="#FFD23F" />
-        <ellipse cx="32" cy="38" rx="4" ry="4.5" fill="white" />
-        <ellipse cx="48" cy="38" rx="4" ry="4.5" fill="white" />
-        <circle cx="33" cy="39" r="2.5" fill="#2D1B69" />
-        <circle cx="49" cy="39" r="2.5" fill="#2D1B69" />
-        <path d="M34 50 C37 54, 43 54, 46 50" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" fill="none" />
-        <circle cx="16" cy="65" r="4" fill="#2D1B69" opacity="0.4" />
-        <rect x="19" y="48" width="2" height="17" rx="1" fill="#2D1B69" opacity="0.4" />
+      <svg viewBox="0 0 80 95" fill="none">
+        {/* Spiky star-like blob */}
+        <path d="M40 6 L50 26 L72 26 L56 40 L62 62 L40 50 L18 62 L24 40 L8 26 L30 26Z" fill="#FFD23F" />
+        {/* Happy squint eyes — off center, different sizes */}
+        <path d="M32 38 C33 34, 38 34, 39 38" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+        <path d="M46 34 C47 31, 51 31, 52 34" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+        {/* Wonky smile */}
+        <path d="M30 46 C36 52, 46 50, 54 44" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        {/* Tiny legs */}
+        <ellipse cx="34" cy="72" rx="6" ry="9" fill="#FFD23F" />
+        <ellipse cx="48" cy="72" rx="6" ry="9" fill="#FFD23F" />
+        {/* Music note */}
+        <circle cx="16" cy="68" r="3.5" fill="#2D1B69" opacity="0.35" />
+        <rect x="19" y="52" width="2" height="16" rx="1" fill="#2D1B69" opacity="0.35" />
       </svg>
     ),
   },
@@ -58,20 +72,23 @@ const cats = [
     color: '#FF8FAB',
     lightBg: '#FFF0F3',
     char: (
-      <svg viewBox="0 0 80 100" fill="none">
-        <path d="M15 30 C8 14, 30 2, 40 6 C50 2, 72 14, 65 30 C75 40, 72 65, 60 78 C50 90, 30 90, 20 78 C8 65, 5 40, 15 30Z" fill="#FF8FAB" />
-        <ellipse cx="30" cy="40" rx="4.5" ry="5" fill="white" />
-        <ellipse cx="50" cy="40" rx="4.5" ry="5" fill="white" />
-        <circle cx="31" cy="41" r="3" fill="#2D1B69" />
-        <circle cx="51" cy="41" r="3" fill="#2D1B69" />
-        <ellipse cx="40" cy="58" rx="6" ry="4" fill="#2D1B69" opacity="0.7" />
-        <ellipse cx="40" cy="57" rx="4" ry="2.5" fill="#E11D7A" />
-        <circle cx="22" cy="52" r="4" fill="#FFD23F" opacity="0.3" />
-        <circle cx="58" cy="52" r="4" fill="#FFD23F" opacity="0.3" />
-        {/* Little crown/bow */}
+      <svg viewBox="0 0 80 95" fill="none">
+        {/* Tall wobbly blob */}
+        <path d="M16 30 C10 14, 30 2, 40 6 C50 2, 70 14, 64 30 C72 42, 68 58, 58 66 C50 72, 30 72, 22 66 C12 58, 8 42, 16 30Z" fill="#FF8FAB" />
+        {/* Eyes close together and low, tilted */}
+        <circle cx="36" cy="46" r="2.8" fill="#2D1B69" />
+        <circle cx="48" cy="44" r="2.8" fill="#2D1B69" />
+        {/* Open happy mouth — between eyes */}
+        <ellipse cx="42" cy="54" rx="6" ry="4.5" fill="#2D1B69" opacity="0.6" />
+        {/* Tiny legs - one kicked up */}
+        <ellipse cx="32" cy="78" rx="6" ry="8" fill="#FF8FAB" />
+        <ellipse cx="54" cy="74" rx="6" ry="8" fill="#FF8FAB" transform="rotate(-20 54 74)" />
+        {/* Bow on top */}
         <circle cx="40" cy="6" r="3" fill="#FFD23F" />
-        <circle cx="34" cy="8" r="2" fill="#FFD23F" />
-        <circle cx="46" cy="8" r="2" fill="#FFD23F" />
+        <circle cx="35" cy="7" r="2" fill="#FFD23F" />
+        <circle cx="45" cy="7" r="2" fill="#FFD23F" />
+        {/* Small arm waving */}
+        <ellipse cx="70" cy="36" rx="5" ry="4" fill="#FF8FAB" />
       </svg>
     ),
   },
@@ -80,18 +97,20 @@ const cats = [
     color: '#22C55E',
     lightBg: '#ECFDF5',
     char: (
-      <svg viewBox="0 0 80 80" fill="none">
-        <rect x="6" y="6" width="68" height="68" rx="18" fill="#22C55E" />
-        <ellipse cx="30" cy="34" rx="5" ry="6" fill="white" />
-        <ellipse cx="50" cy="34" rx="5" ry="6" fill="white" />
-        <circle cx="31" cy="35" r="3.5" fill="#2D1B69" />
-        <circle cx="51" cy="35" r="3.5" fill="#2D1B69" />
-        <circle cx="32.5" cy="33" r="1.3" fill="white" />
-        <circle cx="52.5" cy="33" r="1.3" fill="white" />
-        <path d="M32 52 C36 57, 44 57, 48 52" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+      <svg viewBox="0 0 80 95" fill="none">
+        {/* Square-ish blob */}
+        <rect x="10" y="10" width="60" height="55" rx="20" fill="#22C55E" />
+        {/* Eyes shifted right, one higher */}
+        <circle cx="44" cy="28" r="2.8" fill="#2D1B69" />
+        <circle cx="58" cy="32" r="2.8" fill="#2D1B69" />
+        {/* Smile offset right */}
+        <path d="M42 38 C48 44, 56 44, 62 40" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        {/* Tiny legs */}
+        <ellipse cx="32" cy="72" rx="6" ry="9" fill="#22C55E" />
+        <ellipse cx="50" cy="72" rx="6" ry="9" fill="#22C55E" />
         {/* Code brackets */}
-        <path d="M16 20 L10 28 L16 36" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.5" />
-        <path d="M64 20 L70 28 L64 36" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.5" />
+        <path d="M16 18 L10 26 L16 34" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.45" />
+        <path d="M64 18 L70 26 L64 34" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.45" />
       </svg>
     ),
   },
@@ -100,17 +119,19 @@ const cats = [
     color: '#2D1B69',
     lightBg: '#F0EDFF',
     char: (
-      <svg viewBox="0 0 80 80" fill="none">
-        <circle cx="40" cy="40" r="34" fill="#2D1B69" />
-        <ellipse cx="30" cy="34" rx="5" ry="6" fill="white" />
-        <ellipse cx="50" cy="34" rx="5" ry="6" fill="white" />
-        <circle cx="31" cy="35" r="3.5" fill="#2D1B69" />
-        <circle cx="51" cy="35" r="3.5" fill="#2D1B69" />
-        <circle cx="32.5" cy="33" r="1.3" fill="white" />
-        <circle cx="52.5" cy="33" r="1.3" fill="white" />
-        <path d="M32 52 C36 56, 44 56, 48 52" stroke="white" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+      <svg viewBox="0 0 80 95" fill="none">
+        {/* Round dark blob */}
+        <circle cx="40" cy="40" r="30" fill="#2D1B69" />
+        {/* White dot eyes — offset left, right eye lower */}
+        <circle cx="28" cy="38" r="2.8" fill="white" />
+        <circle cx="44" cy="42" r="2.8" fill="white" />
+        {/* Smile white, wonky */}
+        <path d="M24 48 C32 56, 42 54, 48 48" stroke="white" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+        {/* Tiny legs */}
+        <ellipse cx="32" cy="74" rx="6" ry="9" fill="#2D1B69" />
+        <ellipse cx="48" cy="74" rx="6" ry="9" fill="#2D1B69" />
         {/* Crown */}
-        <path d="M26 12 L30 6 L34 12 L38 4 L42 12 L46 6 L50 12 L54 6 L54 16 L26 16Z" fill="#FFD23F" />
+        <path d="M28 14 L32 6 L36 14 L40 4 L44 14 L48 6 L52 14 L52 18 L28 18Z" fill="#FFD23F" />
       </svg>
     ),
   },
@@ -119,18 +140,20 @@ const cats = [
     color: '#FF6B35',
     lightBg: '#FFF0EB',
     char: (
-      <svg viewBox="0 0 80 80" fill="none">
-        <rect x="6" y="10" width="68" height="54" rx="22" fill="#FF6B35" />
-        <path d="M22 64 L32 54 L42 64Z" fill="#FF6B35" />
-        <ellipse cx="30" cy="34" rx="5" ry="5.5" fill="white" />
-        <ellipse cx="50" cy="34" rx="5" ry="5.5" fill="white" />
-        <circle cx="31" cy="35" r="3" fill="#2D1B69" />
-        <circle cx="51" cy="35" r="3" fill="#2D1B69" />
-        <circle cx="32" cy="33.5" r="1.2" fill="white" />
-        <circle cx="52" cy="33.5" r="1.2" fill="white" />
-        <path d="M34 48 C37 52, 43 52, 46 48" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        <text x="8" y="20" fontSize="10" fontWeight="bold" fill="white" opacity="0.5">Hi!</text>
-        <text x="56" y="20" fontSize="10" fontWeight="bold" fill="white" opacity="0.5">Привет</text>
+      <svg viewBox="0 0 80 95" fill="none">
+        {/* Speech-bubble blob */}
+        <rect x="8" y="12" width="64" height="46" rx="22" fill="#FF6B35" />
+        <path d="M22 58 L30 52 L38 58Z" fill="#FF6B35" />
+        {/* Face shifted right, eyes wide apart and low */}
+        <circle cx="38" cy="38" r="2.8" fill="#2D1B69" />
+        <circle cx="60" cy="34" r="2.8" fill="#2D1B69" />
+        {/* Smile between eyes */}
+        <path d="M40 44 C48 48, 56 46, 62 42" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        {/* Tiny legs */}
+        <ellipse cx="32" cy="72" rx="6" ry="9" fill="#FF6B35" />
+        <ellipse cx="48" cy="72" rx="6" ry="9" fill="#FF6B35" />
+        {/* Text hints */}
+        <text x="12" y="24" fontSize="8" fontWeight="bold" fill="white" opacity="0.45">Hi!</text>
       </svg>
     ),
   },
@@ -139,19 +162,21 @@ const cats = [
     color: '#6EE7B7',
     lightBg: '#ECFDF5',
     char: (
-      <svg viewBox="0 0 80 80" fill="none">
-        <path d="M40 4 L70 24 L70 56 L40 76 L10 56 L10 24Z" fill="#6EE7B7" />
-        <ellipse cx="30" cy="36" rx="4.5" ry="5" fill="white" />
-        <ellipse cx="50" cy="36" rx="4.5" ry="5" fill="white" />
-        <circle cx="31" cy="37" r="3" fill="#2D1B69" />
-        <circle cx="51" cy="37" r="3" fill="#2D1B69" />
-        <circle cx="32" cy="35.5" r="1.2" fill="white" />
-        <circle cx="52" cy="35.5" r="1.2" fill="white" />
-        <path d="M33 52 C37 57, 43 57, 47 52" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+      <svg viewBox="0 0 80 95" fill="none">
+        {/* Hexagon blob */}
+        <path d="M40 6 L68 22 L68 52 L40 68 L12 52 L12 22Z" fill="#6EE7B7" />
+        {/* Eyes shifted left, close together, one higher */}
+        <circle cx="26" cy="32" r="2.8" fill="#2D1B69" />
+        <circle cx="38" cy="36" r="2.8" fill="#2D1B69" />
+        {/* Smile under eyes, curving */}
+        <path d="M22 42 C28 48, 36 48, 42 44" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        {/* Tiny legs */}
+        <ellipse cx="32" cy="76" rx="6" ry="9" fill="#6EE7B7" />
+        <ellipse cx="50" cy="76" rx="6" ry="9" fill="#6EE7B7" />
         {/* Flask */}
-        <rect x="56" y="6" width="6" height="14" rx="2" fill="white" opacity="0.5" />
-        <path d="M54 20 L50 28 C48 32, 54 36, 58 36 L62 36 C66 36, 72 32, 70 28 L66 20Z" fill="white" opacity="0.5" />
-        <circle cx="60" cy="28" r="2" fill="#FF6B35" opacity="0.6" />
+        <rect x="58" y="8" width="5" height="12" rx="2" fill="white" opacity="0.45" />
+        <path d="M56 20 L53 26 C52 30, 56 33, 60 33 L64 33 C68 33, 72 30, 71 26 L68 20Z" fill="white" opacity="0.45" />
+        <circle cx="62" cy="26" r="2" fill="#FF6B35" opacity="0.5" />
       </svg>
     ),
   },

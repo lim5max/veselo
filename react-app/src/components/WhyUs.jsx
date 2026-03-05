@@ -1,76 +1,78 @@
-/* Kawaii benefit characters */
+/* Goofy blob characters — quirky but centered faces */
 const ListChar = () => (
-  <svg viewBox="0 0 80 80" fill="none" className="w-[72px] h-[72px]">
-    <circle cx="40" cy="40" r="36" fill="#FF6B35" />
-    <ellipse cx="30" cy="34" rx="5" ry="6" fill="white" />
-    <ellipse cx="50" cy="34" rx="5" ry="6" fill="white" />
-    <circle cx="31" cy="35" r="3.5" fill="#2D1B69" />
-    <circle cx="51" cy="35" r="3.5" fill="#2D1B69" />
-    <circle cx="32.5" cy="33" r="1.3" fill="white" />
-    <circle cx="52.5" cy="33" r="1.3" fill="white" />
-    <path d="M30 52 C34 58, 46 58, 50 52" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    <circle cx="22" cy="46" r="5" fill="#FFD23F" opacity="0.35" />
-    <circle cx="58" cy="46" r="5" fill="#FFD23F" opacity="0.35" />
-    <rect x="56" y="4" width="18" height="22" rx="4" fill="white" stroke="#2D1B69" strokeWidth="1.5" opacity="0.7" />
-    <line x1="60" y1="10" x2="70" y2="10" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
-    <line x1="60" y1="15" x2="70" y2="15" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
-    <line x1="60" y1="20" x2="66" y2="20" stroke="#D1D5DB" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+  <svg viewBox="0 0 80 90" fill="none" className="w-[72px] h-[81px]">
+    {/* Wide pill blob body */}
+    <ellipse cx="40" cy="40" rx="34" ry="28" fill="#FF6B35" />
+    {/* Eyes centered, right slightly lower */}
+    <circle cx="32" cy="34" r="3" fill="#2D1B69" />
+    <circle cx="50" cy="36" r="3" fill="#2D1B69" />
+    {/* Wide smile centered */}
+    <path d="M28 46 C34 52, 46 52, 54 46" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    {/* Tiny stubby legs */}
+    <ellipse cx="30" cy="72" rx="6" ry="8" fill="#FF6B35" />
+    <ellipse cx="50" cy="72" rx="6" ry="8" fill="#FF6B35" />
+    {/* Clipboard accessory */}
+    <rect x="58" y="4" width="16" height="20" rx="3" fill="white" stroke="#2D1B69" strokeWidth="1.5" opacity="0.7" />
+    <line x1="62" y1="10" x2="70" y2="10" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+    <line x1="62" y1="15" x2="70" y2="15" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
   </svg>
 )
 
 const SpeedChar = () => (
   <svg viewBox="0 0 80 90" fill="none" className="w-[72px] h-[81px]">
-    <path d="M10 30 C5 15, 25 2, 40 5 C55 2, 75 15, 70 30 C80 42, 78 65, 65 76 C55 85, 25 85, 15 76 C2 65, 0 42, 10 30Z" fill="#FFD23F" />
-    <ellipse cx="30" cy="40" rx="5" ry="6" fill="white" />
-    <ellipse cx="50" cy="40" rx="5" ry="6" fill="white" />
-    <circle cx="31" cy="41" r="3.5" fill="#2D1B69" />
-    <circle cx="51" cy="41" r="3.5" fill="#2D1B69" />
-    <circle cx="32.5" cy="39" r="1.3" fill="white" />
-    <circle cx="52.5" cy="39" r="1.3" fill="white" />
-    <path d="M32 58 C36 63, 44 63, 48 58" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    <circle cx="22" cy="52" r="5" fill="#FF8FAB" opacity="0.3" />
-    <circle cx="58" cy="52" r="5" fill="#FF8FAB" opacity="0.3" />
+    {/* Tall blob body */}
+    <path d="M14 25 C8 10, 30 2, 40 5 C50 2, 72 10, 66 25 C74 38, 70 58, 58 65 C50 70, 30 70, 22 65 C10 58, 6 38, 14 25Z" fill="#FFD23F" />
+    {/* Eyes centered-ish, left slightly higher */}
+    <circle cx="32" cy="32" r="2.8" fill="#2D1B69" />
+    <circle cx="50" cy="34" r="2.8" fill="#2D1B69" />
+    {/* Smile centered */}
+    <path d="M30 42 C36 48, 46 48, 52 42" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+    {/* Tiny legs */}
+    <ellipse cx="32" cy="72" rx="6" ry="8" fill="#FFD23F" />
+    <ellipse cx="50" cy="72" rx="6" ry="8" fill="#FFD23F" />
+    {/* Lightning bolt */}
     <path d="M62 8 L56 22 L62 22 L56 36" stroke="#FF6B35" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
   </svg>
 )
 
 const ShieldChar = () => (
-  <svg viewBox="0 0 80 80" fill="none" className="w-[72px] h-[72px]">
-    <path d="M40 4 L70 20 L70 52 L40 72 L10 52 L10 20Z" fill="#22C55E" />
-    <ellipse cx="30" cy="34" rx="5" ry="5.5" fill="white" />
-    <ellipse cx="50" cy="34" rx="5" ry="5.5" fill="white" />
-    <circle cx="31" cy="35" r="3" fill="#2D1B69" />
-    <circle cx="51" cy="35" r="3" fill="#2D1B69" />
-    <circle cx="32" cy="33.5" r="1.2" fill="white" />
-    <circle cx="52" cy="33.5" r="1.2" fill="white" />
-    <path d="M32 50 C36 55, 44 55, 48 50" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    <circle cx="22" cy="44" r="4" fill="white" opacity="0.25" />
-    <circle cx="58" cy="44" r="4" fill="white" opacity="0.25" />
-    <circle cx="40" cy="8" r="3" fill="#FFD23F" />
+  <svg viewBox="0 0 80 90" fill="none" className="w-[72px] h-[81px]">
+    {/* Shield-shaped blob */}
+    <path d="M40 6 L68 22 L66 54 L40 68 L14 54 L12 22Z" fill="#22C55E" />
+    {/* Eyes centered, left slightly higher */}
+    <circle cx="34" cy="32" r="2.8" fill="#2D1B69" />
+    <circle cx="48" cy="34" r="2.8" fill="#2D1B69" />
+    {/* Wide goofy grin centered */}
+    <path d="M30 42 C36 48, 46 48, 52 42" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    {/* Tiny legs */}
+    <ellipse cx="32" cy="74" rx="6" ry="8" fill="#22C55E" />
+    <ellipse cx="50" cy="74" rx="6" ry="8" fill="#22C55E" />
+    {/* Star on top */}
+    <circle cx="40" cy="10" r="3.5" fill="#FFD23F" />
   </svg>
 )
 
 const MsgChar = () => (
-  <svg viewBox="0 0 80 80" fill="none" className="w-[72px] h-[72px]">
-    <rect x="6" y="8" width="68" height="54" rx="22" fill="#38BDF8" />
-    <path d="M20 62 L30 52 L40 62Z" fill="#38BDF8" />
-    <ellipse cx="30" cy="32" rx="5" ry="6" fill="white" />
-    <ellipse cx="50" cy="32" rx="5" ry="6" fill="white" />
-    <circle cx="31" cy="33" r="3.5" fill="#2D1B69" />
-    <circle cx="51" cy="33" r="3.5" fill="#2D1B69" />
-    <circle cx="32.5" cy="31" r="1.3" fill="white" />
-    <circle cx="52.5" cy="31" r="1.3" fill="white" />
-    <path d="M33 46 C36 50, 44 50, 47 46" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    <circle cx="22" cy="40" r="4" fill="#FFD23F" opacity="0.3" />
-    <circle cx="58" cy="40" r="4" fill="#FFD23F" opacity="0.3" />
+  <svg viewBox="0 0 80 90" fill="none" className="w-[72px] h-[81px]">
+    {/* Speech-bubble blob body */}
+    <rect x="8" y="10" width="64" height="48" rx="24" fill="#38BDF8" />
+    <path d="M22 58 L30 50 L38 58Z" fill="#38BDF8" />
+    {/* Eyes centered, right slightly lower */}
+    <circle cx="30" cy="28" r="2.8" fill="#2D1B69" />
+    <circle cx="50" cy="30" r="2.8" fill="#2D1B69" />
+    {/* Smile centered */}
+    <path d="M28 38 C34 44, 44 44, 52 38" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+    {/* Tiny legs */}
+    <ellipse cx="30" cy="72" rx="6" ry="8" fill="#38BDF8" />
+    <ellipse cx="50" cy="72" rx="6" ry="8" fill="#38BDF8" />
   </svg>
 )
 
 const cards = [
-  { Char: ListChar, num: '3-5', title: 'занятий в подборке', text: 'Не\u00a0каталог на\u00a01000 строк, а\u00a0готовый шорт-лист. Собрал живой специалист.', accent: '#FF6B35', pill: 'bg-coral-lt' },
+  { Char: ListChar, num: '3-5', title: 'занятий в подборке', text: 'Не\u00a0каталог на\u00a01000 строк, а\u00a0готовый шорт-лист. Только то, что подходит именно вам.', accent: '#FF6B35', pill: 'bg-coral-lt' },
   { Char: SpeedChar, num: '2 мин', title: 'на заполнение анкеты', text: 'Столько займёт анкета. Дальше мы\u00a0всё сделаем сами.', accent: '#B8860B', pill: 'bg-gold-lt' },
-  { Char: ShieldChar, num: '1', title: 'неудачный абонемент = 5-8 тыс.', text: 'Одна ошибка в\u00a0выборе стоит в\u00a040 раз дороже подборки. Проще проверить заранее.', accent: '#16A34A', pill: 'bg-green-lt' },
-  { Char: MsgChar, num: '1-2 ч', title: 'и подборка у вас', text: 'В\u00a0мессенджере. С\u00a0ценами, адресами и\u00a0расписанием.', accent: '#0284C7', pill: 'bg-sky-lt' },
+  { Char: ShieldChar, num: '1', title: 'живой специалист на вашей стороне', text: 'Не\u00a0бот и\u00a0не\u00a0фильтр на\u00a0сайте. Реальный человек изучит анкету, позвонит в\u00a0кружки и\u00a0соберёт подборку под вашего ребёнка.', accent: '#16A34A', pill: 'bg-green-lt' },
+  { Char: MsgChar, num: '1-2 ч', title: 'и подборка у вас в телефоне', text: 'В\u00a0мессенджере. С\u00a0ценами, адресами и\u00a0расписанием.', accent: '#0284C7', pill: 'bg-sky-lt' },
 ]
 
 export default function WhyUs() {

@@ -1,20 +1,20 @@
 import { ArrowRight } from 'lucide-react'
 
 const CTACharacter = () => (
-  <svg viewBox="0 0 120 120" fill="none" className="w-28 h-28 mx-auto mb-6">
-    <circle cx="60" cy="60" r="52" fill="white" opacity="0.15" />
-    <ellipse cx="45" cy="50" rx="7" ry="8" fill="white" />
-    <ellipse cx="75" cy="50" rx="7" ry="8" fill="white" />
-    <circle cx="46.5" cy="51.5" r="5" fill="#2D1B69" />
-    <circle cx="76.5" cy="51.5" r="5" fill="#2D1B69" />
-    <circle cx="48.5" cy="49" r="2" fill="white" />
-    <circle cx="78.5" cy="49" r="2" fill="white" />
-    <path d="M42 74 C50 86, 70 86, 78 74" stroke="#2D1B69" strokeWidth="3.5" strokeLinecap="round" fill="none" />
-    <circle cx="30" cy="66" r="7" fill="#FF8FAB" opacity="0.3" />
-    <circle cx="90" cy="66" r="7" fill="#FF8FAB" opacity="0.3" />
-    {/* Raised hands/arms */}
-    <path d="M20 40 C14 30, 10 25, 8 18" stroke="white" strokeWidth="4" strokeLinecap="round" fill="none" opacity="0.4" />
-    <path d="M100 40 C106 30, 110 25, 112 18" stroke="white" strokeWidth="4" strokeLinecap="round" fill="none" opacity="0.4" />
+  <svg viewBox="0 0 120 140" fill="none" className="w-28 h-[130px] mx-auto mb-6">
+    {/* Big happy blob */}
+    <ellipse cx="60" cy="55" rx="48" ry="42" fill="white" opacity="0.15" />
+    {/* Eyes low and wide, left higher — goofy */}
+    <circle cx="36" cy="58" r="4" fill="white" opacity="0.8" />
+    <circle cx="72" cy="64" r="4" fill="white" opacity="0.8" />
+    {/* Wide goofy grin spanning under eyes */}
+    <path d="M30 70 C44 82, 64 82, 78 72" stroke="white" strokeWidth="3.5" strokeLinecap="round" fill="none" opacity="0.8" />
+    {/* Tiny legs */}
+    <ellipse cx="48" cy="104" rx="8" ry="12" fill="white" opacity="0.12" />
+    <ellipse cx="72" cy="104" rx="8" ry="12" fill="white" opacity="0.12" />
+    {/* Small raised arms */}
+    <ellipse cx="14" cy="42" rx="7" ry="5" fill="white" opacity="0.12" />
+    <ellipse cx="106" cy="42" rx="7" ry="5" fill="white" opacity="0.12" />
     {/* Sparkles */}
     <path d="M10 14 C10 18, 10 18, 14 18 C10 18, 10 18, 10 22 C10 18, 10 18, 6 18 C10 18, 10 18, 10 14Z" fill="#FFD23F" opacity="0.8" />
     <path d="M110 12 C110 16, 110 16, 114 16 C110 16, 110 16, 110 20 C110 16, 110 16, 106 16 C110 16, 110 16, 110 12Z" fill="#FFD23F" opacity="0.8" />

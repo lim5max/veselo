@@ -1,70 +1,74 @@
-/* Kawaii problem characters — each a different shape expressing frustration */
+/* Goofy blob problem characters — quirky asymmetric faces */
 const SearchChar = () => (
-  <svg viewBox="0 0 56 56" fill="none" className="w-14 h-14 shrink-0">
-    <circle cx="28" cy="28" r="24" fill="#FFBE98" />
-    {/* Tired eyes - half closed */}
-    <ellipse cx="20" cy="24" rx="4" ry="2.5" fill="white" />
-    <ellipse cx="36" cy="24" rx="4" ry="2.5" fill="white" />
-    <circle cx="20.5" cy="24.5" r="2" fill="#2D1B69" />
-    <circle cx="36.5" cy="24.5" r="2" fill="#2D1B69" />
-    {/* Wavy tired mouth */}
-    <path d="M20 36 C23 33, 25 37, 28 34 C31 37, 33 33, 36 36" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" fill="none" />
+  <svg viewBox="0 0 56 66" fill="none" className="w-14 h-[66px] shrink-0">
+    {/* Squishy blob body */}
+    <ellipse cx="28" cy="28" rx="24" ry="22" fill="#FFBE98" />
+    {/* Eyes far apart, right eye lower — tired look */}
+    <circle cx="16" cy="30" r="2.2" fill="#2D1B69" />
+    <circle cx="36" cy="34" r="2.2" fill="#2D1B69" />
+    {/* Wavy tired mouth, off-center */}
+    <path d="M14 38 C20 36, 28 36, 34 40" stroke="#2D1B69" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+    {/* Tiny legs */}
+    <ellipse cx="22" cy="52" rx="5" ry="7" fill="#FFBE98" />
+    <ellipse cx="34" cy="52" rx="5" ry="7" fill="#FFBE98" />
     {/* Magnifying glass */}
-    <circle cx="44" cy="14" r="7" stroke="#2D1B69" strokeWidth="2" fill="none" opacity="0.4" />
-    <line x1="49" y1="19" x2="53" y2="23" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" opacity="0.4" />
+    <circle cx="46" cy="12" r="6" stroke="#2D1B69" strokeWidth="2" fill="none" opacity="0.4" />
+    <line x1="50" y1="16" x2="54" y2="20" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" opacity="0.4" />
   </svg>
 )
 
 const MoneyChar = () => (
-  <svg viewBox="0 0 56 56" fill="none" className="w-14 h-14 shrink-0">
-    <rect x="4" y="6" width="48" height="44" rx="14" fill="#FFD23F" />
-    {/* Worried eyes */}
-    <ellipse cx="20" cy="24" rx="4" ry="5" fill="white" />
-    <ellipse cx="36" cy="24" rx="4" ry="5" fill="white" />
-    <circle cx="20" cy="25" r="2.5" fill="#2D1B69" />
-    <circle cx="36" cy="25" r="2.5" fill="#2D1B69" />
-    <circle cx="21" cy="23.5" r="1" fill="white" />
-    <circle cx="37" cy="23.5" r="1" fill="white" />
-    {/* Worried eyebrows */}
-    <path d="M15 17 L23 19" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" />
-    <path d="M41 17 L33 19" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" />
-    {/* Small worried mouth */}
-    <circle cx="28" cy="37" r="4" fill="#2D1B69" opacity="0.7" />
-    <circle cx="28" cy="36" r="2.5" fill="#FFD23F" />
+  <svg viewBox="0 0 56 66" fill="none" className="w-14 h-[66px] shrink-0">
+    {/* Rectangular blob */}
+    <rect x="6" y="8" width="44" height="38" rx="16" fill="#FFD23F" />
+    {/* Eyes close together, shifted left */}
+    <circle cx="18" cy="26" r="2.2" fill="#2D1B69" />
+    <circle cx="28" cy="24" r="2.2" fill="#2D1B69" />
+    {/* Tiny worried "o" mouth, offset */}
+    <ellipse cx="22" cy="36" rx="3" ry="3.5" fill="#2D1B69" opacity="0.6" />
+    {/* Tiny legs */}
+    <ellipse cx="22" cy="52" rx="5" ry="7" fill="#FFD23F" />
+    <ellipse cx="36" cy="52" rx="5" ry="7" fill="#FFD23F" />
   </svg>
 )
 
 const ConfusedChar = () => (
-  <svg viewBox="0 0 56 62" fill="none" className="w-14 h-[62px] shrink-0">
-    <path d="M8 20 C4 8, 20 0, 28 3 C36 0, 52 8, 48 20 C55 28, 52 45, 42 52 C36 58, 20 58, 14 52 C4 45, 1 28, 8 20Z" fill="#B197FC" />
-    {/* Spiral eyes */}
-    <circle cx="20" cy="26" r="5" stroke="white" strokeWidth="2" fill="none" />
-    <path d="M20 22 C22 22, 24 24, 22 26 C20 28, 18 26, 20 24" stroke="white" strokeWidth="1.5" fill="none" />
-    <circle cx="36" cy="26" r="5" stroke="white" strokeWidth="2" fill="none" />
-    <path d="M36 22 C38 22, 40 24, 38 26 C36 28, 34 26, 36 24" stroke="white" strokeWidth="1.5" fill="none" />
-    {/* Confused squiggle mouth */}
-    <path d="M20 40 C24 37, 26 42, 30 39 C34 36, 36 41, 38 38" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" fill="none" />
+  <svg viewBox="0 0 56 66" fill="none" className="w-14 h-[66px] shrink-0">
+    {/* Bumpy clover-like blob */}
+    <circle cx="20" cy="20" r="14" fill="#B197FC" />
+    <circle cx="38" cy="20" r="14" fill="#B197FC" />
+    <circle cx="20" cy="36" r="14" fill="#B197FC" />
+    <circle cx="38" cy="36" r="14" fill="#B197FC" />
+    {/* Eyes at very different heights — truly confused */}
+    <circle cx="22" cy="22" r="2.5" fill="#2D1B69" />
+    <circle cx="36" cy="32" r="2.5" fill="#2D1B69" />
+    {/* Squiggle confused mouth, diagonal */}
+    <path d="M20 40 C24 37, 28 42, 32 38 C36 35, 40 40, 42 37" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" fill="none" />
+    {/* Tiny legs */}
+    <ellipse cx="22" cy="54" rx="5" ry="6" fill="#B197FC" />
+    <ellipse cx="36" cy="54" rx="5" ry="6" fill="#B197FC" />
     {/* Question mark */}
-    <text x="42" y="12" fontSize="14" fontWeight="bold" fill="#2D1B69" opacity="0.5">?</text>
+    <text x="43" y="12" fontSize="12" fontWeight="bold" fill="#2D1B69" opacity="0.4">?</text>
   </svg>
 )
 
 const ClockChar = () => (
-  <svg viewBox="0 0 56 56" fill="none" className="w-14 h-14 shrink-0">
-    {/* Triangle shape */}
-    <path d="M28 4 L52 48 L4 48Z" fill="#22C55E" rx="4" />
-    <path d="M28 8 L49 46 L7 46Z" fill="#22C55E" />
-    {/* Droopy eyes */}
-    <ellipse cx="22" cy="32" rx="3.5" ry="2" fill="white" />
-    <ellipse cx="34" cy="32" rx="3.5" ry="2" fill="white" />
-    <circle cx="22.5" cy="32.5" r="1.5" fill="#2D1B69" />
-    <circle cx="34.5" cy="32.5" r="1.5" fill="#2D1B69" />
-    {/* Flat line mouth */}
-    <path d="M22 40 L34 40" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" />
-    {/* Clock hands on top */}
-    <circle cx="28" cy="18" r="6" stroke="#2D1B69" strokeWidth="1.5" fill="white" opacity="0.5" />
-    <line x1="28" y1="18" x2="28" y2="14" stroke="#2D1B69" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
-    <line x1="28" y1="18" x2="31" y2="18" stroke="#2D1B69" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+  <svg viewBox="0 0 56 66" fill="none" className="w-14 h-[66px] shrink-0">
+    {/* Half-dome blob (squishy shape) */}
+    <path d="M4 42 C4 18, 16 6, 28 6 C40 6, 52 18, 52 42 L4 42Z" fill="#22C55E" />
+    <rect x="4" y="38" width="48" height="8" rx="4" fill="#22C55E" />
+    {/* Eyes offset right, one higher */}
+    <circle cx="30" cy="24" r="2.2" fill="#2D1B69" />
+    <circle cx="42" cy="28" r="2.2" fill="#2D1B69" />
+    {/* Flat line mouth — shifted right */}
+    <path d="M32 34 L44 35" stroke="#2D1B69" strokeWidth="2.2" strokeLinecap="round" />
+    {/* Tiny legs */}
+    <ellipse cx="20" cy="52" rx="5" ry="7" fill="#22C55E" />
+    <ellipse cx="36" cy="52" rx="5" ry="7" fill="#22C55E" />
+    {/* Clock on top */}
+    <circle cx="18" cy="10" r="5" stroke="#2D1B69" strokeWidth="1.5" fill="white" opacity="0.5" />
+    <line x1="18" y1="10" x2="18" y2="7" stroke="#2D1B69" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+    <line x1="18" y1="10" x2="20" y2="10" stroke="#2D1B69" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
   </svg>
 )
 

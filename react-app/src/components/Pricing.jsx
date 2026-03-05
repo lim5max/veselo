@@ -1,19 +1,19 @@
 import { Check } from 'lucide-react'
 
 const HappyPriceChar = () => (
-  <svg viewBox="0 0 100 100" fill="none" className="w-24 h-24 mx-auto mb-4">
-    <circle cx="50" cy="50" r="44" fill="white" opacity="0.2" />
-    <ellipse cx="38" cy="42" rx="6" ry="7" fill="white" />
-    <ellipse cx="62" cy="42" rx="6" ry="7" fill="white" />
-    <circle cx="39" cy="43" r="4" fill="#2D1B69" />
-    <circle cx="63" cy="43" r="4" fill="#2D1B69" />
-    <circle cx="40.5" cy="41" r="1.5" fill="white" />
-    <circle cx="64.5" cy="41" r="1.5" fill="white" />
-    <path d="M38 64 C42 72, 58 72, 62 64" stroke="#2D1B69" strokeWidth="3" strokeLinecap="round" fill="none" />
-    <circle cx="28" cy="56" r="6" fill="#FFD23F" opacity="0.3" />
-    <circle cx="72" cy="56" r="6" fill="#FFD23F" opacity="0.3" />
-    {/* Coin sparkle */}
-    <path d="M78 18 C78 22, 78 22, 82 22 C78 22, 78 22, 78 26 C78 22, 78 22, 74 22 C78 22, 78 22, 78 18Z" fill="white" opacity="0.6" />
+  <svg viewBox="0 0 100 120" fill="none" className="w-24 h-[115px] mx-auto mb-4">
+    {/* Round happy blob */}
+    <circle cx="50" cy="46" r="40" fill="white" opacity="0.2" />
+    {/* Eyes offset left, different heights — goofy */}
+    <circle cx="32" cy="48" r="3.5" fill="white" opacity="0.8" />
+    <circle cx="56" cy="52" r="3.5" fill="white" opacity="0.8" />
+    {/* Wide goofy grin */}
+    <path d="M28 58 C38 70, 52 70, 62 62" stroke="white" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.8" />
+    {/* Tiny legs */}
+    <ellipse cx="42" cy="94" rx="7" ry="10" fill="white" opacity="0.15" />
+    <ellipse cx="58" cy="94" rx="7" ry="10" fill="white" opacity="0.15" />
+    {/* Sparkles */}
+    <path d="M80 16 C80 20, 80 20, 84 20 C80 20, 80 20, 80 24 C80 20, 80 20, 76 20 C80 20, 80 20, 80 16Z" fill="white" opacity="0.6" />
     <path d="M18 14 C18 17, 18 17, 21 17 C18 17, 18 17, 18 20 C18 17, 18 17, 15 17 C18 17, 18 17, 18 14Z" fill="white" opacity="0.6" />
   </svg>
 )
@@ -33,7 +33,7 @@ export default function Pricing({ onQuiz }) {
         <h2 className="sr font-display font-black text-[1.875rem] md:text-[2.5rem] text-indigo leading-[1.2] text-center mx-auto">
           Персональная <span className="text-pill text-pill-coral">подборка</span>
         </h2>
-        <p className="sr sr-d1 font-hand text-xl text-n500 text-center mt-2 mb-10">Вы выбираете — мы делаем всю работу ✦</p>
+        <p className="sr sr-d1 font-hand text-xl text-n500 text-center mt-2 mb-10">Мы сделаем всю работу за вас ✦</p>
         <div className="sr sr-d2 max-w-[480px] mx-auto bg-white rounded-[32px] overflow-hidden shadow-[0_24px_80px_rgba(255,107,53,.12),0_8px_32px_rgba(26,26,46,.06)] border-2 border-coral/10 transition-all duration-500 hover:shadow-[0_32px_80px_rgba(255,107,53,.18),0_12px_40px_rgba(26,26,46,.08)] hover:-translate-y-1">
           <div className="bg-gradient-to-br from-coral via-[#FF8F65] to-gold p-10 text-center text-white relative overflow-hidden">
             {/* Decorative circles */}
