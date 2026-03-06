@@ -55,8 +55,10 @@ const initialData = {
   format: '',
   city: '',
   location: '',
+  contactMethods: [],
   phone: '',
   email: '',
+  telegram: '',
   comment: '',
   consent: false,
   ...Object.fromEntries(QUESTIONS.map((q) => [q.key, []])),
@@ -96,7 +98,9 @@ export default function Quiz() {
     if (stepKey === 'contacts') {
       const formatOk = Boolean(data.format)
       const offlineOk = !isOffline || (data.city && data.location)
-      return Boolean(data.phone && data.email && data.consent && formatOk && offlineOk)
+      const methodsOk = Array.isArray(data.contactMethods) && data.contactMethods.length > 0
+      const hasData = (data.phone && data.phone.trim()) || (data.email && data.email.trim()) || (data.telegram && data.telegram.trim())
+      return Boolean(data.consent && formatOk && offlineOk && methodsOk && hasData)
     }
 
     const question = QUESTIONS.find((q) => q.key === stepKey)
@@ -107,7 +111,9 @@ export default function Quiz() {
   const canSubmit = useMemo(() => {
     const basic = !!data.childAge
     const offlineOk = !isOffline || (data.city && data.location)
-    const contacts = data.phone && data.email && data.consent && data.format
+    const methodsOk = Array.isArray(data.contactMethods) && data.contactMethods.length > 0
+    const hasData = (data.phone && data.phone.trim()) || (data.email && data.email.trim()) || (data.telegram && data.telegram.trim())
+    const contacts = data.consent && data.format && methodsOk && hasData
     const questionsOk = QUESTIONS.every((q) => Array.isArray(data[q.key]) && data[q.key].length > 0)
     return Boolean(basic && offlineOk && contacts && questionsOk)
   }, [data, isOffline])
@@ -264,6 +270,31 @@ export default function Quiz() {
                   </div>
                 )}
 
+                <div>
+                  <span className="block text-[1rem] font-semibold text-n900 mb-2">Контакты родителя</span>
+                  <p className="text-[0.8125rem] text-n500 mb-3">Выберите удобные варианты связи</p>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { key: 'call', label: 'Звонок' },
+                      { key: 'whatsapp', label: 'WhatsApp' },
+                      { key: 'telegram', label: 'Telegram' },
+                      { key: 'email', label: 'Email' },
+                    ].map((m) => {
+                      const selected = Array.isArray(data.contactMethods) && data.contactMethods.includes(m.key)
+                      return (
+                        <button
+                          key={m.key}
+                          type="button"
+                          onClick={() => toggleMultiAnswer('contactMethods', m.key)}
+                          className={`py-2 px-3 border-2 rounded-full text-[0.8125rem] transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral'}`}
+                        >
+                          {m.label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-4">
                   <label className="block">
                     <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Телефон</span>
@@ -272,6 +303,10 @@ export default function Quiz() {
                   <label className="block">
                     <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Email</span>
                     <input type="email" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.email} onChange={(e) => update('email', e.target.value)} placeholder="name@example.com" />
+                  </label>
+                  <label className="block md:col-span-2">
+                    <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Telegram (username, необязательно)</span>
+                    <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.telegram} onChange={(e) => update('telegram', e.target.value)} placeholder="@username" />
                   </label>
                 </div>
 
