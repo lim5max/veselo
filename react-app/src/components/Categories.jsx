@@ -1,187 +1,144 @@
-/* Goofy blob category characters — quirky asymmetric faces */
-const cats = [
-  {
-    label: 'Спорт',
-    color: '#38BDF8',
-    lightBg: '#ECF4FF',
-    char: (
-      <svg viewBox="0 0 80 95" fill="none">
-        {/* Round blob */}
-        <circle cx="40" cy="38" r="30" fill="#38BDF8" />
-        {/* Eyes low, spread wide, right eye lower */}
-        <circle cx="24" cy="42" r="2.8" fill="#2D1B69" />
-        <circle cx="48" cy="46" r="2.8" fill="#2D1B69" />
-        {/* Wide grin spanning under eyes */}
-        <path d="M20 50 C30 58, 44 58, 52 52" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-        {/* Headband */}
-        <path d="M12 24 C22 18, 58 18, 68 24" stroke="white" strokeWidth="3.5" strokeLinecap="round" fill="none" opacity="0.5" />
-        {/* Tiny legs */}
-        <ellipse cx="32" cy="72" rx="6" ry="9" fill="#38BDF8" />
-        <ellipse cx="48" cy="72" rx="6" ry="9" fill="#38BDF8" />
-        {/* Small arm */}
-        <ellipse cx="12" cy="44" rx="5" ry="4" fill="#38BDF8" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Творчество',
-    color: '#B197FC',
-    lightBg: '#F5EDFF',
-    char: (
-      <svg viewBox="0 0 80 95" fill="none">
-        {/* Tall ghost-like blob */}
-        <path d="M14 28 C8 12, 28 2, 40 5 C52 2, 72 12, 66 28 C74 40, 70 60, 58 66 C50 70, 30 70, 22 66 C10 60, 6 40, 14 28Z" fill="#B197FC" />
-        {/* Face offset to upper-right, eyes at different heights */}
-        <circle cx="42" cy="28" r="2.8" fill="#2D1B69" />
-        <circle cx="58" cy="32" r="2.8" fill="#2D1B69" />
-        {/* Small smile tucked under, off-center */}
-        <path d="M42 36 C48 42, 56 40, 60 36" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        {/* Tiny legs */}
-        <ellipse cx="32" cy="76" rx="6" ry="9" fill="#B197FC" />
-        <ellipse cx="50" cy="76" rx="6" ry="9" fill="#B197FC" />
-        {/* Paintbrush */}
-        <rect x="10" y="12" width="3.5" height="22" rx="1.5" fill="#FF6B35" transform="rotate(-15 12 23)" opacity="0.7" />
-        <circle cx="8" cy="8" r="4" fill="#FF6B35" opacity="0.7" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Музыка',
-    color: '#FFD23F',
-    lightBg: '#FFF9D9',
-    char: (
-      <svg viewBox="0 0 80 95" fill="none">
-        {/* Spiky star-like blob */}
-        <path d="M40 6 L50 26 L72 26 L56 40 L62 62 L40 50 L18 62 L24 40 L8 26 L30 26Z" fill="#FFD23F" />
-        {/* Happy squint eyes — off center, different sizes */}
-        <path d="M32 38 C33 34, 38 34, 39 38" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-        <path d="M46 34 C47 31, 51 31, 52 34" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-        {/* Wonky smile */}
-        <path d="M30 46 C36 52, 46 50, 54 44" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        {/* Tiny legs */}
-        <ellipse cx="34" cy="72" rx="6" ry="9" fill="#FFD23F" />
-        <ellipse cx="48" cy="72" rx="6" ry="9" fill="#FFD23F" />
-        {/* Music note */}
-        <circle cx="16" cy="68" r="3.5" fill="#2D1B69" opacity="0.35" />
-        <rect x="19" y="52" width="2" height="16" rx="1" fill="#2D1B69" opacity="0.35" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Танцы',
-    color: '#FF8FAB',
-    lightBg: '#FFF0FC',
-    char: (
-      <svg viewBox="0 0 80 95" fill="none">
-        {/* Tall wobbly blob */}
-        <path d="M16 30 C10 14, 30 2, 40 6 C50 2, 70 14, 64 30 C72 42, 68 58, 58 66 C50 72, 30 72, 22 66 C12 58, 8 42, 16 30Z" fill="#FF8FAB" />
-        {/* Eyes close together and low, tilted */}
-        <circle cx="36" cy="46" r="2.8" fill="#2D1B69" />
-        <circle cx="48" cy="44" r="2.8" fill="#2D1B69" />
-        {/* Open happy mouth — between eyes */}
-        <ellipse cx="42" cy="54" rx="6" ry="4.5" fill="#2D1B69" opacity="0.6" />
-        {/* Tiny legs - one kicked up */}
-        <ellipse cx="32" cy="78" rx="6" ry="8" fill="#FF8FAB" />
-        <ellipse cx="54" cy="74" rx="6" ry="8" fill="#FF8FAB" transform="rotate(-20 54 74)" />
-        {/* Bow on top */}
-        <circle cx="40" cy="6" r="3" fill="#FFD23F" />
-        <circle cx="35" cy="7" r="2" fill="#FFD23F" />
-        <circle cx="45" cy="7" r="2" fill="#FFD23F" />
-        {/* Small arm waving */}
-        <ellipse cx="70" cy="36" rx="5" ry="4" fill="#FF8FAB" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Программирование',
-    color: '#22C55E',
-    lightBg: '#EEFFEF',
-    char: (
-      <svg viewBox="0 0 80 95" fill="none">
-        {/* Square-ish blob */}
-        <rect x="10" y="10" width="60" height="55" rx="20" fill="#22C55E" />
-        {/* Eyes shifted right, one higher */}
-        <circle cx="44" cy="28" r="2.8" fill="#2D1B69" />
-        <circle cx="58" cy="32" r="2.8" fill="#2D1B69" />
-        {/* Smile offset right */}
-        <path d="M42 38 C48 44, 56 44, 62 40" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        {/* Tiny legs */}
-        <ellipse cx="32" cy="72" rx="6" ry="9" fill="#22C55E" />
-        <ellipse cx="50" cy="72" rx="6" ry="9" fill="#22C55E" />
-        {/* Code brackets */}
-        <path d="M16 18 L10 26 L16 34" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.45" />
-        <path d="M64 18 L70 26 L64 34" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.45" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Шахматы',
-    color: '#2D1B69',
-    lightBg: '#F1EAFE',
-    char: (
-      <svg viewBox="0 0 80 95" fill="none">
-        {/* Round dark blob */}
-        <circle cx="40" cy="40" r="30" fill="#2D1B69" />
-        {/* White dot eyes — offset left, right eye lower */}
-        <circle cx="28" cy="38" r="2.8" fill="white" />
-        <circle cx="44" cy="42" r="2.8" fill="white" />
-        {/* Smile white, wonky */}
-        <path d="M24 48 C32 56, 42 54, 48 48" stroke="white" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-        {/* Tiny legs */}
-        <ellipse cx="32" cy="74" rx="6" ry="9" fill="#2D1B69" />
-        <ellipse cx="48" cy="74" rx="6" ry="9" fill="#2D1B69" />
-        {/* Crown */}
-        <path d="M28 14 L32 6 L36 14 L40 4 L44 14 L48 6 L52 14 L52 18 L28 18Z" fill="#FFD23F" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Языки',
-    color: '#FF6B35',
-    lightBg: '#FFF1E5',
-    char: (
-      <svg viewBox="0 0 80 95" fill="none">
-        {/* Speech-bubble blob */}
-        <rect x="8" y="12" width="64" height="46" rx="22" fill="#FF6B35" />
-        <path d="M22 58 L30 52 L38 58Z" fill="#FF6B35" />
-        {/* Face shifted right, eyes wide apart and low */}
-        <circle cx="38" cy="38" r="2.8" fill="#2D1B69" />
-        <circle cx="60" cy="34" r="2.8" fill="#2D1B69" />
-        {/* Smile between eyes */}
-        <path d="M40 44 C48 48, 56 46, 62 42" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        {/* Tiny legs */}
-        <ellipse cx="32" cy="72" rx="6" ry="9" fill="#FF6B35" />
-        <ellipse cx="48" cy="72" rx="6" ry="9" fill="#FF6B35" />
-        {/* Text hints */}
-        <text x="12" y="24" fontSize="8" fontWeight="bold" fill="white" opacity="0.45">Hi!</text>
-      </svg>
-    ),
-  },
-  {
-    label: 'Наука',
-    color: '#6EE7B7',
-    lightBg: '#EEFFEF',
-    char: (
-      <svg viewBox="0 0 80 95" fill="none">
-        {/* Hexagon blob */}
-        <path d="M40 6 L68 22 L68 52 L40 68 L12 52 L12 22Z" fill="#6EE7B7" />
-        {/* Eyes shifted left, close together, one higher */}
-        <circle cx="26" cy="32" r="2.8" fill="#2D1B69" />
-        <circle cx="38" cy="36" r="2.8" fill="#2D1B69" />
-        {/* Smile under eyes, curving */}
-        <path d="M22 42 C28 48, 36 48, 42 44" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        {/* Tiny legs */}
-        <ellipse cx="32" cy="76" rx="6" ry="9" fill="#6EE7B7" />
-        <ellipse cx="50" cy="76" rx="6" ry="9" fill="#6EE7B7" />
-        {/* Flask */}
-        <rect x="58" y="8" width="5" height="12" rx="2" fill="white" opacity="0.45" />
-        <path d="M56 20 L53 26 C52 30, 56 33, 60 33 L64 33 C68 33, 72 30, 71 26 L68 20Z" fill="white" opacity="0.45" />
-        <circle cx="62" cy="26" r="2" fill="#FF6B35" opacity="0.5" />
-      </svg>
-    ),
-  },
-]
+/* ---- Goofy blob decorative overlays ---- */
+const Blob1 = () => (
+  <svg viewBox="0 0 60 72" fill="none" className="w-full h-full">
+    <circle cx="30" cy="28" r="24" fill="#38BDF8" />
+    <circle cx="22" cy="30" r="2.2" fill="#2D1B69" />
+    <circle cx="38" cy="32" r="2.2" fill="#2D1B69" />
+    <path d="M20 38 C26 44, 34 44, 40 38" stroke="#2D1B69" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+    <ellipse cx="24" cy="55" rx="5" ry="7" fill="#38BDF8" />
+    <ellipse cx="36" cy="55" rx="5" ry="7" fill="#38BDF8" />
+  </svg>
+)
 
+const Blob2 = () => (
+  <svg viewBox="0 0 60 72" fill="none" className="w-full h-full">
+    <path d="M10 22 C6 10, 22 2, 30 4 C38 2, 54 10, 50 22 C56 30, 52 48, 44 52 C38 56, 22 56, 16 52 C8 48, 4 30, 10 22Z" fill="#B197FC" />
+    <circle cx="24" cy="26" r="2.2" fill="#2D1B69" />
+    <circle cx="38" cy="28" r="2.2" fill="#2D1B69" />
+    <path d="M24 34 C28 38, 34 38, 40 34" stroke="#2D1B69" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+    <ellipse cx="24" cy="58" rx="5" ry="7" fill="#B197FC" />
+    <ellipse cx="36" cy="58" rx="5" ry="7" fill="#B197FC" />
+  </svg>
+)
+
+const Blob3 = () => (
+  <svg viewBox="0 0 60 72" fill="none" className="w-full h-full">
+    <path d="M30 4 L38 20 L54 20 L42 30 L46 46 L30 38 L14 46 L18 30 L6 20 L22 20Z" fill="#FFD23F" />
+    <path d="M24 28 C25 25, 29 25, 30 28" stroke="#2D1B69" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+    <path d="M34 26 C35 23, 39 23, 40 26" stroke="#2D1B69" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+    <path d="M24 36 C28 40, 36 40, 40 36" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" fill="none" />
+    <ellipse cx="24" cy="56" rx="5" ry="7" fill="#FFD23F" />
+    <ellipse cx="36" cy="56" rx="5" ry="7" fill="#FFD23F" />
+  </svg>
+)
+
+const Blob4 = () => (
+  <svg viewBox="0 0 60 72" fill="none" className="w-full h-full">
+    <path d="M12 22 C8 10, 24 2, 30 4 C36 2, 52 10, 48 22 C54 32, 50 48, 42 52 C36 56, 24 56, 18 52 C10 48, 6 32, 12 22Z" fill="#FF8FAB" />
+    <circle cx="26" cy="30" r="2.2" fill="#2D1B69" />
+    <circle cx="36" cy="28" r="2.2" fill="#2D1B69" />
+    <ellipse cx="31" cy="40" rx="4.5" ry="3.5" fill="#2D1B69" opacity="0.55" />
+    <ellipse cx="24" cy="60" rx="5" ry="6" fill="#FF8FAB" />
+    <ellipse cx="38" cy="57" rx="5" ry="6" fill="#FF8FAB" transform="rotate(-15 38 57)" />
+  </svg>
+)
+
+const Blob5 = () => (
+  <svg viewBox="0 0 60 72" fill="none" className="w-full h-full">
+    <rect x="8" y="8" width="44" height="40" rx="14" fill="#22C55E" />
+    <circle cx="24" cy="24" r="2.2" fill="#2D1B69" />
+    <circle cx="36" cy="26" r="2.2" fill="#2D1B69" />
+    <path d="M24 34 C28 38, 34 38, 38 34" stroke="#2D1B69" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+    <ellipse cx="24" cy="54" rx="5" ry="7" fill="#22C55E" />
+    <ellipse cx="36" cy="54" rx="5" ry="7" fill="#22C55E" />
+  </svg>
+)
+
+const Blob6 = () => (
+  <svg viewBox="0 0 60 72" fill="none" className="w-full h-full">
+    <circle cx="30" cy="30" r="24" fill="#FF6B35" />
+    <circle cx="22" cy="32" r="2.2" fill="#2D1B69" />
+    <circle cx="38" cy="30" r="2.2" fill="#2D1B69" />
+    <path d="M20 40 C26 46, 36 46, 42 40" stroke="#2D1B69" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+    <ellipse cx="24" cy="58" rx="5" ry="7" fill="#FF6B35" />
+    <ellipse cx="36" cy="58" rx="5" ry="7" fill="#FF6B35" />
+  </svg>
+)
+
+/* ---- Bento photo cell ---- */
+function BentoCell({ photo, label, sub, tag, color, Blob, className = '', delay = '' }) {
+  return (
+    <div className={`sr ${delay} group relative rounded-[24px] overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_48px_rgba(26,26,46,.12)] ${className}`}>
+      <img
+        src={photo}
+        alt={label}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        loading="lazy"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/5" />
+
+      <div className="relative h-full flex flex-col justify-end p-5 md:p-6">
+        {tag && (
+          <span
+            className="self-start text-[0.6875rem] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full mb-2 backdrop-blur-sm"
+            style={{ background: `${color}cc`, color: 'white' }}
+          >
+            {tag}
+          </span>
+        )}
+        <h3 className="font-display font-black text-white text-[1.15rem] md:text-[1.35rem] leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,.3)]">
+          {label}
+        </h3>
+        {sub && (
+          <p className="text-white/70 text-[0.75rem] mt-1 leading-snug">{sub}</p>
+        )}
+      </div>
+
+      {/* Blob peeking on hover */}
+      <div className="absolute top-3 right-3 w-[44px] h-[54px] opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0 drop-shadow-[0_4px_12px_rgba(0,0,0,.25)]">
+        <div className="animate-[wiggle_3s_ease-in-out_infinite]">
+          <Blob />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ---- Accent cell (color bg + blob, no photo) ---- */
+function AccentCell({ label, sub, items, color, lightBg, Blob, className = '', delay = '' }) {
+  return (
+    <div
+      className={`sr ${delay} group relative rounded-[24px] overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_48px_rgba(26,26,46,.10)] ${className}`}
+      style={{ background: lightBg }}
+    >
+      <div
+        className="absolute -bottom-10 -right-10 w-36 h-36 rounded-full opacity-15 group-hover:opacity-30 transition-opacity duration-500"
+        style={{ background: color }}
+      />
+
+      <div className="relative h-full flex flex-col justify-between p-5 md:p-6">
+        <div>
+          <h3 className="font-display font-black text-[1.1rem] md:text-[1.25rem] leading-tight mb-1" style={{ color: color === '#FFD23F' ? '#B8860B' : color === '#6EE7B7' ? '#059669' : color }}>
+            {label}
+          </h3>
+          {sub && <p className="text-n700 text-[0.8rem] leading-[1.5]">{sub}</p>}
+          {items && (
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {items.map((t, i) => (
+                <span key={i} className="text-[0.65rem] font-medium px-2 py-0.5 rounded-full bg-white/60 text-n700">{t}</span>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="w-[50px] h-[60px] self-end transition-all duration-500 group-hover:scale-110 group-hover:rotate-[-6deg]">
+          <Blob />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ---- Main Section ---- */
 export default function Categories() {
   return (
     <section className="py-20 md:py-[6.5rem]" id="categories">
@@ -191,27 +148,99 @@ export default function Categories() {
           Кружки, секции и&nbsp;<span className="text-pill text-pill-gold">мастер-классы</span>
         </h2>
         <p className="sr sr-d2 text-n700 text-[0.9375rem] max-w-[560px] leading-[1.65] mb-10">
-          Подберём из&nbsp;любой категории&nbsp;— от&nbsp;спорта до&nbsp;робототехники
+          Подберём из&nbsp;любого формата&nbsp;— офлайн-студии, онлайн-курсы, разовые мастер-классы и&nbsp;даже экскурсии
         </p>
-        <div className="sr sr-d3 flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {cats.map((c, i) => (
-            <div
-              key={i}
-              className="flex-[0_0_200px] lg:flex-none rounded-[28px] overflow-hidden relative cursor-pointer snap-start transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_48px_rgba(26,26,46,.12)] group border-2 border-white/60 hover:border-white"
-              style={{ background: c.lightBg }}
-            >
-              {/* Subtle inner glow on hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[28px]" style={{ background: `radial-gradient(circle at 50% 40%, ${c.color}15, transparent 70%)` }} />
-              <div className="p-7 pb-5 flex flex-col items-center text-center h-[240px] lg:h-[260px] justify-center relative">
-                <div className="w-[100px] h-[100px] mb-5 transition-all duration-500 group-hover:scale-115 group-hover:rotate-[-6deg] group-hover:drop-shadow-[0_8px_20px_rgba(0,0,0,.08)]">
-                  {c.char}
-                </div>
-                <span className="font-head font-bold text-[1.0625rem] transition-all duration-300 group-hover:tracking-wide" style={{ color: c.color === '#FFD23F' ? '#B8860B' : c.color === '#6EE7B7' ? '#059669' : c.color }}>
-                  {c.label}
-                </span>
-              </div>
+
+        {/* Bento Grid — explicit placement to avoid gaps */}
+        <div className="grid grid-cols-2 gap-3 md:gap-4 md:grid-cols-4 md:grid-rows-[165px_165px_165px_165px]">
+
+          {/* Кружки и секции — col 1-2, row 1-2 */}
+          <BentoCell
+            photo="https://images.unsplash.com/photo-1544717305-2782549b5136?w=700&h=500&fit=crop&auto=format"
+            label="Кружки и секции"
+            sub="Спорт, творчество, музыка, танцы, шахматы"
+            tag="Регулярные"
+            color="#38BDF8"
+            Blob={Blob1}
+            className="md:[grid-area:1/1/3/3] min-h-[280px] md:min-h-0 col-span-2"
+            delay="sr-d1"
+          />
+
+          {/* Студии — col 3, row 1-2 */}
+          <BentoCell
+            photo="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=600&fit=crop&auto=format"
+            label="Студии"
+            sub="Танцы, вокал, театр, рисование"
+            color="#B197FC"
+            Blob={Blob2}
+            className="md:[grid-area:1/3/3/4] min-h-[160px] md:min-h-0"
+            delay="sr-d2"
+          />
+
+          {/* Онлайн-занятия — col 4, row 1-2 */}
+          <BentoCell
+            photo="https://images.unsplash.com/photo-1610484826967-09c5720778c7?w=400&h=600&fit=crop&auto=format"
+            label="Онлайн-занятия"
+            sub="Программирование, языки, репетиторы"
+            tag="Удалённо"
+            color="#22C55E"
+            Blob={Blob5}
+            className="md:[grid-area:1/4/3/5] min-h-[160px] md:min-h-0"
+            delay="sr-d3"
+          />
+
+          {/* Мастер-классы — col 1-2, row 3 */}
+          <BentoCell
+            photo="https://images.unsplash.com/photo-1560421683-6856ea585c78?w=700&h=350&fit=crop&auto=format"
+            label="Мастер-классы"
+            sub="Керамика, кулинария, робототехника"
+            tag="Разовые"
+            color="#FF6B35"
+            Blob={Blob6}
+            className="md:[grid-area:3/1/4/3] min-h-[160px] md:min-h-0 col-span-2"
+            delay="sr-d2"
+          />
+
+          {/* Музеи и экскурсии — col 3, row 3 */}
+          <BentoCell
+            photo="https://images.unsplash.com/photo-1564399579883-451a5d44ec08?w=400&h=300&fit=crop&auto=format"
+            label="Музеи и экскурсии"
+            sub="Интерактивные программы"
+            color="#FFD23F"
+            Blob={Blob3}
+            className="md:[grid-area:3/3/4/4] min-h-[160px] md:min-h-0"
+            delay="sr-d3"
+          />
+
+          {/* Лагеря — col 4, row 3 */}
+          <AccentCell
+            label="Лагеря"
+            sub="Каникулярные программы на неделю или сезон"
+            color="#FF8FAB"
+            lightBg="#FFF0F3"
+            Blob={Blob4}
+            className="md:[grid-area:3/4/4/5] min-h-[160px] md:min-h-0"
+            delay="sr-d3"
+          />
+
+          {/* "И ещё" — col 1-4, row 4 */}
+          <div className="sr sr-d3 col-span-2 md:[grid-area:4/1/5/5] rounded-[24px] overflow-hidden relative bg-gradient-to-br from-indigo to-[#4A3A8A] cursor-pointer transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_48px_rgba(45,27,105,.2)] group flex items-center justify-center min-h-[140px] md:min-h-0">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,210,63,.15),transparent_60%)]" />
+            <div className="relative text-center px-6 py-5">
+              <p className="font-hand text-gold text-[1.6rem] leading-tight mb-1">и ещё 20+ форматов</p>
+              <p className="text-white/70 text-[0.8125rem]">Репетиторы, логопеды, подготовка к школе, единоборства...</p>
             </div>
-          ))}
+            <div className="absolute top-3 left-4 w-[30px] h-[36px] opacity-40 animate-[float-a_5s_ease-in-out_infinite]">
+              <Blob1 />
+            </div>
+            <div className="absolute bottom-3 right-4 w-[30px] h-[36px] opacity-40 animate-[float-b_4s_ease-in-out_infinite]">
+              <Blob4 />
+            </div>
+            <div className="absolute top-2 right-[20%] w-[26px] h-[32px] opacity-30 animate-[float-c_6s_ease-in-out_infinite]">
+              <Blob3 />
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
