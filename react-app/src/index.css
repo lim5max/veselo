@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-coral: #FFA561;
+  --color-coral: #FF6B35;
   --color-coral-dk: #F28E42;
   --color-coral-lt: #FFF1E5;
   --color-coral-glow: rgba(255,165,97,.32);
-  --color-indigo: #6C52C9;
+  --color-indigo: #2D1B69;
   --color-indigo-lt: #8572D6;
   --color-indigo-bg: #F1EAFE;
-  --color-gold: #F8DC5B;
+  --color-gold: #FFD23F;
   --color-gold-lt: #FFF9D9;
-  --color-green: #91E27A;
+  --color-green: #22C55E;
   --color-green-lt: #EEFFE7;
-  --color-pink: #F6A4E8;
+  --color-pink: #FF8FAB;
   --color-pink-lt: #FFF0FC;
-  --color-sky: #8DBDFF;
+  --color-sky: #38BDF8;
   --color-sky-lt: #ECF4FF;
   --color-peach: #FFB884;
   --color-peach-lt: #FFF2E9;
-  --color-lavender: #C9A4FF;
+  --color-lavender: #B197FC;
   --color-lavender-lt: #F5EDFF;
   --color-mint: #9AF0A6;
   --color-mint-lt: #EEFFEF;
@@ -76,10 +76,10 @@
     white-space: nowrap;
   }
   .text-pill-coral { background: var(--color-coral-lt); color: var(--color-coral-dk); }
-  .text-pill-gold { background: var(--color-gold-lt); color: #C5A542; }
-  .text-pill-green { background: var(--color-green-lt); color: #73D664; }
+  .text-pill-gold { background: var(--color-gold-lt); color: #B8860B; }
+  .text-pill-green { background: var(--color-green-lt); color: #16A34A; }
   .text-pill-pink { background: var(--color-pink-lt); color: #E11D7A; }
-  .text-pill-sky { background: var(--color-sky-lt); color: #6FA7EE; }
+  .text-pill-sky { background: var(--color-sky-lt); color: #0284C7; }
   .text-pill-lavender { background: var(--color-lavender-lt); color: #7C3AED; }
 
   /* Handwritten font utility */

@@ -1,26 +1,26 @@
 /* Goofy blob step characters — quirky asymmetric faces */
 const Step1Char = () => (
   <svg viewBox="0 0 90 105" fill="none" className="w-[90px] h-[105px]">
-    <ellipse cx="45" cy="42" rx="38" ry="32" fill="#F6A4E8" />
-    <circle cx="28" cy="46" r="3.2" fill="#6C52C9" />
-    <circle cx="52" cy="50" r="3.2" fill="#6C52C9" />
-    <path d="M24 54 C34 62, 48 62, 56 56" stroke="#6C52C9" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-    <ellipse cx="35" cy="80" rx="7" ry="10" fill="#F6A4E8" />
-    <ellipse cx="55" cy="80" rx="7" ry="10" fill="#F6A4E8" />
+    <ellipse cx="45" cy="42" rx="38" ry="32" fill="#FF8FAB" />
+    <circle cx="28" cy="46" r="3.2" fill="#2D1B69" />
+    <circle cx="52" cy="50" r="3.2" fill="#2D1B69" />
+    <path d="M24 54 C34 62, 48 62, 56 56" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    <ellipse cx="35" cy="80" rx="7" ry="10" fill="#FF8FAB" />
+    <ellipse cx="55" cy="80" rx="7" ry="10" fill="#FF8FAB" />
     <rect x="62" y="6" width="20" height="15" rx="6" fill="white" opacity="0.8" />
     <path d="M66 21 L70 18 L74 21" fill="white" opacity="0.8" />
-    <text x="66" y="17" fontSize="7" fill="#6C52C9" opacity="0.6">?!</text>
+    <text x="66" y="17" fontSize="7" fill="#2D1B69" opacity="0.6">?!</text>
   </svg>
 )
 
 const Step2Char = () => (
   <svg viewBox="0 0 90 105" fill="none" className="w-[90px] h-[105px]">
-    <path d="M14 28 C8 12, 28 2, 45 6 C62 2, 82 12, 76 28 C84 42, 80 60, 68 68 C58 74, 32 74, 22 68 C10 60, 6 42, 14 28Z" fill="#C9A4FF" />
-    <circle cx="30" cy="36" r="3.2" fill="#6C52C9" />
-    <circle cx="48" cy="32" r="3.2" fill="#6C52C9" />
-    <path d="M26 44 C34 50, 44 48, 50 42" stroke="#6C52C9" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-    <ellipse cx="35" cy="82" rx="7" ry="10" fill="#C9A4FF" />
-    <ellipse cx="55" cy="82" rx="7" ry="10" fill="#C9A4FF" />
+    <path d="M14 28 C8 12, 28 2, 45 6 C62 2, 82 12, 76 28 C84 42, 80 60, 68 68 C58 74, 32 74, 22 68 C10 60, 6 42, 14 28Z" fill="#B197FC" />
+    <circle cx="30" cy="36" r="3.2" fill="#2D1B69" />
+    <circle cx="48" cy="32" r="3.2" fill="#2D1B69" />
+    <path d="M26 44 C34 50, 44 48, 50 42" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    <ellipse cx="35" cy="82" rx="7" ry="10" fill="#B197FC" />
+    <ellipse cx="55" cy="82" rx="7" ry="10" fill="#B197FC" />
     <circle cx="74" cy="14" r="7" stroke="white" strokeWidth="2.5" fill="none" opacity="0.6" />
     <line x1="79" y1="19" x2="84" y2="24" stroke="white" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
   </svg>
@@ -28,14 +28,14 @@ const Step2Char = () => (
 
 const Step3Char = () => (
   <svg viewBox="0 0 90 105" fill="none" className="w-[90px] h-[105px]">
-    <rect x="8" y="8" width="74" height="64" rx="26" fill="#91E27A" />
-    <path d="M44 32 C46 28, 50 28, 52 32" stroke="#6C52C9" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-    <path d="M60 36 C62 32, 66 32, 68 36" stroke="#6C52C9" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-    <path d="M40 46 C50 56, 62 56, 72 48" stroke="#6C52C9" strokeWidth="3" strokeLinecap="round" fill="none" />
-    <ellipse cx="35" cy="82" rx="7" ry="10" fill="#91E27A" />
-    <ellipse cx="55" cy="82" rx="7" ry="10" fill="#91E27A" />
-    <path d="M18 16 C18 20, 18 20, 22 20 C18 20, 18 20, 18 24 C18 20, 18 20, 14 20 C18 20, 18 20, 18 16Z" fill="#F8DC5B" />
-    <path d="M30 10 C30 13, 30 13, 33 13 C30 13, 30 13, 30 16 C30 13, 30 13, 27 13 C30 13, 30 13, 30 10Z" fill="#F8DC5B" />
+    <rect x="8" y="8" width="74" height="64" rx="26" fill="#22C55E" />
+    <path d="M44 32 C46 28, 50 28, 52 32" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    <path d="M60 36 C62 32, 66 32, 68 36" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    <path d="M40 46 C50 56, 62 56, 72 48" stroke="#2D1B69" strokeWidth="3" strokeLinecap="round" fill="none" />
+    <ellipse cx="35" cy="82" rx="7" ry="10" fill="#22C55E" />
+    <ellipse cx="55" cy="82" rx="7" ry="10" fill="#22C55E" />
+    <path d="M18 16 C18 20, 18 20, 22 20 C18 20, 18 20, 18 24 C18 20, 18 20, 14 20 C18 20, 18 20, 18 16Z" fill="#FFD23F" />
+    <path d="M30 10 C30 13, 30 13, 33 13 C30 13, 30 13, 30 16 C30 13, 30 13, 27 13 C30 13, 30 13, 30 10Z" fill="#FFD23F" />
   </svg>
 )
 
@@ -45,8 +45,8 @@ const steps = [
     Char: Step1Char,
     title: 'Расскажите о\u00a0ребёнке',
     text: 'Анкета из 5\u00a0вопросов: возраст, интересы, район. Занимает 2\u00a0минуты.',
-    accent: '#F6A4E8',
-    borderColor: '#F6A4E8',
+    accent: '#FF8FAB',
+    borderColor: '#FF8FAB',
     delay: '',
   },
   {
@@ -54,8 +54,8 @@ const steps = [
     Char: Step2Char,
     title: 'Мы подберём варианты',
     text: 'Живой специалист вручную подберёт 3-5 занятий. Не\u00a0алгоритм\u00a0— человек, который знает рынок.',
-    accent: '#C9A4FF',
-    borderColor: '#C9A4FF',
+    accent: '#B197FC',
+    borderColor: '#B197FC',
     delay: 'sr-d2',
   },
   {
@@ -63,8 +63,8 @@ const steps = [
     Char: Step3Char,
     title: 'Получите подборку',
     text: 'Через 1-2 часа в\u00a0мессенджер: описание, цены, расписание, контакты.',
-    accent: '#91E27A',
-    borderColor: '#91E27A',
+    accent: '#22C55E',
+    borderColor: '#22C55E',
     delay: 'sr-d4',
   },
 ]

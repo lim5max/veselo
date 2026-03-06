@@ -16,8 +16,8 @@ const CTACharacter = () => (
     <ellipse cx="14" cy="42" rx="7" ry="5" fill="white" opacity="0.12" />
     <ellipse cx="106" cy="42" rx="7" ry="5" fill="white" opacity="0.12" />
     {/* Sparkles */}
-    <path d="M10 14 C10 18, 10 18, 14 18 C10 18, 10 18, 10 22 C10 18, 10 18, 6 18 C10 18, 10 18, 10 14Z" fill="#F8DC5B" opacity="0.8" />
-    <path d="M110 12 C110 16, 110 16, 114 16 C110 16, 110 16, 110 20 C110 16, 110 16, 106 16 C110 16, 110 16, 110 12Z" fill="#F8DC5B" opacity="0.8" />
+    <path d="M10 14 C10 18, 10 18, 14 18 C10 18, 10 18, 10 22 C10 18, 10 18, 6 18 C10 18, 10 18, 10 14Z" fill="#FFD23F" opacity="0.8" />
+    <path d="M110 12 C110 16, 110 16, 114 16 C110 16, 110 16, 110 20 C110 16, 110 16, 106 16 C110 16, 110 16, 110 12Z" fill="#FFD23F" opacity="0.8" />
   </svg>
 )
 
