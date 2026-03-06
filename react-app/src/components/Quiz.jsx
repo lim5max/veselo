@@ -353,6 +353,8 @@ export default function Quiz() {
             </div>
 
             {status && <p className="text-sm text-n500 mt-3">{status}</p>}
+
+            <p className="text-sm text-n500 mt-2">После отправки анкеты подборка уже собирается. Ожидайте в течение 1-2 часов.</p>
           </form>
         </div>
       </div>
