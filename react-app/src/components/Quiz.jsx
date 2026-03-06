@@ -74,6 +74,9 @@ export default function Quiz() {
   const stepKey = STEPS[step]
   const progress = Math.round(((step + 1) / STEPS.length) * 100)
 
+  const mapQuery = `${data.city || ''} ${data.location || ''}`.trim()
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery || 'Москва')}&output=embed`
+
   const update = (key, value) => {
     setData((prev) => ({ ...prev, [key]: value }))
   }
@@ -276,6 +279,19 @@ export default function Quiz() {
                       <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Локация</span>
                       <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.location} onChange={(e) => update('location', e.target.value)} />
                     </label>
+                  </div>
+                )}
+
+                {isOffline && (
+                  <div className="border-2 border-n200/60 rounded-2xl overflow-hidden">
+                    <div className="px-3 py-2 text-[0.8125rem] text-n500 border-b border-n200/60">Интерактивная карта локации</div>
+                    <iframe
+                      title="Карта локации"
+                      src={mapSrc}
+                      className="w-full h-[260px] border-0"
+                      loading="lazy"
+                    />
+                    <div className="px-3 py-2 text-[0.75rem] text-n500">Можно двигать карту и менять масштаб.</div>
                   </div>
                 )}
 
