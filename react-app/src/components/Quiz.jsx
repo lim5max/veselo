@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 const QUESTIONS = [
   {
@@ -76,10 +76,73 @@ export default function Quiz() {
   const stepKey = STEPS[step]
   const progress = Math.round(((step + 1) / STEPS.length) * 100)
 
-  const mapSrc = `https://yandex.ru/map-widget/v1/?ll=37.6176%2C55.7558&z=10`
 
   const currentQuestion = QUESTIONS.find((q) => q.key === stepKey)
   const currentSelectedCount = currentQuestion ? (Array.isArray(data[currentQuestion.key]) ? data[currentQuestion.key].length : 0) : 0
+
+
+  const mapContainerRef = useRef(null)
+  const mapInstanceRef = useRef(null)
+  const placemarkRef = useRef(null)
+
+  useEffect(() => {
+    if (!(stepKey === 'contacts' && isOffline)) return
+
+    const initMap = () => {
+      if (!window.ymaps || mapInstanceRef.current || !mapContainerRef.current) return
+
+      window.ymaps.ready(() => {
+        if (mapInstanceRef.current || !mapContainerRef.current) return
+
+        const map = new window.ymaps.Map(mapContainerRef.current, {
+          center: [55.7558, 37.6176],
+          zoom: 10,
+          controls: ['zoomControl', 'fullscreenControl'],
+        })
+
+        mapInstanceRef.current = map
+
+        map.events.add('click', (e) => {
+          const coords = e.get('coords')
+
+          if (!placemarkRef.current) {
+            placemarkRef.current = new window.ymaps.Placemark(coords, {}, { preset: 'islands#redIcon' })
+            map.geoObjects.add(placemarkRef.current)
+          } else {
+            placemarkRef.current.geometry.setCoordinates(coords)
+          }
+
+          window.ymaps.geocode(coords).then((res) => {
+            const firstGeoObject = res.geoObjects.get(0)
+            const address =
+              firstGeoObject?.getAddressLine?.() ||
+              firstGeoObject?.properties?.get('text') ||
+              `${coords[0].toFixed(6)}, ${coords[1].toFixed(6)}`
+
+            setData((prev) => ({ ...prev, location: address }))
+          })
+        })
+      })
+    }
+
+    if (!window.ymaps) {
+      const scriptId = 'yandex-maps-api'
+      let script = document.getElementById(scriptId)
+
+      if (!script) {
+        script = document.createElement('script')
+        script.id = scriptId
+        script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU'
+        script.async = true
+        document.body.appendChild(script)
+      }
+
+      script.addEventListener('load', initMap, { once: true })
+      return () => script?.removeEventListener('load', initMap)
+    }
+
+    initMap()
+  }, [stepKey, isOffline])
 
   const update = (key, value) => {
     setData((prev) => ({ ...prev, [key]: value }))
@@ -299,13 +362,8 @@ export default function Quiz() {
                 {isOffline && (
                   <div className="border-2 border-n200/60 rounded-2xl overflow-hidden">
                     <div className="px-3 py-2 text-[0.8125rem] text-n500 border-b border-n200/60">Интерактивная карта (Яндекс)</div>
-                    <iframe
-                      title="Яндекс Карта Москвы"
-                      src={mapSrc}
-                      className="w-full h-[320px] border-0"
-                      loading="lazy"
-                    />
-                    <div className="px-3 py-2 text-[0.75rem] text-n500">Можно двигать карту и менять масштаб.</div>
+                    <div ref={mapContainerRef} className="w-full h-[320px]" />
+                    <div className="px-3 py-2 text-[0.75rem] text-n500">Кликните по карте, чтобы автоматически подставить адрес в поле «Локация».</div>
                   </div>
                 )}
 
