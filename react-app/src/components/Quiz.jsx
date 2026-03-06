@@ -82,6 +82,11 @@ export default function Quiz() {
     setData((prev) => {
       const current = Array.isArray(prev[key]) ? prev[key] : []
       const exists = current.includes(value)
+
+      if (!exists && current.length >= 3) {
+        return prev
+      }
+
       return {
         ...prev,
         [key]: exists ? current.filter((v) => v !== value) : [...current, value],
