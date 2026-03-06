@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 const QUESTIONS = [
   {
     key: 'q1',
-    title: '1. Зачем ребёнку кружки?',
+    title: '1. Какие ожидания от занятий?',
     options: ['Занять время', 'Здоровье/энергия', 'Ум/навыки', 'Общение', 'Профессия в будущем', 'Радость/удовольствие'],
   },
   {
@@ -22,11 +22,6 @@ const QUESTIONS = [
     options: ['Любит, хочет побеждать', 'Ради процесса, проигрыш не страшен', 'Болезненно, до слёз', 'Не любит, только для себя', 'Заводится, но быстро выгорает', 'Сражается до последнего'],
   },
   {
-    key: 'q5',
-    title: '5. Что важнее в результате?',
-    options: ['Чтобы полюбил дело', 'Чтобы нашёл друзей', 'Чтобы стал увереннее', 'Чтобы выплескивал энергию', 'Чтобы уставал и хорошо спал', 'Чтобы отвлёкся от гаджетов', 'Чтобы научился дисциплине', 'Чтобы пробовал новое', 'Чтобы просто был счастлив'],
-  },
-  {
     key: 'q6',
     title: '6. Что ребёнок выбирает в свободное время?',
     options: ['Активные игры/спорт', 'Творчество (лепить/рисовать)', 'Гаджеты/мультики', 'Помощь мне по дому', 'Чтение книг', 'Конструирование/сборку', 'Настольные игры', 'Общение с друзьями', 'Гулять на улице', 'Ничего не делать'],
@@ -38,17 +33,17 @@ const QUESTIONS = [
   },
   {
     key: 'q8',
-    title: '8. Какая обстановка ему нужна?',
+    title: '7. Какая обстановка важна ребенку?',
     options: ['Шумно, много детей', 'Тихо, мало людей', 'Индивидуально с педагогом', 'Домашняя, привычная', 'На улице/на природе', 'Чёткая структура и правила', 'Свобода и импровизация', 'Всё яркое/красочное', 'Минимализм/ничего лишнего'],
   },
   {
     key: 'q9',
-    title: '9. Что его бесит/раздражает?',
+    title: '8. Что ребенка раздражает?',
     options: ['Когда заставляют ждать', 'Когда трогают его вещи', 'Когда говорят "ты не справишься"', 'Когда нарушают правила', 'Громкие звуки', 'Когда перебивают', 'Однообразие/скучно', 'Когда не берут в игру', 'Когда просят повторить/исправить', 'Критика в его сторону'],
   },
   {
     key: 'q10',
-    title: '10. Какой он в компании друзей?',
+    title: '9. Какой он в компании друзей?',
     options: ['Главный затейник', 'Тень, делает как все', 'Миротворец, всех мирит', 'Сам по себе, одиночка', 'Задира/спорщик', 'Защитник слабых', 'Душа компании, весельчак', 'Наблюдатель со стороны', 'Молчун/стеснительный', 'Лидер, но тихий'],
   },
 ]
@@ -59,8 +54,7 @@ const initialData = {
   childAge: [],
   format: '',
   city: '',
-  district: '',
-  address: '',
+  location: '',
   phone: '',
   email: '',
   comment: '',
@@ -95,13 +89,14 @@ export default function Quiz() {
 
   const isStepValid = useMemo(() => {
     if (stepKey === 'basic') {
-      const base = data.childAge.length > 0 && data.format
-      const offlineOk = !isOffline || (data.city && data.address)
-      return Boolean(base && offlineOk)
+      const base = data.childAge.length > 0
+      return Boolean(base)
     }
 
     if (stepKey === 'contacts') {
-      return Boolean(data.phone && data.email && data.consent)
+      const formatOk = Boolean(data.format)
+      const offlineOk = !isOffline || (data.city && data.location)
+      return Boolean(data.phone && data.email && data.consent && formatOk && offlineOk)
     }
 
     const question = QUESTIONS.find((q) => q.key === stepKey)
@@ -110,9 +105,9 @@ export default function Quiz() {
   }, [data, isOffline, stepKey])
 
   const canSubmit = useMemo(() => {
-    const basic = data.childAge.length > 0 && data.format
-    const offlineOk = !isOffline || (data.city && data.address)
-    const contacts = data.phone && data.email && data.consent
+    const basic = data.childAge.length > 0
+    const offlineOk = !isOffline || (data.city && data.location)
+    const contacts = data.phone && data.email && data.consent && data.format
     const questionsOk = QUESTIONS.every((q) => Array.isArray(data[q.key]) && data[q.key].length > 0)
     return Boolean(basic && offlineOk && contacts && questionsOk)
   }, [data, isOffline])
@@ -211,38 +206,7 @@ export default function Quiz() {
                   </div>
                 </div>
 
-                <div>
-                  <p className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Формат занятий</p>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {[{ label: 'Онлайн', value: 'online' }, { label: 'Оффлайн', value: 'offline' }].map((opt) => (
-                      <button
-                        key={opt.value}
-                        type="button"
-                        onClick={() => update('format', opt.value)}
-                        className={`py-3.5 border-2 rounded-2xl font-semibold text-[0.9375rem] transition-all ${data.format === opt.value ? 'border-coral bg-coral-lt text-coral-dk' : 'border-n200/60 text-n700 hover:border-coral'}`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
 
-                {isOffline && (
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <label className="block">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Город</span>
-                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.city} onChange={(e) => update('city', e.target.value)} />
-                    </label>
-                    <label className="block">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Район</span>
-                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.district} onChange={(e) => update('district', e.target.value)} />
-                    </label>
-                    <label className="block md:col-span-2">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Адрес / удобная точка рядом</span>
-                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.address} onChange={(e) => update('address', e.target.value)} />
-                    </label>
-                  </div>
-                )}
               </>
             )}
 
@@ -272,6 +236,35 @@ export default function Quiz() {
 
             {stepKey === 'contacts' && (
               <>
+                <div>
+                  <p className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Формат занятий</p>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {[{ label: 'Онлайн', value: 'online' }, { label: 'Оффлайн', value: 'offline' }].map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => update('format', opt.value)}
+                        className={`py-3.5 border-2 rounded-2xl font-semibold text-[0.9375rem] transition-all ${data.format === opt.value ? 'border-coral bg-coral-lt text-coral-dk' : 'border-n200/60 text-n700 hover:border-coral'}`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {isOffline && (
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <label className="block">
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Город</span>
+                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.city} onChange={(e) => update('city', e.target.value)} />
+                    </label>
+                    <label className="block">
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Локация</span>
+                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.location} onChange={(e) => update('location', e.target.value)} />
+                    </label>
+                  </div>
+                )}
+
                 <div className="grid md:grid-cols-2 gap-4">
                   <label className="block">
                     <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Телефон</span>
