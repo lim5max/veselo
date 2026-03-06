@@ -208,7 +208,7 @@ export default function Quiz() {
                 <div>
                   <p className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Возраст ребёнка</p>
                   <div className="flex flex-wrap gap-2">
-                    {['1-2 года', '3-4 года', '5-6 лет', '7-8 лет', '9-10 лет', '11-12 лет', '13-14 лет'].map((age) => {
+                    {['3-4 года', '5-6 лет', '7-8 лет', '9-10 лет', '11-12 лет', '13-14 лет'].map((age) => {
                       const selected = data.childAge === age
                       return (
                         <button
