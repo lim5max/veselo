@@ -224,7 +224,7 @@ export default function Quiz() {
               stepKey === q.key && (
                 <div key={q.key}>
                   <span className="block text-[1rem] font-semibold text-n900 mb-2">{q.title}</span>
-                  <p className="text-[0.8125rem] text-n500 mb-3">Можно выбрать несколько вариантов</p>
+                  <p className="text-[0.8125rem] text-n500 mb-3">Можно выбрать до 3 вариантов</p>
                   <div className="flex flex-wrap gap-2">
                     {q.options.map((opt) => {
                       const selected = Array.isArray(data[q.key]) && data[q.key].includes(opt)
