@@ -64,7 +64,7 @@ const initialData = {
   email: '',
   comment: '',
   consent: false,
-  ...Object.fromEntries(QUESTIONS.map((q) => [q.key, ''])),
+  ...Object.fromEntries(QUESTIONS.map((q) => [q.key, []])),
 }
 
 export default function Quiz() {
@@ -76,13 +76,24 @@ export default function Quiz() {
 
   const canSubmit = useMemo(() => {
     const base = data.parentName && data.childAge && data.format && data.phone && data.email && data.consent
-    const questionsOk = QUESTIONS.every((q) => data[q.key])
+    const questionsOk = QUESTIONS.every((q) => Array.isArray(data[q.key]) && data[q.key].length > 0)
     const offlineOk = !isOffline || (data.city && data.address)
     return Boolean(base && questionsOk && offlineOk)
   }, [data, isOffline])
 
   const update = (key, value) => {
     setData((prev) => ({ ...prev, [key]: value }))
+  }
+
+  const toggleMultiAnswer = (key, value) => {
+    setData((prev) => {
+      const current = Array.isArray(prev[key]) ? prev[key] : []
+      const exists = current.includes(value)
+      return {
+        ...prev,
+        [key]: exists ? current.filter((v) => v !== value) : [...current, value],
+      }
+    })
   }
 
   const submit = async (e) => {
@@ -184,19 +195,24 @@ export default function Quiz() {
             )}
 
             {QUESTIONS.map((q) => (
-              <label key={q.key} className="block">
+              <div key={q.key} className="block">
                 <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">{q.title}</span>
-                <select
-                  className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral"
-                  value={data[q.key]}
-                  onChange={(e) => update(q.key, e.target.value)}
-                >
-                  <option value="">Выберите вариант</option>
-                  {q.options.map((opt) => (
-                    <option key={opt} value={opt}>{opt}</option>
-                  ))}
-                </select>
-              </label>
+                <div className="flex flex-wrap gap-2">
+                  {q.options.map((opt) => {
+                    const selected = Array.isArray(data[q.key]) && data[q.key].includes(opt)
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => toggleMultiAnswer(q.key, opt)}
+                        className={`py-2 px-3 border-2 rounded-full text-[0.8125rem] transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral'}`}
+                      >
+                        {opt}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
             ))}
 
             <div className="grid md:grid-cols-2 gap-4">
