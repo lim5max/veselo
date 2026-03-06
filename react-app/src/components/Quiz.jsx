@@ -55,6 +55,7 @@ const initialData = {
   format: '',
   city: 'Москва',
   location: '',
+  parentName: '',
   contactMethods: [],
   phone: '',
   email: '',
@@ -113,7 +114,8 @@ export default function Quiz() {
       const hasPhone = data.contactMethods.includes('whatsapp') ? Boolean(data.phone && data.phone.trim()) : true
       const hasEmail = data.contactMethods.includes('email') ? Boolean(data.email && data.email.trim()) : true
       const hasTelegram = data.contactMethods.includes('telegram') ? Boolean(data.telegram && data.telegram.trim()) : true
-      return Boolean(data.consent && formatOk && offlineOk && methodsOk && hasPhone && hasEmail && hasTelegram)
+      const nameOk = Boolean(data.parentName && data.parentName.trim())
+      return Boolean(nameOk && data.consent && formatOk && offlineOk && methodsOk && hasPhone && hasEmail && hasTelegram)
     }
 
     const question = QUESTIONS.find((q) => q.key === stepKey)
@@ -128,7 +130,7 @@ export default function Quiz() {
     const hasPhone = data.contactMethods.includes('whatsapp') ? Boolean(data.phone && data.phone.trim()) : true
     const hasEmail = data.contactMethods.includes('email') ? Boolean(data.email && data.email.trim()) : true
     const hasTelegram = data.contactMethods.includes('telegram') ? Boolean(data.telegram && data.telegram.trim()) : true
-    const contacts = data.consent && data.format && methodsOk && hasPhone && hasEmail && hasTelegram
+    const contacts = Boolean(data.parentName && data.parentName.trim()) && data.consent && data.format && methodsOk && hasPhone && hasEmail && hasTelegram
     const questionsOk = QUESTIONS.every((q) => Array.isArray(data[q.key]) && data[q.key].length > 0)
     return Boolean(basic && offlineOk && contacts && questionsOk)
   }, [data, isOffline])
@@ -309,6 +311,11 @@ export default function Quiz() {
                     <div className="px-3 py-2 text-[0.75rem] text-n500">Можно двигать карту и менять масштаб.</div>
                   </div>
                 )}
+
+                <label className="block">
+                  <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Имя родителя <span className="text-coral">*</span></span>
+                  <input autoComplete="name" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.parentName} onChange={(e) => update('parentName', e.target.value)} placeholder="Как к вам обращаться" />
+                </label>
 
                 <div>
                   <span className="block text-[1.05rem] font-semibold text-n900 mb-1">Как удобно с вами связаться</span>
