@@ -53,6 +53,8 @@ const QUESTIONS = [
   },
 ]
 
+const STEPS = ['basic', ...QUESTIONS.map((q) => q.key), 'contacts']
+
 const initialData = {
   parentName: '',
   childAge: '',
@@ -71,15 +73,11 @@ export default function Quiz() {
   const [data, setData] = useState(initialData)
   const [status, setStatus] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [step, setStep] = useState(0)
 
   const isOffline = data.format === 'offline'
-
-  const canSubmit = useMemo(() => {
-    const base = data.parentName && data.childAge && data.format && data.phone && data.email && data.consent
-    const questionsOk = QUESTIONS.every((q) => Array.isArray(data[q.key]) && data[q.key].length > 0)
-    const offlineOk = !isOffline || (data.city && data.address)
-    return Boolean(base && questionsOk && offlineOk)
-  }, [data, isOffline])
+  const stepKey = STEPS[step]
+  const progress = Math.round(((step + 1) / STEPS.length) * 100)
 
   const update = (key, value) => {
     setData((prev) => ({ ...prev, [key]: value }))
@@ -94,6 +92,44 @@ export default function Quiz() {
         [key]: exists ? current.filter((v) => v !== value) : [...current, value],
       }
     })
+  }
+
+  const isStepValid = useMemo(() => {
+    if (stepKey === 'basic') {
+      const base = data.parentName && data.childAge && data.format
+      const offlineOk = !isOffline || (data.city && data.address)
+      return Boolean(base && offlineOk)
+    }
+
+    if (stepKey === 'contacts') {
+      return Boolean(data.phone && data.email && data.consent)
+    }
+
+    const question = QUESTIONS.find((q) => q.key === stepKey)
+    if (!question) return false
+    return Array.isArray(data[stepKey]) && data[stepKey].length > 0
+  }, [data, isOffline, stepKey])
+
+  const canSubmit = useMemo(() => {
+    const basic = data.parentName && data.childAge && data.format
+    const offlineOk = !isOffline || (data.city && data.address)
+    const contacts = data.phone && data.email && data.consent
+    const questionsOk = QUESTIONS.every((q) => Array.isArray(data[q.key]) && data[q.key].length > 0)
+    return Boolean(basic && offlineOk && contacts && questionsOk)
+  }, [data, isOffline])
+
+  const nextStep = () => {
+    if (!isStepValid) {
+      setStatus('Заполните текущий шаг.')
+      return
+    }
+    setStatus('')
+    setStep((s) => Math.min(s + 1, STEPS.length - 1))
+  }
+
+  const prevStep = () => {
+    setStatus('')
+    setStep((s) => Math.max(s - 1, 0))
   }
 
   const submit = async (e) => {
@@ -121,12 +157,11 @@ export default function Quiz() {
         body: JSON.stringify(payload),
       })
 
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`)
-      }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
 
       setStatus('Спасибо! Анкета отправлена. Скоро свяжемся с вами.')
       setData(initialData)
+      setStep(0)
     } catch (err) {
       console.error('Ошибка отправки анкеты:', err)
       setStatus('Не удалось отправить анкету. Попробуйте ещё раз или свяжитесь с нами напрямую.')
@@ -141,111 +176,148 @@ export default function Quiz() {
         <h2 className="sr font-display font-black text-[1.875rem] md:text-[2.5rem] text-indigo leading-[1.2] text-center mx-auto">
           Подберём занятия для <span className="text-pill text-pill-coral">вашего ребёнка</span>
         </h2>
-        <p className="sr sr-d1 font-hand text-xl text-n500 text-center mt-2 mb-10">
-          Анкета из 10 вопросов — заполняется за несколько минут
-        </p>
+        <p className="sr sr-d1 font-hand text-xl text-n500 text-center mt-2 mb-10">Пошаговая анкета</p>
 
         <div className="sr sr-d2 max-w-[760px] mx-auto bg-white rounded-[28px] shadow-[0_24px_64px_rgba(26,26,46,.1)] border-2 border-n200/40 p-6 md:p-8">
+          <div className="mb-5">
+            <div className="flex items-center justify-between text-[0.8125rem] text-n500 mb-1.5">
+              <span>Шаг {step + 1} из {STEPS.length}</span>
+              <span>{progress}%</span>
+            </div>
+            <div className="h-2 bg-n100 rounded-full overflow-hidden">
+              <div className="h-2 bg-coral transition-all" style={{ width: `${progress}%` }} />
+            </div>
+          </div>
+
           <form onSubmit={submit} className="space-y-5">
-            <div className="grid md:grid-cols-2 gap-4">
-              <label className="block">
-                <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Имя родителя</span>
-                <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.parentName} onChange={(e) => update('parentName', e.target.value)} />
-              </label>
-              <label className="block">
-                <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Возраст ребёнка</span>
-                <input type="number" min="2" max="18" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.childAge} onChange={(e) => update('childAge', e.target.value)} />
-              </label>
-            </div>
+            {stepKey === 'basic' && (
+              <>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <label className="block">
+                    <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Имя родителя</span>
+                    <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.parentName} onChange={(e) => update('parentName', e.target.value)} />
+                  </label>
+                  <label className="block">
+                    <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Возраст ребёнка</span>
+                    <input type="number" min="2" max="18" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.childAge} onChange={(e) => update('childAge', e.target.value)} />
+                  </label>
+                </div>
 
-            <div>
-              <p className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Формат занятий</p>
-              <div className="grid grid-cols-2 gap-2.5">
-                {[
-                  { label: 'Онлайн', value: 'online' },
-                  { label: 'Оффлайн', value: 'offline' },
-                ].map((opt) => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    onClick={() => update('format', opt.value)}
-                    className={`py-3.5 border-2 rounded-2xl font-semibold text-[0.9375rem] transition-all ${data.format === opt.value ? 'border-coral bg-coral-lt text-coral-dk' : 'border-n200/60 text-n700 hover:border-coral'}`}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+                <div>
+                  <p className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Формат занятий</p>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {[{ label: 'Онлайн', value: 'online' }, { label: 'Оффлайн', value: 'offline' }].map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => update('format', opt.value)}
+                        className={`py-3.5 border-2 rounded-2xl font-semibold text-[0.9375rem] transition-all ${data.format === opt.value ? 'border-coral bg-coral-lt text-coral-dk' : 'border-n200/60 text-n700 hover:border-coral'}`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-            {isOffline && (
-              <div className="grid md:grid-cols-2 gap-4">
-                <label className="block">
-                  <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Город</span>
-                  <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.city} onChange={(e) => update('city', e.target.value)} />
-                </label>
-                <label className="block">
-                  <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Район</span>
-                  <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.district} onChange={(e) => update('district', e.target.value)} />
-                </label>
-                <label className="block md:col-span-2">
-                  <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Адрес / удобная точка рядом</span>
-                  <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.address} onChange={(e) => update('address', e.target.value)} />
-                </label>
-              </div>
+                {isOffline && (
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <label className="block">
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Город</span>
+                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.city} onChange={(e) => update('city', e.target.value)} />
+                    </label>
+                    <label className="block">
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Район</span>
+                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.district} onChange={(e) => update('district', e.target.value)} />
+                    </label>
+                    <label className="block md:col-span-2">
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Адрес / удобная точка рядом</span>
+                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.address} onChange={(e) => update('address', e.target.value)} />
+                    </label>
+                  </div>
+                )}
+              </>
             )}
 
             {QUESTIONS.map((q) => (
-              <div key={q.key} className="block">
-                <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">{q.title}</span>
-                <div className="flex flex-wrap gap-2">
-                  {q.options.map((opt) => {
-                    const selected = Array.isArray(data[q.key]) && data[q.key].includes(opt)
-                    return (
-                      <button
-                        key={opt}
-                        type="button"
-                        onClick={() => toggleMultiAnswer(q.key, opt)}
-                        className={`py-2 px-3 border-2 rounded-full text-[0.8125rem] transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral'}`}
-                      >
-                        {opt}
-                      </button>
-                    )
-                  })}
+              stepKey === q.key && (
+                <div key={q.key}>
+                  <span className="block text-[1rem] font-semibold text-n900 mb-2">{q.title}</span>
+                  <p className="text-[0.8125rem] text-n500 mb-3">Можно выбрать несколько вариантов</p>
+                  <div className="flex flex-wrap gap-2">
+                    {q.options.map((opt) => {
+                      const selected = Array.isArray(data[q.key]) && data[q.key].includes(opt)
+                      return (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => toggleMultiAnswer(q.key, opt)}
+                          className={`py-2 px-3 border-2 rounded-full text-[0.8125rem] transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral'}`}
+                        >
+                          {opt}
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
-              </div>
+              )
             ))}
 
-            <div className="grid md:grid-cols-2 gap-4">
-              <label className="block">
-                <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Телефон</span>
-                <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="+7..." />
-              </label>
-              <label className="block">
-                <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Email</span>
-                <input type="email" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.email} onChange={(e) => update('email', e.target.value)} placeholder="name@example.com" />
-              </label>
-            </div>
+            {stepKey === 'contacts' && (
+              <>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <label className="block">
+                    <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Телефон</span>
+                    <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="+7..." />
+                  </label>
+                  <label className="block">
+                    <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Email</span>
+                    <input type="email" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.email} onChange={(e) => update('email', e.target.value)} placeholder="name@example.com" />
+                  </label>
+                </div>
 
-            <label className="block">
-              <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Комментарий (необязательно)</span>
-              <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.comment} onChange={(e) => update('comment', e.target.value)} />
-            </label>
+                <label className="block">
+                  <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Комментарий (необязательно)</span>
+                  <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.comment} onChange={(e) => update('comment', e.target.value)} />
+                </label>
 
-            <label className="inline-flex items-center gap-2 text-[0.8125rem] text-n700">
-              <input type="checkbox" checked={data.consent} onChange={(e) => update('consent', e.target.checked)} />
-              Согласен(а) на обработку персональных данных
-            </label>
+                <label className="inline-flex items-center gap-2 text-[0.8125rem] text-n700">
+                  <input type="checkbox" checked={data.consent} onChange={(e) => update('consent', e.target.checked)} />
+                  Согласен(а) на обработку персональных данных
+                </label>
+              </>
+            )}
 
-            <div className="pt-2">
+            <div className="pt-2 flex items-center gap-2">
               <button
-                type="submit"
-                className="inline-flex items-center gap-2 bg-coral text-white font-head font-bold text-base py-3.5 px-7 rounded-full transition-all duration-250 hover:bg-coral-dk hover:-translate-y-px disabled:opacity-35 disabled:cursor-not-allowed"
-                disabled={!canSubmit || submitting}
+                type="button"
+                onClick={prevStep}
+                disabled={step === 0 || submitting}
+                className="inline-flex items-center gap-2 border-2 border-n200/60 text-n700 font-semibold text-sm py-2.5 px-5 rounded-full transition-all hover:border-coral disabled:opacity-35 disabled:cursor-not-allowed"
               >
-                {submitting ? 'Отправка...' : 'Отправить анкету'}
+                Назад
               </button>
-              {status && <p className="text-sm text-n500 mt-3">{status}</p>}
+
+              {step < STEPS.length - 1 ? (
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  disabled={!isStepValid || submitting}
+                  className="inline-flex items-center gap-2 bg-coral text-white font-head font-bold text-base py-3.5 px-7 rounded-full transition-all duration-250 hover:bg-coral-dk hover:-translate-y-px disabled:opacity-35 disabled:cursor-not-allowed"
+                >
+                  Далее
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-2 bg-coral text-white font-head font-bold text-base py-3.5 px-7 rounded-full transition-all duration-250 hover:bg-coral-dk hover:-translate-y-px disabled:opacity-35 disabled:cursor-not-allowed"
+                  disabled={!canSubmit || submitting}
+                >
+                  {submitting ? 'Отправка...' : 'Отправить анкету'}
+                </button>
+              )}
             </div>
+
+            {status && <p className="text-sm text-n500 mt-3">{status}</p>}
           </form>
         </div>
       </div>
