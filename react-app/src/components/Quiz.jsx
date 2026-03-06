@@ -275,7 +275,6 @@ export default function Quiz() {
                   <p className="text-[0.8125rem] text-n500 mb-3">Выберите удобные варианты связи</p>
                   <div className="flex flex-wrap gap-2">
                     {[
-                      { key: 'call', label: 'Звонок' },
                       { key: 'whatsapp', label: 'WhatsApp' },
                       { key: 'telegram', label: 'Telegram' },
                       { key: 'email', label: 'Email' },
