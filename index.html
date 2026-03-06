@@ -400,7 +400,7 @@ a{color:inherit;text-decoration:none}
   <div class="hero-text">
     <div class="hero-badge sr"><i>✦</i> Кружки, секции, курсы, мастер-классы</div>
     <h1 class="sr sr-d1">Подберём <em>занятия</em> ребёнку на&nbsp;основе предпочтений</h1>
-    <p class="hero-sub sr sr-d2">Ответьте на 5&nbsp;вопросов за&nbsp;2&nbsp;минуты&nbsp;— и&nbsp;получите персональную подборку из&nbsp;3-5 лучших кружков, секций и&nbsp;курсов рядом с&nbsp;домом. Прямо в&nbsp;мессенджер.</p>
+    <p class="hero-sub sr sr-d2">Ответьте на 10&nbsp;вопросов за&nbsp;3&nbsp;минуты&nbsp;— и&nbsp;получите персональную подборку из&nbsp;3-5 лучших кружков, секций и&nbsp;курсов рядом с&nbsp;домом. Прямо в&nbsp;мессенджер.</p>
     <button class="hero-cta sr sr-d3" onclick="toQuiz()">
       Подобрать занятия
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -530,7 +530,7 @@ a{color:inherit;text-decoration:none}
       <div class="step-num">01</div>
       <div class="step-thumb"><img src="https://images.unsplash.com/photo-1484820540004-14229fe36ca4?w=400&q=80" alt="Заполнение анкеты" loading="lazy"></div>
       <h3>Расскажите о&nbsp;ребёнке</h3>
-      <p>Анкета из 5&nbsp;вопросов: возраст, интересы, район. Занимает 2&nbsp;минуты.</p>
+      <p>Анкета из 10&nbsp;вопросов: возраст, формат занятий, особенности ребёнка и контакты. Занимает 3&nbsp;минуты.</p>
     </div>
     <div class="step-card sr sr-d2">
       <div class="step-num">02</div>
@@ -630,87 +630,64 @@ a{color:inherit;text-decoration:none}
 <section class="quiz-sec" id="quiz">
 <div class="container">
   <h2 class="sec-title sr">Подберём занятия для вашего ребёнка</h2>
-  <p class="sec-sub sr sr-d1">5 коротких вопросов — не больше 2 минут</p>
+  <p class="sec-sub sr sr-d1">Анкета из 10 вопросов — заполняется за несколько минут</p>
   <div class="quiz-card sr sr-d2" id="quizCard">
-    <div class="qz-progress"><div class="qz-progress-label">Шаг <span id="sNum">1</span> из 5</div><div class="qz-bar"><div class="qz-fill" id="pFill"></div></div></div>
-    <div class="qz-body">
-      <!-- S1 -->
-      <div class="qz-step active" data-step="1">
-        <h2>Сколько лет ребёнку?</h2>
-        <p class="qz-sub">Возраст — первое, от чего зависит выбор занятий</p>
-        <div class="age-grid" id="ageGrid">
-          <div class="age-pill" data-v="4-5 лет">4-5 лет</div><div class="age-pill" data-v="6-7 лет">6-7 лет</div><div class="age-pill" data-v="8-9 лет">8-9 лет</div><div class="age-pill" data-v="10-12 лет">10-12 лет</div><div class="age-pill" data-v="13-16 лет">13-16 лет</div>
+    <form id="clubsForm" class="qz-body" novalidate>
+      <div class="fg">
+        <label class="fl">Имя родителя</label>
+        <input class="fi" type="text" name="parentName" required placeholder="Как к вам обращаться?">
+      </div>
+      <div class="fg">
+        <label class="fl">Возраст ребёнка</label>
+        <input class="fi" type="number" name="childAge" min="2" max="18" required placeholder="Например: 7">
+      </div>
+
+      <div class="fg">
+        <label class="fl">Формат занятий</label>
+        <div class="msg-toggle" id="formatToggle">
+          <label class="msg-btn"><input type="radio" name="format" value="online" required> Онлайн</label>
+          <label class="msg-btn"><input type="radio" name="format" value="offline" required> Оффлайн</label>
         </div>
       </div>
-      <!-- S2 -->
-      <div class="qz-step" data-step="2">
-        <h2>Что нравится ребёнку?</h2>
-        <p class="qz-sub">Выберите одно или несколько направлений</p>
-        <div class="int-grid" id="intGrid">
-          <div class="int-card" data-v="Спорт"><img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&q=70" alt loading="lazy"><span>Спорт</span><div class="check-badge">✓</div></div>
-          <div class="int-card" data-v="Творчество"><img src="https://images.unsplash.com/photo-1607453998774-d533f65dac99?w=300&q=70" alt loading="lazy"><span>Творчество</span><div class="check-badge">✓</div></div>
-          <div class="int-card" data-v="Музыка"><img src="https://images.unsplash.com/photo-1514119412350-e174d90d585e?w=300&q=70" alt loading="lazy"><span>Музыка</span><div class="check-badge">✓</div></div>
-          <div class="int-card" data-v="Танцы"><img src="https://images.unsplash.com/photo-1571210862729-78a52d3779a2?w=300&q=70" alt loading="lazy"><span>Танцы</span><div class="check-badge">✓</div></div>
-          <div class="int-card" data-v="Программирование"><img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=300&q=70" alt loading="lazy"><span>IT / Код</span><div class="check-badge">✓</div></div>
-          <div class="int-card" data-v="Наука"><img src="https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=300&q=70" alt loading="lazy"><span>Наука</span><div class="check-badge">✓</div></div>
-          <div class="int-card" data-v="Языки"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=300&q=70" alt loading="lazy"><span>Языки</span><div class="check-badge">✓</div></div>
-          <div class="int-card" data-v="Шахматы"><img src="https://images.unsplash.com/photo-1586165368502-1bad197a6461?w=300&q=70" alt loading="lazy"><span>Шахматы</span><div class="check-badge">✓</div></div>
-          <div class="int-card" data-v="Другое"><img src="https://images.unsplash.com/photo-1587654780014-1cfba139a24d?w=300&q=70" alt loading="lazy"><span>Другое</span><div class="check-badge">✓</div></div>
+
+      <div id="offlineFields" style="display:none;">
+        <div class="fg">
+          <label class="fl">Город</label>
+          <input class="fi" type="text" name="city" placeholder="Например: Москва">
+        </div>
+        <div class="fg">
+          <label class="fl">Район</label>
+          <input class="fi" type="text" name="district" placeholder="Например: Хамовники">
+        </div>
+        <div class="fg">
+          <label class="fl">Адрес / удобная точка рядом</label>
+          <input class="fi" type="text" name="address" placeholder="Улица, метро, ориентир">
         </div>
       </div>
-      <!-- S3 -->
-      <div class="qz-step" data-step="3">
-        <h2>Что для вас важно?</h2>
-        <p class="qz-sub">Выберите до 3 критериев</p>
-        <div class="pri-wrap" id="priWrap">
-          <div class="pri-pill" data-v="Близко к дому"><i data-lucide="map-pin"></i> Близко к дому</div>
-          <div class="pri-pill" data-v="Доступная цена"><i data-lucide="wallet"></i> Доступная цена</div>
-          <div class="pri-pill" data-v="Качество"><i data-lucide="star"></i> Качество</div>
-          <div class="pri-pill" data-v="Расписание"><i data-lucide="calendar"></i> Расписание</div>
-          <div class="pri-pill" data-v="Маленькие группы"><i data-lucide="users"></i> Маленькие группы</div>
-          <div class="pri-pill" data-v="Соревнования"><i data-lucide="award"></i> Соревнования</div>
-          <div class="pri-pill" data-v="Чтобы нравилось"><i data-lucide="smile"></i> Чтобы нравилось</div>
-          <div class="pri-pill" data-v="Проф. развитие"><i data-lucide="trending-up"></i> Проф. развитие</div>
-        </div>
-        <div class="pri-count" id="priCount">Выбрано: 0 из 3</div>
+
+      <div id="questionsContainer"></div>
+
+      <div class="fg">
+        <label class="fl">Телефон</label>
+        <input class="fi" type="tel" name="phone" required placeholder="+7...">
       </div>
-      <!-- S4 -->
-      <div class="qz-step" data-step="4">
-        <h2>Где вам удобно?</h2>
-        <p class="qz-sub">Укажите район — мы подберём занятия поблизости</p>
-        <input type="hidden" id="cityS" value="Москва">
-        <div id="otherCG" style="display:none"><input type="text" class="fi" id="otherC"></div>
-        <div class="fg"><label class="fl">Район или метро</label><input type="text" class="fi" id="district" placeholder="Например: Хамовники или м. Парк Культуры"></div>
-        <div class="fg"><label class="fl">Бюджет в месяц</label><div class="budget-grid" id="budGrid">
-          <div class="bud-pill" data-v="до 3 000 ₽">до 3 000 ₽</div><div class="bud-pill" data-v="3–6 тыс. ₽">3–6 тыс. ₽</div><div class="bud-pill" data-v="6–10 тыс. ₽">6–10 тыс. ₽</div><div class="bud-pill" data-v="10–15 тыс. ₽">10–15 тыс. ₽</div><div class="bud-pill" data-v="Не важно">Не важно</div>
-        </div></div>
+      <div class="fg">
+        <label class="fl">Email</label>
+        <input class="fi" type="email" name="email" required placeholder="name@example.com">
       </div>
-      <!-- S5 -->
-      <div class="qz-step" data-step="5">
-        <h2>Куда прислать подборку?</h2>
-        <p class="qz-sub">Персональные рекомендации — в течение 1-2 часов</p>
-        <div class="fg"><label class="fl">Ваше имя</label><input type="text" class="fi" id="pName" placeholder="Как к вам обращаться?"><div class="err-msg" id="eN">Укажите имя</div></div>
-        <div class="fg"><label class="fl">Телефон / WhatsApp</label><div class="ph-wrap"><span class="ph-pre">+7</span><input type="tel" class="fi" id="phone" placeholder="(___) ___-__-__" maxlength="15"></div><div class="err-msg" id="ePh">Введите номер телефона</div></div>
-        <div class="fg"><label class="fl">Email <span style="color:var(--n400);font-weight:400">(необязательно)</span></label><input type="email" class="fi" id="email" placeholder="Для дополнительной связи"></div>
-        <div class="fg"><label class="fl">Удобный мессенджер</label><div class="msg-toggle" id="msgTog">
-          <button type="button" class="msg-btn" data-v="Telegram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Telegram</button>
-          <button type="button" class="msg-btn" data-v="WhatsApp"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>WhatsApp</button>
-        </div><div class="err-msg" id="eM">Выберите мессенджер</div></div>
-        <p class="privacy">Нажимая кнопку, вы соглашаетесь с&nbsp;обработкой персональных данных</p>
+      <div class="fg">
+        <label class="fl">Комментарий (необязательно)</label>
+        <input class="fi" type="text" name="comment" placeholder="Ограничения, пожелания, график">
       </div>
-    </div>
-    <div class="qz-actions" id="qzAct">
-      <button class="qz-back" id="bBack" style="visibility:hidden" onclick="prev()"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>Назад</button>
-      <button class="qz-next" id="bNext" disabled onclick="next()">Далее<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
-      <button class="qz-submit" id="bSub" style="display:none" disabled onclick="submit()">Получить подборку за 200 &#8381;</button>
-    </div>
-    <div class="success" id="successScr">
-      <div class="success-check"><div class="success-circle"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div></div>
-      <h2 id="sucTitle">Готово! Мы уже ищем занятия</h2>
-      <p id="sucText">Подборка из 3-5 занятий придёт в ваш мессенджер в течение 1-2 часов.</p>
-      <button class="btn-share" onclick="share()"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>Поделиться</button>
-      <br><span class="btn-restart" onclick="reset()">Заполнить на другого ребёнка</span>
-    </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl" style="font-weight:500"><input type="checkbox" name="consent" required> Согласен(а) на обработку персональных данных</label>
+      </div>
+
+      <div class="qz-actions" style="padding:1.25rem 0 0;">
+        <button class="qz-submit" type="submit" style="display:inline-flex">Отправить анкету</button>
+      </div>
+      <p class="privacy" id="formStatus"></p>
+    </form>
   </div>
 </div>
 </section>
@@ -743,70 +720,16 @@ a{color:inherit;text-decoration:none}
 document.addEventListener('DOMContentLoaded',()=>{
   if(typeof lucide!=='undefined')lucide.createIcons();
 
-  // Scroll reveal
   const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');obs.unobserve(x.target)}})},{threshold:.1});
   document.querySelectorAll('.sr').forEach(el=>obs.observe(el));
 
-  // Sticky nav
   window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('stuck',scrollY>50)},{passive:true});
 
-  // Counter animation
   const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){animateCount(x.target);cObs.unobserve(x.target)}})},{threshold:.5});
   document.querySelectorAll('.stat-num').forEach(el=>cObs.observe(el));
 
-  // Age pills
-  document.querySelectorAll('#ageGrid .age-pill').forEach(p=>{p.addEventListener('click',()=>{
-    document.querySelectorAll('#ageGrid .age-pill').forEach(x=>x.classList.remove('sel'));
-    p.classList.add('sel');fd.childAge=p.dataset.v;val()})});
-
-  // Interest cards
-  document.querySelectorAll('#intGrid .int-card').forEach(c=>{c.addEventListener('click',()=>{
-    c.classList.toggle('sel');
-    fd.interests=Array.from(document.querySelectorAll('#intGrid .int-card.sel')).map(x=>x.dataset.v);val()})});
-
-  // Priority pills
-  document.querySelectorAll('#priWrap .pri-pill').forEach(p=>{p.addEventListener('click',()=>{
-    if(p.classList.contains('dis')&&!p.classList.contains('sel'))return;
-    p.classList.toggle('sel');
-    const s=document.querySelectorAll('#priWrap .pri-pill.sel');
-    fd.priorities=Array.from(s).map(x=>x.dataset.v);
-    const c=s.length;document.getElementById('priCount').textContent=`Выбрано: ${c} из 3`;
-    document.querySelectorAll('#priWrap .pri-pill').forEach(x=>{if(!x.classList.contains('sel'))x.classList.toggle('dis',c>=3)});val()})});
-
-  // Budget pills
-  document.querySelectorAll('#budGrid .bud-pill').forEach(p=>{p.addEventListener('click',()=>{
-    document.querySelectorAll('#budGrid .bud-pill').forEach(x=>x.classList.remove('sel'));
-    p.classList.add('sel');fd.budget=p.dataset.v})});
-
-  // City
-  document.getElementById('cityS').addEventListener('change',function(){
-    const o=document.getElementById('otherCG');o.style.display=this.value==='other'?'block':'none';
-    fd.city=this.value==='other'?'':this.value;val()});
-  document.getElementById('otherC').addEventListener('input',function(){fd.city=this.value;val()});
-
-  // Messenger
-  document.querySelectorAll('#msgTog .msg-btn').forEach(b=>{b.addEventListener('click',()=>{
-    document.querySelectorAll('#msgTog .msg-btn').forEach(x=>x.classList.remove('sel'));
-    b.classList.add('sel');fd.messenger=b.dataset.v;
-    document.getElementById('eM').classList.remove('show');val()})});
-
-  // Phone mask
-  const ph=document.getElementById('phone');
-  ph.addEventListener('input',function(){let v=this.value.replace(/\D/g,'');if(v.length>10)v=v.slice(0,10);
-    let f='';if(v.length>0)f='('+v.slice(0,3);if(v.length>=3)f+=') ';if(v.length>3)f+=v.slice(3,6);
-    if(v.length>=6)f+='-';if(v.length>6)f+=v.slice(6,8);if(v.length>=8)f+='-';if(v.length>8)f+=v.slice(8,10);
-    this.value=f;fd.phone=v.length===10?'+7'+v:'';val()});
-
-  document.getElementById('pName').addEventListener('input',function(){fd.parentName=this.value.trim();
-    if(this.value.trim()){this.classList.remove('err');document.getElementById('eN').classList.remove('show')}val()});
-  document.getElementById('email').addEventListener('input',function(){fd.email=this.value.trim()});
-  val();
+  setupClubsForm();
 });
-
-let step=1;
-const fd={childAge:'',childName:'',interests:[],priorities:[],city:'Москва',district:'',budget:'',parentName:'',phone:'',email:'',messenger:''};
-
-function toQuiz(){document.getElementById('quiz').scrollIntoView({behavior:'smooth',block:'start'})}
 
 function animateCount(el){
   const target=+el.dataset.count;const dec=el.dataset.decimal==='true';const suf=el.dataset.suffix||'';
@@ -818,71 +741,63 @@ function animateCount(el){
   requestAnimationFrame(tick);
 }
 
-function val(){
-  let ok=false;
-  switch(step){
-    case 1:ok=!!fd.childAge;break;case 2:ok=fd.interests.length>0;break;
-    case 3:ok=fd.priorities.length>0;break;
-    case 4:ok=!!fd.city||(document.getElementById('cityS').value&&document.getElementById('cityS').value!=='other');break;
-    case 5:ok=!!fd.parentName&&!!fd.phone&&!!fd.messenger;break}
-  if(step<5)document.getElementById('bNext').disabled=!ok;
-  else document.getElementById('bSub').disabled=!ok;
-}
-function upd(){
-  document.getElementById('sNum').textContent=step;
-  document.getElementById('pFill').style.width=(step*20)+'%';
-  document.getElementById('bBack').style.visibility=step>1?'visible':'hidden';
-  document.getElementById('bNext').style.display=step<5?'inline-flex':'none';
-  document.getElementById('bSub').style.display=step===5?'inline-flex':'none';
-}
-function show(s){
-  document.querySelectorAll('.qz-step').forEach(x=>{x.classList.remove('active');x.style.display='none'});
-  const t=document.querySelector(`.qz-step[data-step="${s}"]`);t.style.display='block';void t.offsetWidth;t.classList.add('active');
-  if(typeof lucide!=='undefined')lucide.createIcons()}
-function next(){if(step>=5)return;
-  if(step===1)fd.childName=document.getElementById('cName').value.trim();
-  if(step===4)fd.district=document.getElementById('district').value.trim();
-  step++;show(step);upd();val()}
-function prev(){if(step<=1)return;step--;show(step);upd();val()}
-function submit(){
-  let err=false;
-  if(!fd.parentName){document.getElementById('pName').classList.add('err');document.getElementById('eN').classList.add('show');err=true}
-  if(!fd.phone){document.getElementById('phone').classList.add('err');document.getElementById('ePh').classList.add('show');err=true}
-  if(!fd.messenger){document.getElementById('eM').classList.add('show');err=true}
-  if(err)return;
-  fd.email=document.getElementById('email').value.trim();
-  console.log('📋 Заявка Весело:',JSON.parse(JSON.stringify(fd)));
-  document.querySelector('.qz-progress').style.display='none';
-  document.querySelector('.qz-body').style.display='none';
-  document.getElementById('qzAct').style.display='none';
-  const cn=fd.childName||'вашего ребёнка';
-  document.getElementById('sucTitle').textContent=`Готово! Мы уже ищем занятия для ${cn}`;
-  document.getElementById('sucText').textContent=`Подборка из 3-5 занятий придёт в ${fd.messenger} в течение 1-2 часов. Мы пришлём описание, цены, расписание и контакты.`;
-  const s=document.getElementById('successScr');s.classList.add('active');
-  mkConfetti();
-}
-function mkConfetti(){
-  const c=document.querySelector('.success-check');const cols=['#FF6B35','#FFD23F','#22C55E','#2D1B69','#4A3A8A','#FF8F65'];
-  for(let i=0;i<14;i++){const p=document.createElement('div');p.className='confetti';
-    p.style.background=cols[i%cols.length];p.style.left=(Math.random()*60+6)+'px';p.style.top='30px';
-    p.style.animationDelay=(Math.random()*.5)+'s';p.style.animationDuration=(1.5+Math.random()*1.5)+'s';p.style.opacity='1';
-    c.appendChild(p)}}
-function reset(){
-  step=1;Object.keys(fd).forEach(k=>fd[k]=Array.isArray(fd[k])?[]:'');
-  document.querySelectorAll('.age-pill,.int-card,.pri-pill,.bud-pill,.msg-btn').forEach(x=>x.classList.remove('sel','dis'));
-  document.querySelectorAll('.fi').forEach(x=>{x.value='';x.classList.remove('err')});
-  document.querySelectorAll('.err-msg').forEach(x=>x.classList.remove('show'));
-  document.getElementById('cityS').selectedIndex=0;document.getElementById('otherCG').style.display='none';
-  document.getElementById('priCount').textContent='Выбрано: 0 из 3';
-  document.querySelector('.qz-progress').style.display='';document.querySelector('.qz-body').style.display='';
-  document.getElementById('qzAct').style.display='';document.getElementById('successScr').classList.remove('active');
-  document.querySelectorAll('.confetti').forEach(x=>x.remove());show(1);upd();val()}
-function share(){const u=location.href;const t='Крутой сервис — подбирают занятия для детей за 200 ₽!';
-  if(navigator.share)navigator.share({title:'Весело',text:t,url:u}).catch(()=>{});
-  else navigator.clipboard.writeText(u+'\n'+t).then(()=>alert('Ссылка скопирована!'))}
+function toQuiz(){document.getElementById('quiz').scrollIntoView({behavior:'smooth',block:'start'})}
+
 function togFaq(b){const i=b.parentElement;const o=i.classList.contains('open');
   document.querySelectorAll('.faq-item').forEach(x=>{x.classList.remove('open');x.querySelector('.faq-a').style.maxHeight='0'});
   if(!o){i.classList.add('open');const a=i.querySelector('.faq-a');a.style.maxHeight=a.scrollHeight+'px'}}
+
+function setupClubsForm(){
+  const QUESTIONS = [
+    { key:'q1', title:'1. Зачем ребёнку кружки?', options:['Занять время','Здоровье/энергия','Ум/навыки','Общение','Профессия в будущем','Радость/удовольствие'] },
+    { key:'q2', title:'2. Как ребёнок вливается в коллектив?', options:['Лидер, сам знакомится','Наблюдатель, входит постепенно','Избирательно, 1-2 друга','Тревожно, не отпускает меня','Игнорирует всех, сам по себе','Пристраивается к активным'] },
+    { key:'q3', title:'3. Что успокаивает ребёнка?', options:['Беготня/шум','Рисование/конструктор','Музыка/пение','Разговоры со мной','Объятия/тактильность','Одиночество/тишина','Еда/вкусняшки'] },
+    { key:'q4', title:'4. Как к соревнованиям?', options:['Любит, хочет побеждать','Ради процесса, проигрыш не страшен','Болезненно, до слёз','Не любит, только для себя','Заводится, но быстро выгорает','Сражается до последнего'] },
+    { key:'q5', title:'5. Что важнее в результате?', options:['Чтобы полюбил дело','Чтобы нашёл друзей','Чтобы стал увереннее','Чтобы выплескивал энергию','Чтобы уставал и хорошо спал','Чтобы отвлёкся от гаджетов','Чтобы научился дисциплине','Чтобы пробовал новое','Чтобы просто был счастлив'] },
+    { key:'q6', title:'6. Что ребёнок выбирает в свободное время?', options:['Активные игры/спорт','Творчество (лепить/рисовать)','Гаджеты/мультики','Помощь мне по дому','Чтение книг','Конструирование/сборку','Настольные игры','Общение с друзьями','Гулять на улице','Ничего не делать'] },
+    { key:'q7', title:'7. Как реагирует на трудности?', options:['Легко бросает, если не получается','Упрямо добивается, даже со слезами','Ищет помощь у взрослых','Быстро переключается на другое','Злится, может сломать/кинуть','Хитрит, ищет обходные пути','Замирает и не знает, что делать','Смеётся/отшучивается','Плачет/обижается','Просит подсказку'] },
+    { key:'q8', title:'8. Какая обстановка ему нужна?', options:['Шумно, много детей','Тихо, мало людей','Индивидуально с педагогом','Домашняя, привычная','На улице/на природе','Чёткая структура и правила','Свобода и импровизация','Всё яркое/красочное','Минимализм/ничего лишнего'] },
+    { key:'q9', title:'9. Что его бесит/раздражает?', options:['Когда заставляют ждать','Когда трогают его вещи','Когда говорят "ты не справишься"','Когда нарушают правила','Громкие звуки','Когда перебивают','Однообразие/скучно','Когда не берут в игру','Когда просят повторить/исправить','Критика в его сторону'] },
+    { key:'q10', title:'10. Какой он в компании друзей?', options:['Главный затейник','Тень, делает как все','Миротворец, всех мирит','Сам по себе, одиночка','Задира/спорщик','Защитник слабых','Душа компании, весельчак','Наблюдатель со стороны','Молчун/стеснительный','Лидер, но тихий'] }
+  ];
+
+  const form = document.getElementById('clubsForm');
+  if(!form) return;
+  const statusEl = document.getElementById('formStatus');
+  const questionsContainer = document.getElementById('questionsContainer');
+  const offlineFields = document.getElementById('offlineFields');
+
+  QUESTIONS.forEach((q)=>{
+    const block = document.createElement('div');
+    block.className = 'fg';
+    block.innerHTML = `<label class="fl">${q.title}</label><select class="fs" name="${q.key}" required><option value="">Выберите вариант</option>${q.options.map(o=>`<option value="${o.replace(/"/g,'&quot;')}">${o}</option>`).join('')}</select>`;
+    questionsContainer.appendChild(block);
+  });
+
+  form.addEventListener('change',(e)=>{
+    if(e.target.name==='format'){
+      const isOffline = e.target.value==='offline';
+      offlineFields.style.display = isOffline ? 'block' : 'none';
+      ['city','address'].forEach(name=>form.elements[name].required = isOffline);
+    }
+  });
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    statusEl.textContent='';
+    if(!form.checkValidity()){
+      form.reportValidity();
+      statusEl.textContent='Проверьте обязательные поля.';
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    console.log('📋 Заявка Весело:', data);
+    statusEl.textContent='Спасибо! Анкета отправлена.';
+    form.reset();
+    offlineFields.style.display = 'none';
+  });
+}
 </script>
 </body>
 </html>
