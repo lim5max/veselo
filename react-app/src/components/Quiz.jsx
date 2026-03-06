@@ -70,6 +70,7 @@ const initialData = {
 export default function Quiz() {
   const [data, setData] = useState(initialData)
   const [status, setStatus] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
   const isOffline = data.format === 'offline'
 
@@ -84,15 +85,43 @@ export default function Quiz() {
     setData((prev) => ({ ...prev, [key]: value }))
   }
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault()
     if (!canSubmit) {
       setStatus('Проверьте обязательные поля.')
       return
     }
-    console.log('📋 Заявка Весело:', data)
-    setStatus('Спасибо! Анкета отправлена.')
-    setData(initialData)
+
+    const endpoint = import.meta.env.VITE_LEAD_API_URL || '/api/lead'
+
+    try {
+      setSubmitting(true)
+      setStatus('Отправляем анкету...')
+
+      const payload = {
+        ...data,
+        source: 'veselo-web',
+        createdAt: new Date().toISOString(),
+      }
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`)
+      }
+
+      setStatus('Спасибо! Анкета отправлена. Скоро свяжемся с вами.')
+      setData(initialData)
+    } catch (err) {
+      console.error('Ошибка отправки анкеты:', err)
+      setStatus('Не удалось отправить анкету. Попробуйте ещё раз или свяжитесь с нами напрямую.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -195,9 +224,9 @@ export default function Quiz() {
               <button
                 type="submit"
                 className="inline-flex items-center gap-2 bg-coral text-white font-head font-bold text-base py-3.5 px-7 rounded-full transition-all duration-250 hover:bg-coral-dk hover:-translate-y-px disabled:opacity-35 disabled:cursor-not-allowed"
-                disabled={!canSubmit}
+                disabled={!canSubmit || submitting}
               >
-                Отправить анкету
+                {submitting ? 'Отправка...' : 'Отправить анкету'}
               </button>
               {status && <p className="text-sm text-n500 mt-3">{status}</p>}
             </div>
