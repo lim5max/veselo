@@ -104,8 +104,10 @@ export default function Quiz() {
       const formatOk = Boolean(data.format)
       const offlineOk = !isOffline || (data.city && data.location)
       const methodsOk = Array.isArray(data.contactMethods) && data.contactMethods.length > 0
-      const hasData = (data.phone && data.phone.trim()) || (data.email && data.email.trim()) || (data.telegram && data.telegram.trim())
-      return Boolean(data.consent && formatOk && offlineOk && methodsOk && hasData)
+      const hasPhone = data.contactMethods.includes('whatsapp') ? Boolean(data.phone && data.phone.trim()) : true
+      const hasEmail = data.contactMethods.includes('email') ? Boolean(data.email && data.email.trim()) : true
+      const hasTelegram = data.contactMethods.includes('telegram') ? Boolean(data.telegram && data.telegram.trim()) : true
+      return Boolean(data.consent && formatOk && offlineOk && methodsOk && hasPhone && hasEmail && hasTelegram)
     }
 
     const question = QUESTIONS.find((q) => q.key === stepKey)
@@ -117,8 +119,10 @@ export default function Quiz() {
     const basic = !!data.childAge
     const offlineOk = !isOffline || (data.city && data.location)
     const methodsOk = Array.isArray(data.contactMethods) && data.contactMethods.length > 0
-    const hasData = (data.phone && data.phone.trim()) || (data.email && data.email.trim()) || (data.telegram && data.telegram.trim())
-    const contacts = data.consent && data.format && methodsOk && hasData
+    const hasPhone = data.contactMethods.includes('whatsapp') ? Boolean(data.phone && data.phone.trim()) : true
+    const hasEmail = data.contactMethods.includes('email') ? Boolean(data.email && data.email.trim()) : true
+    const hasTelegram = data.contactMethods.includes('telegram') ? Boolean(data.telegram && data.telegram.trim()) : true
+    const contacts = data.consent && data.format && methodsOk && hasPhone && hasEmail && hasTelegram
     const questionsOk = QUESTIONS.every((q) => Array.isArray(data[q.key]) && data[q.key].length > 0)
     return Boolean(basic && offlineOk && contacts && questionsOk)
   }, [data, isOffline])
@@ -300,18 +304,26 @@ export default function Quiz() {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
-                  <label className="block">
-                    <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Телефон</span>
-                    <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="+7..." />
-                  </label>
-                  <label className="block">
-                    <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Email</span>
-                    <input type="email" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.email} onChange={(e) => update('email', e.target.value)} placeholder="name@example.com" />
-                  </label>
-                  <label className="block md:col-span-2">
-                    <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Telegram (username, необязательно)</span>
-                    <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.telegram} onChange={(e) => update('telegram', e.target.value)} placeholder="@username" />
-                  </label>
+                  {data.contactMethods.includes('whatsapp') && (
+                    <label className="block">
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">WhatsApp (телефон)</span>
+                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="+7..." />
+                    </label>
+                  )}
+
+                  {data.contactMethods.includes('email') && (
+                    <label className="block">
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Email</span>
+                      <input type="email" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.email} onChange={(e) => update('email', e.target.value)} placeholder="name@example.com" />
+                    </label>
+                  )}
+
+                  {data.contactMethods.includes('telegram') && (
+                    <label className="block md:col-span-2">
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Telegram (username)</span>
+                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.telegram} onChange={(e) => update('telegram', e.target.value)} placeholder="@username" />
+                    </label>
+                  )}
                 </div>
 
                 <label className="block">
