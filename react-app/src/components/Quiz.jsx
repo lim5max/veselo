@@ -51,7 +51,7 @@ const QUESTIONS = [
 const STEPS = ['basic', ...QUESTIONS.map((q) => q.key), 'contacts']
 
 const initialData = {
-  childAge: [],
+  childAge: '',
   format: '',
   city: '',
   location: '',
@@ -89,7 +89,7 @@ export default function Quiz() {
 
   const isStepValid = useMemo(() => {
     if (stepKey === 'basic') {
-      const base = data.childAge.length > 0
+      const base = !!data.childAge
       return Boolean(base)
     }
 
@@ -105,7 +105,7 @@ export default function Quiz() {
   }, [data, isOffline, stepKey])
 
   const canSubmit = useMemo(() => {
-    const basic = data.childAge.length > 0
+    const basic = !!data.childAge
     const offlineOk = !isOffline || (data.city && data.location)
     const contacts = data.phone && data.email && data.consent && data.format
     const questionsOk = QUESTIONS.every((q) => Array.isArray(data[q.key]) && data[q.key].length > 0)
@@ -188,15 +188,14 @@ export default function Quiz() {
               <>
                 <div>
                   <p className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Возраст ребёнка</p>
-                  <p className="text-[0.8125rem] text-n500 mb-2">Можно выбрать несколько диапазонов</p>
                   <div className="flex flex-wrap gap-2">
                     {['2-3 года', '4-5 лет', '6-7 лет', '8-9 лет', '10-12 лет', '13-16 лет', '17-18 лет'].map((age) => {
-                      const selected = Array.isArray(data.childAge) && data.childAge.includes(age)
+                      const selected = data.childAge === age
                       return (
                         <button
                           key={age}
                           type="button"
-                          onClick={() => toggleMultiAnswer('childAge', age)}
+                          onClick={() => update('childAge', age)}
                           className={`py-2 px-3 border-2 rounded-full text-[0.8125rem] transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral'}`}
                         >
                           {age}
