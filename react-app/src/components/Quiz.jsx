@@ -289,7 +289,6 @@ export default function Quiz() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <label className="block">
                       <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Выбрать на карте</span>
-                      <div className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 text-n500">Москва</div>
                     </label>
                     <label className="block">
                       <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Локация</span>
