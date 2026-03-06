@@ -7,14 +7,14 @@ const WaIcon = () => (
 
 const FooterChar = () => (
   <svg viewBox="0 0 50 50" fill="none" className="w-10 h-10">
-    <circle cx="25" cy="25" r="22" fill="#FF6B35" />
+    <circle cx="25" cy="25" r="22" fill="#FFA561" />
     <ellipse cx="19" cy="22" rx="3.5" ry="4" fill="white" />
     <ellipse cx="31" cy="22" rx="3.5" ry="4" fill="white" />
-    <circle cx="19.5" cy="22.5" r="2.5" fill="#2D1B69" />
-    <circle cx="31.5" cy="22.5" r="2.5" fill="#2D1B69" />
+    <circle cx="19.5" cy="22.5" r="2.5" fill="#6C52C9" />
+    <circle cx="31.5" cy="22.5" r="2.5" fill="#6C52C9" />
     <circle cx="20.5" cy="21" r="1" fill="white" />
     <circle cx="32.5" cy="21" r="1" fill="white" />
-    <path d="M19 34 C22 38, 28 38, 31 34" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" fill="none" />
+    <path d="M19 34 C22 38, 28 38, 31 34" stroke="#6C52C9" strokeWidth="2" strokeLinecap="round" fill="none" />
   </svg>
 )
 

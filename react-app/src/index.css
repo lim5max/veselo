@@ -76,10 +76,10 @@
     white-space: nowrap;
   }
   .text-pill-coral { background: var(--color-coral-lt); color: var(--color-coral-dk); }
-  .text-pill-gold { background: var(--color-gold-lt); color: #B8860B; }
-  .text-pill-green { background: var(--color-green-lt); color: #16A34A; }
+  .text-pill-gold { background: var(--color-gold-lt); color: #C5A542; }
+  .text-pill-green { background: var(--color-green-lt); color: #73D664; }
   .text-pill-pink { background: var(--color-pink-lt); color: #E11D7A; }
-  .text-pill-sky { background: var(--color-sky-lt); color: #0284C7; }
+  .text-pill-sky { background: var(--color-sky-lt); color: #6FA7EE; }
   .text-pill-lavender { background: var(--color-lavender-lt); color: #7C3AED; }
 
   /* Handwritten font utility */

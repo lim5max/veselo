@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
 const stats = [
-  { count: 870, suffix: '', decimal: false, label: 'подборок отправлено', hand: 'и считаем', color: '#FF6B35' },
-  { count: 150, suffix: '', decimal: false, label: 'проверенных занятий', hand: 'в базе', color: '#FFD23F' },
-  { count: 47, suffix: ' мин', decimal: false, label: 'среднее время ответа', hand: 'не часы, а минуты', color: '#22C55E' },
-  { count: 49, suffix: '', decimal: true, label: 'оценка от родителей', hand: 'из 5.0', color: '#B197FC' },
+  { count: 870, suffix: '', decimal: false, label: 'подборок отправлено', hand: 'и считаем', color: '#FFA561' },
+  { count: 150, suffix: '', decimal: false, label: 'проверенных занятий', hand: 'в базе', color: '#F8DC5B' },
+  { count: 47, suffix: ' мин', decimal: false, label: 'среднее время ответа', hand: 'не часы, а минуты', color: '#91E27A' },
+  { count: 49, suffix: '', decimal: true, label: 'оценка от родителей', hand: 'из 5.0', color: '#C9A4FF' },
 ]
 
 function AnimatedNum({ count, suffix, decimal }) {

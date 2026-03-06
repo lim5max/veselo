@@ -4,33 +4,33 @@ import { ArrowRight, MapPin, Star, Zap, Users, Palette, Activity } from 'lucide-
 const ChildAvatar = ({ className = '' }) => (
   <svg viewBox="0 0 140 160" fill="none" className={className}>
     {/* Hair */}
-    <ellipse cx="70" cy="52" rx="52" ry="48" fill="#8B5CF6" />
+    <ellipse cx="70" cy="52" rx="52" ry="48" fill="#A684F4" />
     <path d="M22 52 C22 28, 44 8, 70 8 C96 8, 118 28, 118 52" fill="#6D3FCC" />
     {/* Face */}
     <ellipse cx="70" cy="72" rx="44" ry="42" fill="#FFCBA4" />
     {/* Eyes */}
     <ellipse cx="54" cy="68" rx="6" ry="7" fill="white" />
     <ellipse cx="86" cy="68" rx="6" ry="7" fill="white" />
-    <circle cx="55" cy="69" r="4.5" fill="#2D1B69" />
-    <circle cx="87" cy="69" r="4.5" fill="#2D1B69" />
+    <circle cx="55" cy="69" r="4.5" fill="#6C52C9" />
+    <circle cx="87" cy="69" r="4.5" fill="#6C52C9" />
     <circle cx="57" cy="67" r="1.8" fill="white" />
     <circle cx="89" cy="67" r="1.8" fill="white" />
     {/* Blush */}
-    <circle cx="40" cy="80" r="6" fill="#FF8FAB" opacity="0.3" />
-    <circle cx="100" cy="80" r="6" fill="#FF8FAB" opacity="0.3" />
+    <circle cx="40" cy="80" r="6" fill="#F6A4E8" opacity="0.3" />
+    <circle cx="100" cy="80" r="6" fill="#F6A4E8" opacity="0.3" />
     {/* Smile */}
-    <path d="M55 88 C60 96, 80 96, 85 88" stroke="#2D1B69" strokeWidth="3" strokeLinecap="round" fill="none" />
+    <path d="M55 88 C60 96, 80 96, 85 88" stroke="#6C52C9" strokeWidth="3" strokeLinecap="round" fill="none" />
     {/* Body/shirt */}
-    <path d="M35 112 C35 105, 48 100, 70 100 C92 100, 105 105, 105 112 L108 150 C108 155, 100 158, 70 158 C40 158, 32 155, 32 150Z" fill="#38BDF8" />
+    <path d="M35 112 C35 105, 48 100, 70 100 C92 100, 105 105, 105 112 L108 150 C108 155, 100 158, 70 158 C40 158, 32 155, 32 150Z" fill="#8DBDFF" />
     {/* Shirt collar */}
     <path d="M58 102 L70 114 L82 102" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.6" />
     {/* Star on shirt */}
-    <path d="M70 125 L73 132 L80 132 L74 136 L76 143 L70 139 L64 143 L66 136 L60 132 L67 132Z" fill="#FFD23F" opacity="0.7" />
+    <path d="M70 125 L73 132 L80 132 L74 136 L76 143 L70 139 L64 143 L66 136 L60 132 L67 132Z" fill="#F8DC5B" opacity="0.7" />
   </svg>
 )
 
 /* ---- Decorative sparkle (reused from Hero style) ---- */
-const Sparkle = ({ className = '', color = '#FFD23F' }) => (
+const Sparkle = ({ className = '', color = '#F8DC5B' }) => (
   <svg viewBox="0 0 24 24" fill="none" className={className}>
     <path d="M12 0 C12 10, 12 10, 12 12 C12 10, 12 10, 24 12 C12 12, 12 12, 12 24 C12 12, 12 12, 0 12 C12 12, 12 12, 12 0Z" fill={color} opacity="0.55" />
   </svg>
@@ -62,53 +62,53 @@ const BlurredLogo = ({ colors, shape = 'circle' }) => (
 )
 
 const traits = [
-  { icon: '7', label: 'лет', bg: 'bg-sky-lt', text: 'text-[#0284C7]', isBig: true },
+  { icon: '7', label: 'лет', bg: 'bg-sky-lt', text: 'text-[#6FA7EE]', isBig: true },
   { Icon: Palette, label: 'Творчество', bg: 'bg-lavender-lt', text: 'text-[#7C3AED]' },
   { Icon: Activity, label: 'Движение', bg: 'bg-coral-lt', text: 'text-coral-dk' },
-  { Icon: Zap, label: 'Энергия: высокая', bg: 'bg-gold-lt', text: 'text-[#B8860B]' },
-  { Icon: Users, label: 'Командный игрок', bg: 'bg-green-lt', text: 'text-[#16A34A]' },
+  { Icon: Zap, label: 'Энергия: высокая', bg: 'bg-gold-lt', text: 'text-[#C5A542]' },
+  { Icon: Users, label: 'Командный игрок', bg: 'bg-green-lt', text: 'text-[#73D664]' },
 ]
 
 const activities = [
   {
     name: 'Студия керамики «Глинка»',
     category: 'Творчество',
-    catColor: '#B197FC',
-    catBg: '#F3EEFF',
+    catColor: '#C9A4FF',
+    catBg: '#F5EDFF',
     distance: '1.2 км',
     rating: 4.9,
     reviews: 48,
-    logo: { colors: ['#B197FC', '#E8DBFF', '#8B5CF6'], shape: 'circle' },
+    logo: { colors: ['#C9A4FF', '#E8DBFF', '#A684F4'], shape: 'circle' },
   },
   {
     name: 'Футбольная школа «Чемпион»',
     category: 'Спорт',
-    catColor: '#38BDF8',
-    catBg: '#EBF8FF',
+    catColor: '#8DBDFF',
+    catBg: '#ECF4FF',
     distance: '0.8 км',
     rating: 4.8,
     reviews: 124,
-    logo: { colors: ['#38BDF8', '#1E90FF', '#EBF8FF'], shape: 'blocks' },
+    logo: { colors: ['#8DBDFF', '#1E90FF', '#ECF4FF'], shape: 'blocks' },
   },
   {
     name: 'Театральная студия «Маска»',
     category: 'Творчество',
-    catColor: '#FF8FAB',
-    catBg: '#FFF0F3',
+    catColor: '#F6A4E8',
+    catBg: '#FFF0FC',
     distance: '1.5 км',
     rating: 5.0,
     reviews: 36,
-    logo: { colors: ['#FF6B35', '#FFD23F'], shape: 'gradient' },
+    logo: { colors: ['#FFA561', '#F8DC5B'], shape: 'gradient' },
   },
   {
     name: 'Секция капоэйры «Movimento»',
     category: 'Спорт / Танцы',
-    catColor: '#22C55E',
-    catBg: '#ECFDF5',
+    catColor: '#91E27A',
+    catBg: '#EEFFEF',
     distance: '2.1 км',
     rating: 4.7,
     reviews: 19,
-    logo: { colors: ['#22C55E', '#FFD23F', '#2D1B69'], shape: 'circle' },
+    logo: { colors: ['#91E27A', '#F8DC5B', '#6C52C9'], shape: 'circle' },
   },
 ]
 
@@ -139,8 +139,8 @@ export default function ChildProfile({ onQuiz }) {
 
       {/* Floating sparkles */}
       <Sparkle className="absolute top-20 right-[10%] w-6 h-6 animate-[wiggle_3s_ease-in-out_infinite]" />
-      <Sparkle className="absolute bottom-32 left-[8%] w-5 h-5 animate-[float-b_4s_ease-in-out_infinite]" color="#B197FC" />
-      <Sparkle className="absolute top-40 left-[15%] w-4 h-4 animate-[float-a_5s_ease-in-out_infinite]" color="#FF8FAB" />
+      <Sparkle className="absolute bottom-32 left-[8%] w-5 h-5 animate-[float-b_4s_ease-in-out_infinite]" color="#C9A4FF" />
+      <Sparkle className="absolute top-40 left-[15%] w-4 h-4 animate-[float-a_5s_ease-in-out_infinite]" color="#F6A4E8" />
 
       <div className="max-w-[1240px] mx-auto px-5 md:px-10 relative">
         {/* Section header */}

@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react'
 const CHILD_PHOTO = 'https://files.1mi.media/f6aaefee1c8c421c941dce6a5a0412f3891d1e3a/c:1456:819:nowe:0:-2/4767aa549d078e28aa31a22545adcf6fb9b965351d0e73172e634f0336ed.webp'
 
 /* Hand-drawn doodles */
-const Sparkle4 = ({ className = '', color = '#FFD23F' }) => (
+const Sparkle4 = ({ className = '', color = '#F8DC5B' }) => (
   <svg viewBox="0 0 24 24" fill="none" className={className}>
     <path d="M12 0 C12 10, 12 10, 12 12 C12 10, 12 10, 24 12 C12 12, 12 12, 12 24 C12 12, 12 12, 0 12 C12 12, 12 12, 12 0Z" fill={color} opacity="0.55" />
   </svg>
@@ -11,21 +11,21 @@ const Sparkle4 = ({ className = '', color = '#FFD23F' }) => (
 
 const DoodleHeart = ({ className = '' }) => (
   <svg viewBox="0 0 24 24" fill="none" className={className}>
-    <path d="M12 21 C6 16, 2 12, 2 8 C2 5, 4.5 2, 7.5 2 C9.5 2, 11 3, 12 5 C13 3, 14.5 2, 16.5 2 C19.5 2, 22 5, 22 8 C22 12, 18 16, 12 21Z" fill="#FF8FAB" opacity="0.4" />
+    <path d="M12 21 C6 16, 2 12, 2 8 C2 5, 4.5 2, 7.5 2 C9.5 2, 11 3, 12 5 C13 3, 14.5 2, 16.5 2 C19.5 2, 22 5, 22 8 C22 12, 18 16, 12 21Z" fill="#F6A4E8" opacity="0.4" />
   </svg>
 )
 
 const DoodleCurve = ({ className = '' }) => (
   <svg viewBox="0 0 120 40" fill="none" className={className}>
-    <path d="M5 30 C25 5, 55 35, 80 15 C95 5, 105 18, 115 10" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" strokeDasharray="6 5" opacity="0.12" />
+    <path d="M5 30 C25 5, 55 35, 80 15 C95 5, 105 18, 115 10" stroke="#6C52C9" strokeWidth="2" strokeLinecap="round" strokeDasharray="6 5" opacity="0.12" />
   </svg>
 )
 
 const avatars = [
-  { letter: 'М', gradient: 'linear-gradient(135deg,#FF6B35,#ff8f65)' },
-  { letter: 'О', gradient: 'linear-gradient(135deg,#B197FC,#8B5CF6)' },
-  { letter: 'Д', gradient: 'linear-gradient(135deg,#22C55E,#34d399)' },
-  { letter: 'А', gradient: 'linear-gradient(135deg,#FFD23F,#fbbf24)' },
+  { letter: 'М', gradient: 'linear-gradient(135deg,#FFA561,#FFC08C)' },
+  { letter: 'О', gradient: 'linear-gradient(135deg,#C9A4FF,#A684F4)' },
+  { letter: 'Д', gradient: 'linear-gradient(135deg,#91E27A,#9AF0A6)' },
+  { letter: 'А', gradient: 'linear-gradient(135deg,#F8DC5B,#fbbf24)' },
 ]
 
 export default function Hero({ onQuiz }) {
@@ -39,9 +39,9 @@ export default function Hero({ onQuiz }) {
 
       {/* Floating doodles */}
       <Sparkle4 className="absolute top-32 right-[15%] w-7 h-7 animate-[wiggle_3s_ease-in-out_infinite]" />
-      <Sparkle4 className="absolute top-52 left-[8%] w-5 h-5 animate-[float-b_4s_ease-in-out_infinite]" color="#FF6B35" />
+      <Sparkle4 className="absolute top-52 left-[8%] w-5 h-5 animate-[float-b_4s_ease-in-out_infinite]" color="#FFA561" />
       <DoodleHeart className="absolute bottom-28 right-[22%] w-8 h-8 animate-[float-a_5s_ease-in-out_infinite]" />
-      <Sparkle4 className="absolute bottom-44 left-[12%] w-5 h-5 animate-[wiggle_4s_ease-in-out_infinite]" color="#B197FC" />
+      <Sparkle4 className="absolute bottom-44 left-[12%] w-5 h-5 animate-[wiggle_4s_ease-in-out_infinite]" color="#C9A4FF" />
       <DoodleCurve className="absolute bottom-16 left-[5%] w-32 h-10 opacity-60" />
 
       <div className="max-w-[1240px] mx-auto px-5 md:px-10 relative">
@@ -160,8 +160,8 @@ export default function Hero({ onQuiz }) {
 
             {/* Sparkle accents */}
             <Sparkle4 className="absolute top-[100px] right-[0px] w-6 h-6 z-[6] animate-[wiggle_2.5s_ease-in-out_infinite]" />
-            <Sparkle4 className="absolute bottom-[150px] left-[-25px] w-4 h-4 z-[6] animate-[float-a_3.5s_ease-in-out_infinite]" color="#B197FC" />
-            <Sparkle4 className="absolute top-[60px] right-[180px] w-4 h-4 z-[6] animate-[float-b_4s_ease-in-out_infinite]" color="#FF8FAB" />
+            <Sparkle4 className="absolute bottom-[150px] left-[-25px] w-4 h-4 z-[6] animate-[float-a_3.5s_ease-in-out_infinite]" color="#C9A4FF" />
+            <Sparkle4 className="absolute top-[60px] right-[180px] w-4 h-4 z-[6] animate-[float-b_4s_ease-in-out_infinite]" color="#F6A4E8" />
           </div>
 
           {/* Mobile: Photo */}

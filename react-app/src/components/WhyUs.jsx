@@ -2,77 +2,77 @@
 const ListChar = () => (
   <svg viewBox="0 0 80 90" fill="none" className="w-[72px] h-[81px]">
     {/* Wide pill blob body */}
-    <ellipse cx="40" cy="40" rx="34" ry="28" fill="#FF6B35" />
+    <ellipse cx="40" cy="40" rx="34" ry="28" fill="#FFA561" />
     {/* Eyes centered, right slightly lower */}
-    <circle cx="32" cy="34" r="3" fill="#2D1B69" />
-    <circle cx="50" cy="36" r="3" fill="#2D1B69" />
+    <circle cx="32" cy="34" r="3" fill="#6C52C9" />
+    <circle cx="50" cy="36" r="3" fill="#6C52C9" />
     {/* Wide smile centered */}
-    <path d="M28 46 C34 52, 46 52, 54 46" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    <path d="M28 46 C34 52, 46 52, 54 46" stroke="#6C52C9" strokeWidth="2.8" strokeLinecap="round" fill="none" />
     {/* Tiny stubby legs */}
-    <ellipse cx="30" cy="72" rx="6" ry="8" fill="#FF6B35" />
-    <ellipse cx="50" cy="72" rx="6" ry="8" fill="#FF6B35" />
+    <ellipse cx="30" cy="72" rx="6" ry="8" fill="#FFA561" />
+    <ellipse cx="50" cy="72" rx="6" ry="8" fill="#FFA561" />
     {/* Clipboard accessory */}
-    <rect x="58" y="4" width="16" height="20" rx="3" fill="white" stroke="#2D1B69" strokeWidth="1.5" opacity="0.7" />
-    <line x1="62" y1="10" x2="70" y2="10" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
-    <line x1="62" y1="15" x2="70" y2="15" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+    <rect x="58" y="4" width="16" height="20" rx="3" fill="white" stroke="#6C52C9" strokeWidth="1.5" opacity="0.7" />
+    <line x1="62" y1="10" x2="70" y2="10" stroke="#91E27A" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+    <line x1="62" y1="15" x2="70" y2="15" stroke="#91E27A" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
   </svg>
 )
 
 const SpeedChar = () => (
   <svg viewBox="0 0 80 90" fill="none" className="w-[72px] h-[81px]">
     {/* Tall blob body */}
-    <path d="M14 25 C8 10, 30 2, 40 5 C50 2, 72 10, 66 25 C74 38, 70 58, 58 65 C50 70, 30 70, 22 65 C10 58, 6 38, 14 25Z" fill="#FFD23F" />
+    <path d="M14 25 C8 10, 30 2, 40 5 C50 2, 72 10, 66 25 C74 38, 70 58, 58 65 C50 70, 30 70, 22 65 C10 58, 6 38, 14 25Z" fill="#F8DC5B" />
     {/* Eyes centered-ish, left slightly higher */}
-    <circle cx="32" cy="32" r="2.8" fill="#2D1B69" />
-    <circle cx="50" cy="34" r="2.8" fill="#2D1B69" />
+    <circle cx="32" cy="32" r="2.8" fill="#6C52C9" />
+    <circle cx="50" cy="34" r="2.8" fill="#6C52C9" />
     {/* Smile centered */}
-    <path d="M30 42 C36 48, 46 48, 52 42" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+    <path d="M30 42 C36 48, 46 48, 52 42" stroke="#6C52C9" strokeWidth="2.5" strokeLinecap="round" fill="none" />
     {/* Tiny legs */}
-    <ellipse cx="32" cy="72" rx="6" ry="8" fill="#FFD23F" />
-    <ellipse cx="50" cy="72" rx="6" ry="8" fill="#FFD23F" />
+    <ellipse cx="32" cy="72" rx="6" ry="8" fill="#F8DC5B" />
+    <ellipse cx="50" cy="72" rx="6" ry="8" fill="#F8DC5B" />
     {/* Lightning bolt */}
-    <path d="M62 8 L56 22 L62 22 L56 36" stroke="#FF6B35" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    <path d="M62 8 L56 22 L62 22 L56 36" stroke="#FFA561" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
   </svg>
 )
 
 const ShieldChar = () => (
   <svg viewBox="0 0 80 90" fill="none" className="w-[72px] h-[81px]">
     {/* Shield-shaped blob */}
-    <path d="M40 6 L68 22 L66 54 L40 68 L14 54 L12 22Z" fill="#22C55E" />
+    <path d="M40 6 L68 22 L66 54 L40 68 L14 54 L12 22Z" fill="#91E27A" />
     {/* Eyes centered, left slightly higher */}
-    <circle cx="34" cy="32" r="2.8" fill="#2D1B69" />
-    <circle cx="48" cy="34" r="2.8" fill="#2D1B69" />
+    <circle cx="34" cy="32" r="2.8" fill="#6C52C9" />
+    <circle cx="48" cy="34" r="2.8" fill="#6C52C9" />
     {/* Wide goofy grin centered */}
-    <path d="M30 42 C36 48, 46 48, 52 42" stroke="#2D1B69" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+    <path d="M30 42 C36 48, 46 48, 52 42" stroke="#6C52C9" strokeWidth="2.8" strokeLinecap="round" fill="none" />
     {/* Tiny legs */}
-    <ellipse cx="32" cy="74" rx="6" ry="8" fill="#22C55E" />
-    <ellipse cx="50" cy="74" rx="6" ry="8" fill="#22C55E" />
+    <ellipse cx="32" cy="74" rx="6" ry="8" fill="#91E27A" />
+    <ellipse cx="50" cy="74" rx="6" ry="8" fill="#91E27A" />
     {/* Star on top */}
-    <circle cx="40" cy="10" r="3.5" fill="#FFD23F" />
+    <circle cx="40" cy="10" r="3.5" fill="#F8DC5B" />
   </svg>
 )
 
 const MsgChar = () => (
   <svg viewBox="0 0 80 90" fill="none" className="w-[72px] h-[81px]">
     {/* Speech-bubble blob body */}
-    <rect x="8" y="10" width="64" height="48" rx="24" fill="#38BDF8" />
-    <path d="M22 58 L30 50 L38 58Z" fill="#38BDF8" />
+    <rect x="8" y="10" width="64" height="48" rx="24" fill="#8DBDFF" />
+    <path d="M22 58 L30 50 L38 58Z" fill="#8DBDFF" />
     {/* Eyes centered, right slightly lower */}
-    <circle cx="30" cy="28" r="2.8" fill="#2D1B69" />
-    <circle cx="50" cy="30" r="2.8" fill="#2D1B69" />
+    <circle cx="30" cy="28" r="2.8" fill="#6C52C9" />
+    <circle cx="50" cy="30" r="2.8" fill="#6C52C9" />
     {/* Smile centered */}
-    <path d="M28 38 C34 44, 44 44, 52 38" stroke="#2D1B69" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+    <path d="M28 38 C34 44, 44 44, 52 38" stroke="#6C52C9" strokeWidth="2.5" strokeLinecap="round" fill="none" />
     {/* Tiny legs */}
-    <ellipse cx="30" cy="72" rx="6" ry="8" fill="#38BDF8" />
-    <ellipse cx="50" cy="72" rx="6" ry="8" fill="#38BDF8" />
+    <ellipse cx="30" cy="72" rx="6" ry="8" fill="#8DBDFF" />
+    <ellipse cx="50" cy="72" rx="6" ry="8" fill="#8DBDFF" />
   </svg>
 )
 
 const cards = [
-  { Char: ListChar, num: '3-5', title: 'занятий в подборке', text: 'Не\u00a0каталог на\u00a01000 строк, а\u00a0готовый шорт-лист. Только то, что подходит именно вам.', accent: '#FF6B35', pill: 'bg-coral-lt' },
-  { Char: SpeedChar, num: '2 мин', title: 'на заполнение анкеты', text: 'Столько займёт анкета. Дальше мы\u00a0всё сделаем сами.', accent: '#B8860B', pill: 'bg-gold-lt' },
-  { Char: ShieldChar, num: '1', title: 'живой специалист на вашей стороне', text: 'Не\u00a0бот и\u00a0не\u00a0фильтр на\u00a0сайте. Реальный человек изучит анкету, позвонит в\u00a0кружки и\u00a0соберёт подборку под вашего ребёнка.', accent: '#16A34A', pill: 'bg-green-lt' },
-  { Char: MsgChar, num: '1-2 ч', title: 'и подборка у вас в телефоне', text: 'В\u00a0мессенджере. С\u00a0ценами, адресами и\u00a0расписанием.', accent: '#0284C7', pill: 'bg-sky-lt' },
+  { Char: ListChar, num: '3-5', title: 'занятий в подборке', text: 'Не\u00a0каталог на\u00a01000 строк, а\u00a0готовый шорт-лист. Только то, что подходит именно вам.', accent: '#FFA561', pill: 'bg-coral-lt' },
+  { Char: SpeedChar, num: '2 мин', title: 'на заполнение анкеты', text: 'Столько займёт анкета. Дальше мы\u00a0всё сделаем сами.', accent: '#C5A542', pill: 'bg-gold-lt' },
+  { Char: ShieldChar, num: '1', title: 'живой специалист на вашей стороне', text: 'Не\u00a0бот и\u00a0не\u00a0фильтр на\u00a0сайте. Реальный человек изучит анкету, позвонит в\u00a0кружки и\u00a0соберёт подборку под вашего ребёнка.', accent: '#73D664', pill: 'bg-green-lt' },
+  { Char: MsgChar, num: '1-2 ч', title: 'и подборка у вас в телефоне', text: 'В\u00a0мессенджере. С\u00a0ценами, адресами и\u00a0расписанием.', accent: '#6FA7EE', pill: 'bg-sky-lt' },
 ]
 
 export default function WhyUs() {

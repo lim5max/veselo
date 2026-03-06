@@ -3,25 +3,25 @@ import { useEffect, useState } from 'react'
 const LogoIcon = () => (
   <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
     {/* Happy circle character */}
-    <circle cx="18" cy="18" r="16" fill="#FF6B35" />
+    <circle cx="18" cy="18" r="16" fill="#FFA561" />
     <circle cx="18" cy="18" r="16" fill="url(#logo-grad)" />
     {/* Eyes */}
     <ellipse cx="12.5" cy="15" rx="2.5" ry="3" fill="white" />
     <ellipse cx="23.5" cy="15" rx="2.5" ry="3" fill="white" />
-    <circle cx="13" cy="15.5" r="1.5" fill="#2D1B69" />
-    <circle cx="24" cy="15.5" r="1.5" fill="#2D1B69" />
+    <circle cx="13" cy="15.5" r="1.5" fill="#6C52C9" />
+    <circle cx="24" cy="15.5" r="1.5" fill="#6C52C9" />
     {/* Sparkle eyes */}
     <circle cx="13.8" cy="14.5" r="0.6" fill="white" />
     <circle cx="24.8" cy="14.5" r="0.6" fill="white" />
     {/* Happy mouth */}
-    <path d="M12 22 C14 26, 22 26, 24 22" stroke="#2D1B69" strokeWidth="2" strokeLinecap="round" fill="none" />
+    <path d="M12 22 C14 26, 22 26, 24 22" stroke="#6C52C9" strokeWidth="2" strokeLinecap="round" fill="none" />
     {/* Rosy cheeks */}
-    <circle cx="9" cy="21" r="2.5" fill="#FF8FAB" opacity="0.5" />
-    <circle cx="27" cy="21" r="2.5" fill="#FF8FAB" opacity="0.5" />
+    <circle cx="9" cy="21" r="2.5" fill="#F6A4E8" opacity="0.5" />
+    <circle cx="27" cy="21" r="2.5" fill="#F6A4E8" opacity="0.5" />
     <defs>
       <linearGradient id="logo-grad" x1="0" y1="0" x2="36" y2="36">
-        <stop offset="0%" stopColor="#FF6B35" />
-        <stop offset="100%" stopColor="#FFD23F" />
+        <stop offset="0%" stopColor="#FFA561" />
+        <stop offset="100%" stopColor="#F8DC5B" />
       </linearGradient>
     </defs>
   </svg>
