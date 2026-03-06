@@ -53,7 +53,7 @@ const STEPS = ['basic', ...QUESTIONS.map((q) => q.key), 'contacts']
 const initialData = {
   childAge: '',
   format: '',
-  city: '',
+  city: 'Москва',
   location: '',
   contactMethods: [],
   phone: '',
@@ -74,9 +74,7 @@ export default function Quiz() {
   const stepKey = STEPS[step]
   const progress = Math.round(((step + 1) / STEPS.length) * 100)
 
-  const isMoscow = (data.city || '').trim().toLowerCase() === 'москва'
-  const mapQuery = `${data.location || ''}, Москва`.trim()
-  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery || 'Москва')}&output=embed`
+  const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=37.35%2C55.55%2C37.85%2C55.95&layer=mapnik&marker=55.7558%2C37.6173`
 
   const update = (key, value) => {
     setData((prev) => ({ ...prev, [key]: value }))
@@ -106,7 +104,7 @@ export default function Quiz() {
 
     if (stepKey === 'contacts') {
       const formatOk = Boolean(data.format)
-      const offlineOk = !isOffline || (data.city && data.location)
+      const offlineOk = !isOffline || Boolean(data.location)
       const methodsOk = Array.isArray(data.contactMethods) && data.contactMethods.length > 0
       const hasPhone = data.contactMethods.includes('whatsapp') ? Boolean(data.phone && data.phone.trim()) : true
       const hasEmail = data.contactMethods.includes('email') ? Boolean(data.email && data.email.trim()) : true
@@ -121,7 +119,7 @@ export default function Quiz() {
 
   const canSubmit = useMemo(() => {
     const basic = !!data.childAge
-    const offlineOk = !isOffline || (data.city && data.location)
+    const offlineOk = !isOffline || Boolean(data.location)
     const methodsOk = Array.isArray(data.contactMethods) && data.contactMethods.length > 0
     const hasPhone = data.contactMethods.includes('whatsapp') ? Boolean(data.phone && data.phone.trim()) : true
     const hasEmail = data.contactMethods.includes('email') ? Boolean(data.email && data.email.trim()) : true
@@ -273,19 +271,19 @@ export default function Quiz() {
                 {isOffline && (
                   <div className="grid md:grid-cols-2 gap-4">
                     <label className="block">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Москва</span>
-                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.city} onChange={(e) => update('city', e.target.value)} />
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Выбрать на карте</span>
+                      <div className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 text-n500">Москва</div>
                     </label>
                     <label className="block">
                       <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Локация</span>
-                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.location} onChange={(e) => update('location', e.target.value)} />
+                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.location} onChange={(e) => update('location', e.target.value)} placeholder="Улица, метро или ориентир" />
                     </label>
                   </div>
                 )}
 
-                {isOffline && isMoscow && (
+                {isOffline && (
                   <div className="border-2 border-n200/60 rounded-2xl overflow-hidden">
-                    <div className="px-3 py-2 text-[0.8125rem] text-n500 border-b border-n200/60">Интерактивная карта Москвы</div>
+                    <div className="px-3 py-2 text-[0.8125rem] text-n500 border-b border-n200/60">Интерактивная карта</div>
                     <iframe
                       title="Карта Москвы"
                       src={mapSrc}
@@ -294,10 +292,6 @@ export default function Quiz() {
                     />
                     <div className="px-3 py-2 text-[0.75rem] text-n500">Можно двигать карту и менять масштаб.</div>
                   </div>
-                )}
-
-                {isOffline && !isMoscow && (
-                  <p className="text-[0.8125rem] text-n500">Карта доступна только для Москвы. Укажите «Москва», чтобы показать карту.</p>
                 )}
 
                 <div>
