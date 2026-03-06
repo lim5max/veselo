@@ -67,6 +67,7 @@ const initialData = {
 export default function Quiz() {
   const [data, setData] = useState(initialData)
   const [status, setStatus] = useState('')
+  const [statusType, setStatusType] = useState('info')
   const [submitting, setSubmitting] = useState(false)
   const [step, setStep] = useState(0)
 
@@ -75,6 +76,9 @@ export default function Quiz() {
   const progress = Math.round(((step + 1) / STEPS.length) * 100)
 
   const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=37.35%2C55.55%2C37.85%2C55.95&layer=mapnik&marker=55.7558%2C37.6173`
+
+  const currentQuestion = QUESTIONS.find((q) => q.key === stepKey)
+  const currentSelectedCount = currentQuestion ? (Array.isArray(data[currentQuestion.key]) ? data[currentQuestion.key].length : 0) : 0
 
   const update = (key, value) => {
     setData((prev) => ({ ...prev, [key]: value }))
@@ -131,9 +135,12 @@ export default function Quiz() {
 
   const nextStep = () => {
     if (!isStepValid) {
+      setStatusType('error')
       setStatus('Заполните текущий шаг.')
       return
     }
+    setStatusType('info')
+    setStatusType('info')
     setStatus('')
     setStep((s) => Math.min(s + 1, STEPS.length - 1))
   }
@@ -146,6 +153,7 @@ export default function Quiz() {
   const submit = async (e) => {
     e.preventDefault()
     if (!canSubmit) {
+      setStatusType('error')
       setStatus('Проверьте обязательные поля.')
       return
     }
@@ -154,6 +162,7 @@ export default function Quiz() {
 
     try {
       setSubmitting(true)
+      setStatusType('info')
       setStatus('Отправляем анкету...')
 
       const payload = {
@@ -170,11 +179,13 @@ export default function Quiz() {
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
 
+      setStatusType('success')
       setStatus('Спасибо! Анкета отправлена. Скоро свяжемся с вами.')
       setData(initialData)
       setStep(0)
     } catch (err) {
       console.error('Ошибка отправки анкеты:', err)
+      setStatusType('error')
       setStatus('Не удалось отправить анкету. Попробуйте ещё раз или свяжитесь с нами напрямую.')
     } finally {
       setSubmitting(false)
@@ -187,7 +198,7 @@ export default function Quiz() {
         <h2 className="sr font-display font-black text-[1.875rem] md:text-[2.5rem] text-indigo leading-[1.2] text-center mx-auto">
           Подберём занятия для <span className="text-pill text-pill-coral">вашего ребёнка</span>
         </h2>
-        <p className="sr sr-d1 font-hand text-xl text-n500 text-center mt-2 mb-10">Пошаговая анкета</p>
+        <p className="sr sr-d1 font-hand text-xl text-n500 text-center mt-2 mb-10">Пошаговая анкета · 3-5 минут</p>
 
         <div className="sr sr-d2 max-w-[760px] mx-auto bg-white rounded-[28px] shadow-[0_24px_64px_rgba(26,26,46,.1)] border-2 border-n200/40 p-6 md:p-8">
           <div className="mb-5">
@@ -198,6 +209,12 @@ export default function Quiz() {
             <div className="h-2 bg-n100 rounded-full overflow-hidden">
               <div className="h-2 bg-coral transition-all" style={{ width: `${progress}%` }} />
             </div>
+          </div>
+
+          <div className="mb-4">
+            <span className="inline-flex items-center rounded-full bg-indigo-bg text-indigo text-[0.75rem] font-semibold px-3 py-1">
+              {stepKey === 'basic' ? 'Профиль ребёнка' : stepKey === 'contacts' ? 'Контакты и формат' : 'Вопрос о ребёнке'}
+            </span>
           </div>
 
           <form onSubmit={submit} className="space-y-5">
@@ -230,7 +247,7 @@ export default function Quiz() {
               stepKey === q.key && (
                 <div key={q.key}>
                   <span className="block text-[1rem] font-semibold text-n900 mb-2">{q.title}</span>
-                  <p className="text-[0.8125rem] text-n500 mb-3">Можно выбрать до 3 вариантов</p>
+                  <p className="text-[0.8125rem] text-n500 mb-3">Можно выбрать до 3 вариантов · выбрано: {currentSelectedCount}</p>
                   <div className="flex flex-wrap gap-2">
                     {q.options.map((opt) => {
                       const selected = Array.isArray(data[q.key]) && data[q.key].includes(opt)
@@ -353,12 +370,12 @@ export default function Quiz() {
               </>
             )}
 
-            <div className="pt-2 flex items-center gap-2">
+            <div className="pt-2 flex items-center gap-2 flex-wrap">
               <button
                 type="button"
                 onClick={prevStep}
                 disabled={step === 0 || submitting}
-                className="inline-flex items-center gap-2 border-2 border-n200/60 text-n700 font-semibold text-sm py-2.5 px-5 rounded-full transition-all hover:border-coral disabled:opacity-35 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-2 border-2 border-n200/60 text-n700 font-semibold text-sm py-2.5 px-5 rounded-full transition-all hover:border-coral hover:bg-coral-lt disabled:opacity-35 disabled:cursor-not-allowed"
               >
                 Назад
               </button>
@@ -383,7 +400,9 @@ export default function Quiz() {
               )}
             </div>
 
-            {status && <p className="text-sm text-n500 mt-3">{status}</p>}
+            {status && (
+              <p className={`text-sm mt-3 ${statusType === 'error' ? 'text-red-500' : statusType === 'success' ? 'text-green-600' : 'text-n500'}`}>{status}</p>
+            )}
 
           </form>
         </div>
