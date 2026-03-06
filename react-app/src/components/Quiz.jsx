@@ -74,7 +74,8 @@ export default function Quiz() {
   const stepKey = STEPS[step]
   const progress = Math.round(((step + 1) / STEPS.length) * 100)
 
-  const mapQuery = `${data.city || ''} ${data.location || ''}`.trim()
+  const isMoscow = (data.city || '').trim().toLowerCase() === 'москва'
+  const mapQuery = `${data.location || ''}, Москва`.trim()
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery || 'Москва')}&output=embed`
 
   const update = (key, value) => {
@@ -282,17 +283,21 @@ export default function Quiz() {
                   </div>
                 )}
 
-                {isOffline && (
+                {isOffline && isMoscow && (
                   <div className="border-2 border-n200/60 rounded-2xl overflow-hidden">
-                    <div className="px-3 py-2 text-[0.8125rem] text-n500 border-b border-n200/60">Интерактивная карта локации</div>
+                    <div className="px-3 py-2 text-[0.8125rem] text-n500 border-b border-n200/60">Интерактивная карта Москвы</div>
                     <iframe
-                      title="Карта локации"
+                      title="Карта Москвы"
                       src={mapSrc}
                       className="w-full h-[260px] border-0"
                       loading="lazy"
                     />
                     <div className="px-3 py-2 text-[0.75rem] text-n500">Можно двигать карту и менять масштаб.</div>
                   </div>
+                )}
+
+                {isOffline && !isMoscow && (
+                  <p className="text-[0.8125rem] text-n500">Карта доступна только для Москвы. Укажите город «Москва», чтобы показать карту.</p>
                 )}
 
                 <div>
