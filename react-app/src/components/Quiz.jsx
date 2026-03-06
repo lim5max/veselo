@@ -56,8 +56,7 @@ const QUESTIONS = [
 const STEPS = ['basic', ...QUESTIONS.map((q) => q.key), 'contacts']
 
 const initialData = {
-  parentName: '',
-  childAge: '',
+  childAge: [],
   format: '',
   city: '',
   district: '',
@@ -96,7 +95,7 @@ export default function Quiz() {
 
   const isStepValid = useMemo(() => {
     if (stepKey === 'basic') {
-      const base = data.parentName && data.childAge && data.format
+      const base = data.childAge.length > 0 && data.format
       const offlineOk = !isOffline || (data.city && data.address)
       return Boolean(base && offlineOk)
     }
@@ -111,7 +110,7 @@ export default function Quiz() {
   }, [data, isOffline, stepKey])
 
   const canSubmit = useMemo(() => {
-    const basic = data.parentName && data.childAge && data.format
+    const basic = data.childAge.length > 0 && data.format
     const offlineOk = !isOffline || (data.city && data.address)
     const contacts = data.phone && data.email && data.consent
     const questionsOk = QUESTIONS.every((q) => Array.isArray(data[q.key]) && data[q.key].length > 0)
@@ -192,15 +191,24 @@ export default function Quiz() {
           <form onSubmit={submit} className="space-y-5">
             {stepKey === 'basic' && (
               <>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <label className="block">
-                    <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Имя родителя</span>
-                    <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.parentName} onChange={(e) => update('parentName', e.target.value)} />
-                  </label>
-                  <label className="block">
-                    <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Возраст ребёнка</span>
-                    <input type="number" min="2" max="18" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.childAge} onChange={(e) => update('childAge', e.target.value)} />
-                  </label>
+                <div>
+                  <p className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Возраст ребёнка</p>
+                  <p className="text-[0.8125rem] text-n500 mb-2">Можно выбрать несколько диапазонов</p>
+                  <div className="flex flex-wrap gap-2">
+                    {['2-3 года', '4-5 лет', '6-7 лет', '8-9 лет', '10-12 лет', '13-16 лет', '17-18 лет'].map((age) => {
+                      const selected = Array.isArray(data.childAge) && data.childAge.includes(age)
+                      return (
+                        <button
+                          key={age}
+                          type="button"
+                          onClick={() => toggleMultiAnswer('childAge', age)}
+                          className={`py-2 px-3 border-2 rounded-full text-[0.8125rem] transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral'}`}
+                        >
+                          {age}
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
 
                 <div>
