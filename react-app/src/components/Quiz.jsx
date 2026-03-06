@@ -273,7 +273,7 @@ export default function Quiz() {
                 {isOffline && (
                   <div className="grid md:grid-cols-2 gap-4">
                     <label className="block">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Город</span>
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Москва</span>
                       <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.city} onChange={(e) => update('city', e.target.value)} />
                     </label>
                     <label className="block">
@@ -297,7 +297,7 @@ export default function Quiz() {
                 )}
 
                 {isOffline && !isMoscow && (
-                  <p className="text-[0.8125rem] text-n500">Карта доступна только для Москвы. Укажите город «Москва», чтобы показать карту.</p>
+                  <p className="text-[0.8125rem] text-n500">Карта доступна только для Москвы. Укажите «Москва», чтобы показать карту.</p>
                 )}
 
                 <div>
