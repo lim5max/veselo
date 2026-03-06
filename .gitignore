@@ -6,3 +6,6 @@ dist-ssr
 .DS_Store
 .claude/
 screenshot-*.png
+
+.vercel
+.env*.local

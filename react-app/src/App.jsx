@@ -14,6 +14,7 @@ import FAQ from './components/FAQ'
 import Quiz from './components/Quiz'
 import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
+import Admin from './components/Admin'
 
 export default function App() {
   useScrollReveal()
@@ -21,6 +22,10 @@ export default function App() {
   const toQuiz = useCallback(() => {
     document.getElementById('quiz')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [])
+
+  if (window.location.pathname === '/admin') {
+    return <Admin />
+  }
 
   return (
     <>

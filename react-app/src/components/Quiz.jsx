@@ -52,12 +52,12 @@ const STEPS = ['basic', ...QUESTIONS.map((q) => q.key), 'contacts']
 
 const initialData = {
   childAge: '',
-  format: '',
+  format: [],
+  preferredTime: [],
   city: 'Москва',
   location: '',
   parentName: '',
   contactMethods: [],
-  phone: '',
   email: '',
   telegram: '',
   comment: '',
@@ -71,8 +71,10 @@ export default function Quiz() {
   const [statusType, setStatusType] = useState('info')
   const [submitting, setSubmitting] = useState(false)
   const [step, setStep] = useState(0)
+  const [showPrivacy, setShowPrivacy] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
 
-  const isOffline = data.format === 'offline'
+  const isOffline = Array.isArray(data.format) && data.format.includes('offline')
   const stepKey = STEPS[step]
   const progress = Math.round(((step + 1) / STEPS.length) * 100)
 
@@ -80,80 +82,83 @@ export default function Quiz() {
   const currentQuestion = QUESTIONS.find((q) => q.key === stepKey)
   const currentSelectedCount = currentQuestion ? (Array.isArray(data[currentQuestion.key]) ? data[currentQuestion.key].length : 0) : 0
 
-
   const mapContainerRef = useRef(null)
   const mapInstanceRef = useRef(null)
-  const placemarkRef = useRef(null)
+  const markerRef = useRef(null)
 
   useEffect(() => {
     if (!(stepKey === 'contacts' && isOffline)) return
+    if (mapInstanceRef.current || !mapContainerRef.current) return
 
-    const initMap = () => {
-      if (!window.ymaps || mapInstanceRef.current || !mapContainerRef.current) return
+    let cancelled = false
 
-      window.ymaps.ready(() => {
-        if (mapInstanceRef.current || !mapContainerRef.current) return
+    import('maplibre-gl').then((mod) => {
+      if (cancelled || mapInstanceRef.current || !mapContainerRef.current) return
+      const maplibregl = mod.default
 
-        const map = new window.ymaps.Map(mapContainerRef.current, {
-          center: [55.7558, 37.6176],
-          zoom: 10,
-          controls: ['zoomControl', 'fullscreenControl'],
-        })
-
-        mapInstanceRef.current = map
-
-        map.events.add('click', (e) => {
-          const coords = e.get('coords')
-
-          if (!placemarkRef.current) {
-            placemarkRef.current = new window.ymaps.Placemark(coords, {}, { preset: 'islands#redIcon' })
-            map.geoObjects.add(placemarkRef.current)
-          } else {
-            placemarkRef.current.geometry.setCoordinates(coords)
-          }
-
-          window.ymaps.geocode(coords).then((res) => {
-            const firstGeoObject = res.geoObjects.get(0)
-            const address =
-              firstGeoObject?.getAddressLine?.() ||
-              firstGeoObject?.properties?.get('text') ||
-              `${coords[0].toFixed(6)}, ${coords[1].toFixed(6)}`
-
-            setData((prev) => ({ ...prev, location: address }))
-          })
-        })
-      })
-    }
-
-    if (!window.ymaps) {
-      const scriptId = 'yandex-maps-api'
-      let script = document.getElementById(scriptId)
-
-      if (!script) {
-        script = document.createElement('script')
-        script.id = scriptId
-        script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU'
-        script.async = true
-        document.body.appendChild(script)
+      const link = document.getElementById('maplibre-css')
+      if (!link) {
+        const l = document.createElement('link')
+        l.id = 'maplibre-css'
+        l.rel = 'stylesheet'
+        l.href = 'https://unpkg.com/maplibre-gl/dist/maplibre-gl.css'
+        document.head.appendChild(l)
       }
 
-      script.addEventListener('load', initMap, { once: true })
-      return () => script?.removeEventListener('load', initMap)
-    }
+      const map = new maplibregl.Map({
+        container: mapContainerRef.current,
+        style: {
+          version: 8,
+          sources: { osm: { type: 'raster', tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'], tileSize: 256, attribution: '© OpenStreetMap' } },
+          layers: [{ id: 'osm', type: 'raster', source: 'osm' }],
+        },
+        center: [37.6176, 55.7558],
+        zoom: 10,
+      })
 
-    initMap()
+      map.addControl(new maplibregl.NavigationControl(), 'top-left')
+      mapInstanceRef.current = map
+
+      map.on('click', (e) => {
+        const { lat, lng } = e.lngLat
+        if (!markerRef.current) {
+          markerRef.current = new maplibregl.Marker().setLngLat([lng, lat]).addTo(map)
+        } else {
+          markerRef.current.setLngLat([lng, lat])
+        }
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=ru&zoom=18`)
+          .then((r) => r.json())
+          .then((json) => {
+            const a = json.address || {}
+            const short = [a.road, a.house_number].filter(Boolean).join(', ')
+              || [a.suburb, a.city_district].filter(Boolean).join(', ')
+              || json.display_name || `${lat.toFixed(5)}, ${lng.toFixed(5)}`
+            setData((prev) => ({ ...prev, location: short }))
+          })
+          .catch(() => setData((prev) => ({ ...prev, location: `${lat.toFixed(5)}, ${lng.toFixed(5)}` })))
+      })
+    })
+
+    return () => {
+      cancelled = true
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove()
+        mapInstanceRef.current = null
+        markerRef.current = null
+      }
+    }
   }, [stepKey, isOffline])
 
   const update = (key, value) => {
     setData((prev) => ({ ...prev, [key]: value }))
   }
 
-  const toggleMultiAnswer = (key, value) => {
+  const toggleMultiAnswer = (key, value, max = 3) => {
     setData((prev) => {
       const current = Array.isArray(prev[key]) ? prev[key] : []
       const exists = current.includes(value)
 
-      if (!exists && current.length >= 3) {
+      if (!exists && current.length >= max) {
         return prev
       }
 
@@ -171,14 +176,14 @@ export default function Quiz() {
     }
 
     if (stepKey === 'contacts') {
-      const formatOk = Boolean(data.format)
+      const formatOk = Array.isArray(data.format) && data.format.length > 0
       const offlineOk = !isOffline || Boolean(data.location)
+      const timeOk = Array.isArray(data.preferredTime) && data.preferredTime.length > 0
       const methodsOk = Array.isArray(data.contactMethods) && data.contactMethods.length > 0
-      const hasPhone = data.contactMethods.includes('whatsapp') ? Boolean(data.phone && data.phone.trim()) : true
       const hasEmail = data.contactMethods.includes('email') ? Boolean(data.email && data.email.trim()) : true
       const hasTelegram = data.contactMethods.includes('telegram') ? Boolean(data.telegram && data.telegram.trim()) : true
       const nameOk = Boolean(data.parentName && data.parentName.trim())
-      return Boolean(nameOk && data.consent && formatOk && offlineOk && methodsOk && hasPhone && hasEmail && hasTelegram)
+      return Boolean(nameOk && data.consent && formatOk && offlineOk && timeOk && methodsOk && hasEmail && hasTelegram)
     }
 
     const question = QUESTIONS.find((q) => q.key === stepKey)
@@ -190,10 +195,10 @@ export default function Quiz() {
     const basic = !!data.childAge
     const offlineOk = !isOffline || Boolean(data.location)
     const methodsOk = Array.isArray(data.contactMethods) && data.contactMethods.length > 0
-    const hasPhone = data.contactMethods.includes('whatsapp') ? Boolean(data.phone && data.phone.trim()) : true
     const hasEmail = data.contactMethods.includes('email') ? Boolean(data.email && data.email.trim()) : true
     const hasTelegram = data.contactMethods.includes('telegram') ? Boolean(data.telegram && data.telegram.trim()) : true
-    const contacts = Boolean(data.parentName && data.parentName.trim()) && data.consent && data.format && methodsOk && hasPhone && hasEmail && hasTelegram
+    const timeOk = Array.isArray(data.preferredTime) && data.preferredTime.length > 0
+    const contacts = Boolean(data.parentName && data.parentName.trim()) && data.consent && Array.isArray(data.format) && data.format.length > 0 && timeOk && methodsOk && hasEmail && hasTelegram
     const questionsOk = QUESTIONS.every((q) => Array.isArray(data[q.key]) && data[q.key].length > 0)
     return Boolean(basic && offlineOk && contacts && questionsOk)
   }, [data, isOffline])
@@ -244,8 +249,8 @@ export default function Quiz() {
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
 
-      setStatusType('success')
-      setStatus('Спасибо! Анкета отправлена. Скоро свяжемся с вами.')
+      setShowSuccess(true)
+      setStatus('')
       setData(initialData)
       setStep(0)
     } catch (err) {
@@ -266,20 +271,26 @@ export default function Quiz() {
         <p className="sr sr-d1 font-hand text-xl text-n500 text-center mt-2 mb-10">Анкета на 2 минуты — и через час подборка у вас в мессенджере. Всё просто.</p>
 
         <div className="sr sr-d2 max-w-[760px] mx-auto bg-white rounded-[28px] shadow-[0_24px_64px_rgba(26,26,46,.1)] border-2 border-n200/40 p-6 md:p-8">
-          <div className="mb-5">
-            <div className="flex items-center justify-between text-[0.8125rem] text-n500 mb-1.5">
-              <span>Шаг {step + 1} из {STEPS.length}</span>
-              <span>{progress}%</span>
+          <div className="mb-6">
+            {/* Step dots */}
+            <div className="flex items-center gap-1 mb-3">
+              {STEPS.map((s, i) => (
+                <div
+                  key={s}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i < step ? 'bg-coral flex-1' :
+                    i === step ? 'bg-coral flex-[2]' :
+                    'bg-n200 flex-1'
+                  }`}
+                />
+              ))}
             </div>
-            <div className="h-2 bg-n100 rounded-full overflow-hidden">
-              <div className="h-2 bg-coral transition-all" style={{ width: `${progress}%` }} />
+            <div className="flex items-center justify-between">
+              <span className="text-[0.75rem] text-n400">
+                {stepKey === 'basic' ? 'Профиль ребёнка' : stepKey === 'contacts' ? 'Последний шаг!' : `Вопрос ${step} из ${QUESTIONS.length}`}
+              </span>
+              <span className="text-[0.75rem] font-semibold text-coral">{progress}%</span>
             </div>
-          </div>
-
-          <div className="mb-4">
-            <span className="inline-flex items-center rounded-full bg-indigo-bg text-indigo text-[0.75rem] font-semibold px-3 py-1">
-              {stepKey === 'basic' ? 'Профиль ребёнка' : stepKey === 'contacts' ? 'Контакты и формат' : 'Вопрос о ребёнке'}
-            </span>
           </div>
 
           <form onSubmit={submit} className="space-y-5">
@@ -308,12 +319,26 @@ export default function Quiz() {
               </>
             )}
 
-            {QUESTIONS.map((q) => (
+            {QUESTIONS.map((q, qi) => (
               stepKey === q.key && (
-                <div key={q.key}>
-                  <span className="block text-[1rem] font-semibold text-n900 mb-2">{q.title}</span>
-                  <p className="text-[0.8125rem] text-n500 mb-3">Можно выбрать до 3 вариантов · выбрано: {currentSelectedCount}</p>
-                  <div className="flex flex-wrap gap-2">
+                <div key={q.key} className="space-y-4">
+                  <div>
+                    <span className="block text-[1.05rem] font-bold text-n900 leading-snug">{q.title}</span>
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="flex gap-1">
+                        {[0, 1, 2].map((i) => (
+                          <div
+                            key={i}
+                            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i < currentSelectedCount ? 'bg-coral scale-110' : 'bg-n200'}`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-[0.75rem] text-n400">
+                        {currentSelectedCount === 0 ? 'Выберите до 3' : currentSelectedCount === 3 ? 'Максимум выбрано' : `Выбрано ${currentSelectedCount} из 3`}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="grid gap-2 sm:grid-cols-2">
                     {q.options.map((opt) => {
                       const selected = Array.isArray(data[q.key]) && data[q.key].includes(opt)
                       return (
@@ -321,8 +346,15 @@ export default function Quiz() {
                           key={opt}
                           type="button"
                           onClick={() => toggleMultiAnswer(q.key, opt)}
-                          className={`py-2 px-3 border-2 rounded-full text-[0.8125rem] transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral'}`}
+                          className={`flex items-center gap-2.5 py-2.5 px-4 border-2 rounded-2xl text-[0.8125rem] text-left transition-all duration-200 ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold shadow-[0_2px_10px_rgba(255,165,97,.12)]' : 'border-n200/60 text-n700 hover:border-coral/50 hover:bg-white'}`}
                         >
+                          <div className={`w-5 h-5 rounded-lg border-2 flex items-center justify-center flex-shrink-0 transition-all duration-200 ${selected ? 'border-coral bg-coral' : 'border-n300'}`}>
+                            {selected && (
+                              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                <path d="M2.5 6.5L4.5 8.5L9.5 3.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            )}
+                          </div>
                           {opt}
                         </button>
                       )
@@ -334,114 +366,149 @@ export default function Quiz() {
 
             {stepKey === 'contacts' && (
               <>
-                <div>
-                  <p className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Формат занятий</p>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {[{ label: 'Онлайн', value: 'online' }, { label: 'Оффлайн', value: 'offline' }].map((opt) => (
-                      <button
-                        key={opt.value}
-                        type="button"
-                        onClick={() => update('format', opt.value)}
-                        className={`py-3.5 border-2 rounded-2xl font-semibold text-[0.9375rem] transition-all ${data.format === opt.value ? 'border-coral bg-coral-lt text-coral-dk' : 'border-n200/60 text-n700 hover:border-coral'}`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
+                {/* ── Группа: Формат и расписание ── */}
+                <div className="rounded-2xl border border-n200/50 bg-n50/50 p-4 md:p-5 space-y-4">
+                  <p className="text-[0.9375rem] font-bold text-n900">Формат и расписание</p>
+
+                  <div>
+                    <p className="text-[0.8125rem] text-n500 mb-2">Формат занятий <span className="text-n400">(можно оба)</span></p>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {[{ label: 'Онлайн', value: 'online', icon: '💻' }, { label: 'Оффлайн', value: 'offline', icon: '📍' }].map((opt) => {
+                        const selected = Array.isArray(data.format) && data.format.includes(opt.value)
+                        return (
+                          <button
+                            key={opt.value}
+                            type="button"
+                            onClick={() => toggleMultiAnswer('format', opt.value)}
+                            className={`py-3 border-2 rounded-2xl font-semibold text-[0.9375rem] transition-all duration-200 ${selected ? 'border-coral bg-coral-lt text-coral-dk shadow-[0_2px_12px_rgba(255,165,97,.15)]' : 'border-n200/60 text-n700 hover:border-coral/50 hover:bg-white'}`}
+                          >
+                            <span className="mr-1.5">{opt.icon}</span>{opt.label}
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-[0.8125rem] text-n500 mb-2">Когда удобнее заниматься?</p>
+                    <div className="grid grid-cols-[auto_1fr_1fr_1fr] gap-1.5">
+                      <div />
+                      {['Утро', 'День', 'Вечер'].map((h) => (
+                        <div key={h} className="text-center text-n400 text-[0.7rem] font-medium pb-0.5">{h}</div>
+                      ))}
+                      {['Будни', 'Выходные'].map((day) => (
+                        <>
+                          <div key={day} className="text-n700 font-medium pr-2 flex items-center text-[0.8125rem]">{day}</div>
+                          {['утро', 'день', 'вечер'].map((time) => {
+                            const val = `${day} ${time}`
+                            const selected = Array.isArray(data.preferredTime) && data.preferredTime.includes(val)
+                            return (
+                              <button
+                                key={val}
+                                type="button"
+                                onClick={() => toggleMultiAnswer('preferredTime', val, 6)}
+                                className={`py-2 rounded-xl text-center text-[0.8125rem] transition-all duration-200 ${selected ? 'border-2 border-coral bg-coral-lt text-coral-dk font-semibold shadow-[0_2px_8px_rgba(255,165,97,.12)]' : 'border-2 border-n200/60 text-n500 hover:border-coral/50 hover:bg-white'}`}
+                              >
+                                {time === 'утро' ? '9–12' : time === 'день' ? '12–17' : '17–21'}
+                              </button>
+                            )
+                          })}
+                        </>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
+                {/* ── Группа: Локация (только оффлайн) ── */}
                 {isOffline && (
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <label className="block md:col-span-2">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Локация</span>
-                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.location} onChange={(e) => update('location', e.target.value)} placeholder="Улица, метро или ориентир" />
-                    </label>
+                  <div className="rounded-2xl border border-n200/50 bg-n50/50 p-4 md:p-5 space-y-3">
+                    <p className="text-[0.9375rem] font-bold text-n900">Локация</p>
+                    <input
+                      className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-white outline-none focus:border-coral transition-colors"
+                      value={data.location}
+                      onChange={(e) => update('location', e.target.value)}
+                      placeholder="Район, метро или улица"
+                    />
+                    <div className="border-2 border-n200/60 rounded-2xl overflow-hidden">
+                      <div ref={mapContainerRef} className="w-full h-[260px]" />
+                      <div className="px-3 py-1.5 text-[0.7rem] text-n400 bg-white">Кликните по карте — адрес подставится автоматически</div>
+                    </div>
                   </div>
                 )}
 
-                {isOffline && (
-                  <div className="border-2 border-n200/60 rounded-2xl overflow-hidden">
-                    <div className="px-3 py-2 text-[0.8125rem] text-n500 border-b border-n200/60">Интерактивная карта (Яндекс)</div>
-                    <div ref={mapContainerRef} className="w-full h-[320px]" />
-                    <div className="px-3 py-2 text-[0.75rem] text-n500">Кликните по карте, чтобы автоматически подставить адрес в поле «Локация».</div>
+                {/* ── Группа: Контакты ── */}
+                <div className="rounded-2xl border border-n200/50 bg-n50/50 p-4 md:p-5 space-y-4">
+                  <p className="text-[0.9375rem] font-bold text-n900">Контактные данные</p>
+
+                  <label className="block">
+                    <span className="text-[0.8125rem] text-n500 mb-1.5 block">Имя родителя <span className="text-coral">*</span></span>
+                    <input autoComplete="name" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-white outline-none focus:border-coral transition-colors" value={data.parentName} onChange={(e) => update('parentName', e.target.value)} placeholder="Как к вам обращаться" />
+                  </label>
+
+                  <div>
+                    <p className="text-[0.8125rem] text-n500 mb-2">Как удобнее связаться?</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { key: 'telegram', label: 'Telegram', icon: '✈️' },
+                        { key: 'email', label: 'Email', icon: '✉️' },
+                      ].map((m) => {
+                        const selected = Array.isArray(data.contactMethods) && data.contactMethods.includes(m.key)
+                        return (
+                          <button
+                            key={m.key}
+                            type="button"
+                            onClick={() => toggleMultiAnswer('contactMethods', m.key)}
+                            className={`py-2.5 px-3 border-2 rounded-xl text-[0.85rem] transition-all duration-200 ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold shadow-[0_2px_12px_rgba(255,165,97,.15)]' : 'border-n200/60 text-n700 hover:border-coral/50 hover:bg-white'}`}
+                          >
+                            <span className="mr-1.5">{m.icon}</span>{m.label}
+                          </button>
+                        )
+                      })}
+                    </div>
                   </div>
-                )}
 
-                <label className="block">
-                  <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Имя родителя <span className="text-coral">*</span></span>
-                  <input autoComplete="name" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.parentName} onChange={(e) => update('parentName', e.target.value)} placeholder="Как к вам обращаться" />
-                </label>
-
-                <div>
-                  <span className="block text-[1.05rem] font-semibold text-n900 mb-1">Как удобнее с вами связаться</span>
-                  <p className="text-[0.8125rem] text-n500 mb-3">Выберите 1–3 удобных канала — покажем только нужные поля.</p>
-                  <div className="grid sm:grid-cols-3 gap-2">
-                    {[
-                      { key: 'whatsapp', label: 'WhatsApp' },
-                      { key: 'telegram', label: 'Telegram' },
-                      { key: 'email', label: 'Email' },
-                    ].map((m) => {
-                      const selected = Array.isArray(data.contactMethods) && data.contactMethods.includes(m.key)
-                      return (
-                        <button
-                          key={m.key}
-                          type="button"
-                          onClick={() => toggleMultiAnswer('contactMethods', m.key)}
-                          className={`py-2.5 px-3 border-2 rounded-xl text-[0.85rem] text-left transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral hover:bg-n50'}`}
-                        >
-                          {m.label}
-                        </button>
-                      )
-                    })}
-                  </div>
-                  <p className="text-[0.75rem] text-n500 mt-2">Выбрано: {data.contactMethods.length} из 3</p>
-                  {data.contactMethods.length === 0 && (
-                    <p className="text-[0.75rem] text-red-500 mt-1">Выберите хотя бы один способ связи</p>
-                  )}
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  {data.contactMethods.includes('whatsapp') && (
+                  {data.contactMethods.includes('telegram') && (
                     <label className="block">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">WhatsApp (телефон) <span className="text-coral">*</span></span>
-                      <input inputMode="tel" autoComplete="tel" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="+7..." />
+                      <span className="text-[0.8125rem] text-n500 mb-1.5 block">Telegram <span className="text-coral">*</span></span>
+                      <input autoComplete="username" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-white outline-none focus:border-coral transition-colors" value={data.telegram} onChange={(e) => update('telegram', e.target.value)} placeholder="@username" />
                     </label>
                   )}
 
                   {data.contactMethods.includes('email') && (
                     <label className="block">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Email <span className="text-coral">*</span></span>
-                      <input type="email" autoComplete="email" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.email} onChange={(e) => update('email', e.target.value)} placeholder="name@example.com" />
+                      <span className="text-[0.8125rem] text-n500 mb-1.5 block">Email <span className="text-coral">*</span></span>
+                      <input type="email" autoComplete="email" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-white outline-none focus:border-coral transition-colors" value={data.email} onChange={(e) => update('email', e.target.value)} placeholder="name@example.com" />
                     </label>
                   )}
 
-                  {data.contactMethods.includes('telegram') && (
-                    <label className="block md:col-span-2">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Telegram (username) <span className="text-coral">*</span></span>
-                      <input autoComplete="username" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.telegram} onChange={(e) => update('telegram', e.target.value)} placeholder="@username" />
-                    </label>
-                  )}
+                  <label className="block">
+                    <span className="text-[0.8125rem] text-n500 mb-1.5 block">Комментарий <span className="text-n400 font-normal">(необязательно)</span></span>
+                    <textarea rows={2} className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-white outline-none focus:border-coral transition-colors resize-none" value={data.comment} onChange={(e) => update('comment', e.target.value)} placeholder="Пожелания, особенности ребёнка..." />
+                  </label>
                 </div>
 
-                <label className="block">
-                  <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Комментарий (необязательно)</span>
-                  <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.comment} onChange={(e) => update('comment', e.target.value)} />
-                </label>
-
-                <label className="inline-flex items-start gap-2 text-[0.8125rem] text-n700 p-3 rounded-xl border border-n200/60 bg-n50">
-                  <input type="checkbox" checked={data.consent} onChange={(e) => update('consent', e.target.checked)} className="mt-0.5" />
-                  <span>Согласен(а) на обработку персональных данных <span className="text-coral">*</span></span>
+                {/* ── Согласие ── */}
+                <label className="flex items-start gap-3 text-[0.8125rem] text-n700 p-4 rounded-2xl border border-n200/50 bg-white cursor-pointer transition-all hover:border-coral/30">
+                  <input type="checkbox" checked={data.consent} onChange={(e) => update('consent', e.target.checked)} className="mt-0.5 w-4 h-4 accent-coral rounded" />
+                  <span>
+                    Согласен(а) с{' '}
+                    <button type="button" onClick={() => setShowPrivacy(true)} className="text-indigo underline underline-offset-2 decoration-indigo/30 hover:decoration-indigo transition-colors">
+                      политикой обработки данных
+                    </button>
+                    {' '}<span className="text-coral">*</span>
+                  </span>
                 </label>
               </>
             )}
 
-            <div className="pt-2 flex items-center gap-2 flex-wrap">
+            <div className="pt-4 flex items-center justify-between border-t border-n200/40">
               <button
                 type="button"
                 onClick={prevStep}
                 disabled={step === 0 || submitting}
-                className="inline-flex items-center gap-2 border-2 border-n200/60 text-n700 font-semibold text-sm py-2.5 px-5 rounded-full transition-all hover:border-coral hover:bg-coral-lt disabled:opacity-35 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-1.5 text-n500 font-semibold text-[0.875rem] py-2.5 px-4 rounded-full transition-all hover:text-n700 hover:bg-n100 disabled:opacity-0 disabled:pointer-events-none"
               >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 Назад
               </button>
 
@@ -450,14 +517,15 @@ export default function Quiz() {
                   type="button"
                   onClick={nextStep}
                   disabled={!isStepValid || submitting}
-                  className="inline-flex items-center gap-2 bg-coral text-white font-head font-bold text-base py-3.5 px-7 rounded-full transition-all duration-250 hover:bg-coral-dk hover:-translate-y-px disabled:opacity-35 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-1.5 bg-coral text-white font-head font-bold text-[0.9375rem] py-3 px-7 rounded-full transition-all duration-200 hover:bg-coral-dk hover:-translate-y-px hover:shadow-[0_6px_20px_rgba(255,165,97,.3)] disabled:opacity-35 disabled:cursor-not-allowed"
                 >
                   Далее
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
               ) : (
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 bg-coral text-white font-head font-bold text-base py-3.5 px-7 rounded-full transition-all duration-250 hover:bg-coral-dk hover:-translate-y-px disabled:opacity-35 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-2 bg-coral text-white font-head font-bold text-[0.9375rem] py-3 px-7 rounded-full transition-all duration-200 hover:bg-coral-dk hover:-translate-y-px hover:shadow-[0_6px_20px_rgba(255,165,97,.3)] disabled:opacity-35 disabled:cursor-not-allowed"
                   disabled={!canSubmit || submitting}
                 >
                   {submitting ? 'Отправка...' : 'Отправить анкету'}
@@ -472,6 +540,85 @@ export default function Quiz() {
           </form>
         </div>
       </div>
+
+      {/* ── Success Modal ── */}
+      {showSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setShowSuccess(false)}>
+          <div className="absolute inset-0 bg-n900/40 backdrop-blur-sm" />
+          <div
+            className="relative bg-white rounded-[28px] shadow-[0_32px_80px_rgba(26,26,46,.18)] max-w-[440px] w-full overflow-hidden animate-[scale-pop_.3s_ease-out]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="px-8 pt-10 pb-8 text-center">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <path d="M12 20.5L17.5 26L28 15" stroke="#22c55e" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h3 className="font-display font-black text-[1.5rem] text-indigo leading-tight mb-2">Анкета отправлена!</h3>
+              <p className="text-n500 text-[0.9375rem] leading-relaxed mb-1">
+                Спасибо за доверие! Мы уже подбираем лучшие занятия для вашего ребёнка.
+              </p>
+              <p className="text-n400 text-[0.8125rem]">
+                Персональная подборка придёт вам в течение часа.
+              </p>
+            </div>
+            <div className="px-8 pb-8">
+              <button
+                type="button"
+                onClick={() => setShowSuccess(false)}
+                className="w-full py-3.5 bg-coral text-white font-head font-bold text-base rounded-full transition-all duration-200 hover:bg-coral-dk hover:-translate-y-px hover:shadow-[0_6px_20px_rgba(255,165,97,.3)]"
+              >
+                Отлично!
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Privacy Policy Modal ── */}
+      {showPrivacy && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setShowPrivacy(false)}>
+          <div className="absolute inset-0 bg-n900/40 backdrop-blur-sm" />
+          <div
+            className="relative bg-white rounded-[24px] shadow-[0_32px_80px_rgba(26,26,46,.18)] max-w-[640px] w-full max-h-[80vh] flex flex-col overflow-hidden animate-[scale-pop_.25s_ease-out]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-n200/50">
+              <h3 className="font-display font-bold text-[1.1rem] text-indigo">Политика обработки данных</h3>
+              <button type="button" onClick={() => setShowPrivacy(false)} className="w-8 h-8 rounded-full bg-n100 hover:bg-n200 flex items-center justify-center text-n500 transition-colors text-lg leading-none">&times;</button>
+            </div>
+            <div className="px-6 py-5 overflow-y-auto text-[0.8125rem] text-n700 leading-[1.7] space-y-4">
+              <p>Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональных данных пользователей сервиса «Весело» (далее — Сервис).</p>
+
+              <h4 className="font-bold text-n900 text-[0.875rem]">1. Какие данные мы собираем</h4>
+              <p>Имя родителя, контактные данные (Telegram, email), возраст ребёнка, предпочтения по формату и расписанию занятий, а также ответы на вопросы анкеты. Данные ребёнка обрабатываются исключительно с согласия родителя (законного представителя).</p>
+
+              <h4 className="font-bold text-n900 text-[0.875rem]">2. Цели обработки</h4>
+              <p>Подбор подходящих детских занятий, секций и кружков; связь с родителем для предоставления персональной подборки; улучшение работы Сервиса.</p>
+
+              <h4 className="font-bold text-n900 text-[0.875rem]">3. Хранение и защита</h4>
+              <p>Персональные данные хранятся на защищённых серверах и не передаются третьим лицам без согласия пользователя, за исключением случаев, предусмотренных законодательством РФ. Мы применяем организационные и технические меры для защиты данных от несанкционированного доступа.</p>
+
+              <h4 className="font-bold text-n900 text-[0.875rem]">4. Срок хранения</h4>
+              <p>Персональные данные хранятся не дольше, чем это необходимо для целей обработки. Вы можете запросить удаление данных в любой момент, написав нам.</p>
+
+              <h4 className="font-bold text-n900 text-[0.875rem]">5. Права пользователя</h4>
+              <p>Вы вправе запросить информацию об обработке ваших данных, потребовать их изменения или удаления, а также отозвать согласие на обработку, направив запрос на нашу электронную почту.</p>
+
+              <h4 className="font-bold text-n900 text-[0.875rem]">6. Файлы cookie</h4>
+              <p>Сервис может использовать файлы cookie для обеспечения корректной работы и аналитики. Вы можете отключить cookie в настройках браузера.</p>
+
+              <p className="text-n400 text-[0.75rem]">Дата последнего обновления: 1 марта 2026 г.</p>
+            </div>
+            <div className="px-6 py-4 border-t border-n200/50">
+              <button type="button" onClick={() => setShowPrivacy(false)} className="w-full py-3 bg-indigo text-white font-head font-bold rounded-full hover:bg-indigo-lt transition-colors">
+                Понятно
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
