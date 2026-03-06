@@ -76,7 +76,7 @@ export default function Quiz() {
   const stepKey = STEPS[step]
   const progress = Math.round(((step + 1) / STEPS.length) * 100)
 
-  const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=37.35%2C55.55%2C37.85%2C55.95&layer=mapnik&marker=55.7558%2C37.6173`
+  const mapSrc = `https://yandex.ru/map-widget/v1/?ll=37.6176%2C55.7558&z=10`
 
   const currentQuestion = QUESTIONS.find((q) => q.key === stepKey)
   const currentSelectedCount = currentQuestion ? (Array.isArray(data[currentQuestion.key]) ? data[currentQuestion.key].length : 0) : 0
@@ -289,10 +289,7 @@ export default function Quiz() {
 
                 {isOffline && (
                   <div className="grid md:grid-cols-2 gap-4">
-                    <label className="block">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Выбрать на карте</span>
-                    </label>
-                    <label className="block">
+                    <label className="block md:col-span-2">
                       <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Локация</span>
                       <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.location} onChange={(e) => update('location', e.target.value)} placeholder="Улица, метро или ориентир" />
                     </label>
@@ -301,11 +298,11 @@ export default function Quiz() {
 
                 {isOffline && (
                   <div className="border-2 border-n200/60 rounded-2xl overflow-hidden">
-                    <div className="px-3 py-2 text-[0.8125rem] text-n500 border-b border-n200/60">Интерактивная карта</div>
+                    <div className="px-3 py-2 text-[0.8125rem] text-n500 border-b border-n200/60">Интерактивная карта (Яндекс)</div>
                     <iframe
-                      title="Карта Москвы"
+                      title="Яндекс Карта Москвы"
                       src={mapSrc}
-                      className="w-full h-[260px] border-0"
+                      className="w-full h-[320px] border-0"
                       loading="lazy"
                     />
                     <div className="px-3 py-2 text-[0.75rem] text-n500">Можно двигать карту и менять масштаб.</div>
