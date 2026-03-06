@@ -263,7 +263,7 @@ export default function Quiz() {
         <h2 className="sr font-display font-black text-[1.875rem] md:text-[2.5rem] text-indigo leading-[1.2] text-center mx-auto">
           Подберём занятия для <span className="text-pill text-pill-coral">вашего ребёнка</span>
         </h2>
-        <p className="sr sr-d1 font-hand text-xl text-n500 text-center mt-2 mb-10">Пошаговая анкета · 3-5 минут</p>
+        <p className="sr sr-d1 font-hand text-xl text-n500 text-center mt-2 mb-10">Анкета на 2 минуты — и через час подборка у вас в мессенджере. Всё просто.</p>
 
         <div className="sr sr-d2 max-w-[760px] mx-auto bg-white rounded-[28px] shadow-[0_24px_64px_rgba(26,26,46,.1)] border-2 border-n200/40 p-6 md:p-8">
           <div className="mb-5">
