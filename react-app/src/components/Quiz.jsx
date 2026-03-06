@@ -312,9 +312,9 @@ export default function Quiz() {
                 )}
 
                 <div>
-                  <span className="block text-[1rem] font-semibold text-n900 mb-2">Контакты родителя</span>
-                  <p className="text-[0.8125rem] text-n500 mb-3">Выберите удобные варианты связи</p>
-                  <div className="flex flex-wrap gap-2">
+                  <span className="block text-[1.05rem] font-semibold text-n900 mb-1">Как удобно с вами связаться</span>
+                  <p className="text-[0.8125rem] text-n500 mb-3">Выберите 1-3 канала. Покажем только нужные поля.</p>
+                  <div className="grid sm:grid-cols-3 gap-2">
                     {[
                       { key: 'whatsapp', label: 'WhatsApp' },
                       { key: 'telegram', label: 'Telegram' },
@@ -326,34 +326,38 @@ export default function Quiz() {
                           key={m.key}
                           type="button"
                           onClick={() => toggleMultiAnswer('contactMethods', m.key)}
-                          className={`py-2 px-3 border-2 rounded-full text-[0.8125rem] transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral'}`}
+                          className={`py-2.5 px-3 border-2 rounded-xl text-[0.85rem] text-left transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral hover:bg-n50'}`}
                         >
                           {m.label}
                         </button>
                       )
                     })}
                   </div>
+                  <p className="text-[0.75rem] text-n500 mt-2">Выбрано: {data.contactMethods.length} из 3</p>
+                  {data.contactMethods.length === 0 && (
+                    <p className="text-[0.75rem] text-red-500 mt-1">Выберите хотя бы один способ связи</p>
+                  )}
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   {data.contactMethods.includes('whatsapp') && (
                     <label className="block">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">WhatsApp (телефон)</span>
-                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="+7..." />
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">WhatsApp (телефон) <span className="text-coral">*</span></span>
+                      <input inputMode="tel" autoComplete="tel" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="+7..." />
                     </label>
                   )}
 
                   {data.contactMethods.includes('email') && (
                     <label className="block">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Email</span>
-                      <input type="email" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.email} onChange={(e) => update('email', e.target.value)} placeholder="name@example.com" />
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Email <span className="text-coral">*</span></span>
+                      <input type="email" autoComplete="email" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.email} onChange={(e) => update('email', e.target.value)} placeholder="name@example.com" />
                     </label>
                   )}
 
                   {data.contactMethods.includes('telegram') && (
                     <label className="block md:col-span-2">
-                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Telegram (username)</span>
-                      <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.telegram} onChange={(e) => update('telegram', e.target.value)} placeholder="@username" />
+                      <span className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Telegram (username) <span className="text-coral">*</span></span>
+                      <input autoComplete="username" className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.telegram} onChange={(e) => update('telegram', e.target.value)} placeholder="@username" />
                     </label>
                   )}
                 </div>
@@ -363,9 +367,9 @@ export default function Quiz() {
                   <input className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[0.9375rem] bg-cream/50 outline-none focus:border-coral" value={data.comment} onChange={(e) => update('comment', e.target.value)} />
                 </label>
 
-                <label className="inline-flex items-center gap-2 text-[0.8125rem] text-n700">
-                  <input type="checkbox" checked={data.consent} onChange={(e) => update('consent', e.target.checked)} />
-                  Согласен(а) на обработку персональных данных
+                <label className="inline-flex items-start gap-2 text-[0.8125rem] text-n700 p-3 rounded-xl border border-n200/60 bg-n50">
+                  <input type="checkbox" checked={data.consent} onChange={(e) => update('consent', e.target.checked)} className="mt-0.5" />
+                  <span>Согласен(а) на обработку персональных данных <span className="text-coral">*</span></span>
                 </label>
               </>
             )}
