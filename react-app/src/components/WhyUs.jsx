@@ -77,8 +77,8 @@ const cards = [
 
 export default function WhyUs() {
   return (
-    <section className="py-20 md:py-[6.5rem] relative" id="whyus">
-      <div className="absolute inset-0 bg-gradient-to-b from-cream-dk/40 to-cream pointer-events-none" />
+    <section className="py-16 md:py-20 relative" id="whyus">
+      <div className="absolute inset-0 bg-gradient-to-b from-cream-dk/25 to-transparent pointer-events-none" />
       <div className="max-w-[1240px] mx-auto px-5 md:px-10 relative">
         <p className="sr font-hand text-[1.6rem] text-coral text-center">Почему мы?</p>
         <h2 className="sr sr-d1 font-display font-black text-[1.875rem] md:text-[2.5rem] text-indigo leading-[1.2] text-center mx-auto mb-2">
@@ -87,15 +87,15 @@ export default function WhyUs() {
         <p className="sr sr-d1 text-n700 text-[0.9375rem] max-w-[560px] leading-[1.65] mb-12 text-center mx-auto">
           Мы не сваливаем на вас 200 ссылок — мы отбираем лучшее
         </p>
-        <div className="grid gap-5 md:grid-cols-2 md:gap-6">
+        <div className="grid gap-4 md:grid-cols-2 md:gap-5">
           {cards.map((c, i) => (
             <div
               key={i}
-              className={`sr ${i > 0 ? `sr-d${i}` : ''} group rounded-[28px] p-7 relative overflow-hidden bg-white border-2 border-n200/30 shadow-[0_4px_16px_rgba(26,26,46,.04)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_48px_rgba(26,26,46,.1)] hover:border-transparent`}
+              className={`sr ${i > 0 ? `sr-d${i}` : ''} group relative overflow-hidden rounded-[24px] border border-n200/40 bg-white/90 p-6 shadow-[0_8px_24px_rgba(26,26,46,.04)] backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-n200/60 hover:shadow-[0_16px_40px_rgba(26,26,46,.08)]`}
             >
               {/* Colored accent corner */}
               <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full opacity-[0.07] transition-all duration-500 group-hover:opacity-[0.12] group-hover:scale-125" style={{ background: c.accent }} />
-              <div className="flex gap-6 items-start">
+              <div className="flex items-start gap-5">
                 {/* Character with soft bg circle */}
                 <div className="relative shrink-0">
                   <div className={`absolute inset-0 ${c.pill} rounded-full scale-[1.2] opacity-40 transition-all duration-500 group-hover:scale-[1.4] group-hover:opacity-60`} />
@@ -104,7 +104,7 @@ export default function WhyUs() {
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="font-display font-black text-[2.5rem] leading-none mb-1.5 transition-colors duration-300" style={{ color: c.accent }}>{c.num}</div>
+                  <div className="mb-1.5 text-[2.2rem] leading-none transition-colors duration-300 font-display font-black" style={{ color: c.accent }}>{c.num}</div>
                   <h3 className="font-head font-bold text-[1rem] text-indigo mb-1.5">{c.title}</h3>
                   <p className="text-[0.8125rem] text-n700 leading-[1.65]">{c.text}</p>
                 </div>

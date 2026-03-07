@@ -81,19 +81,19 @@ const items = [
 
 export default function Problems() {
   return (
-    <section className="py-20 md:py-[6.5rem] overflow-hidden" id="problems">
+    <section className="py-16 md:py-20 overflow-hidden" id="problems">
       <div className="max-w-[1240px] mx-auto px-5 md:px-10">
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <span className="sr font-hand text-2xl text-coral">Узнаёте себя?</span>
           <h2 className="sr sr-d1 font-display font-black text-[1.875rem] md:text-[2.5rem] text-indigo leading-[1.2] mt-1">
             Поиск занятий — это <span className="text-pill text-pill-coral">стресс</span>
           </h2>
         </div>
-        <div className="grid gap-4 max-w-[800px] mx-auto">
+        <div className="grid gap-4 max-w-[980px] mx-auto md:grid-cols-2">
           {items.map((item, i) => (
             <div
               key={i}
-              className={`sr sr-d${i + 1} group flex gap-5 items-center p-5 px-6 bg-white rounded-[20px] border border-n200/60 border-l-4 ${item.border} transition-all duration-350 relative overflow-hidden hover:shadow-[0_8px_32px_rgba(26,26,46,.08)] hover:-translate-y-0.5`}
+              className={`sr sr-d${i + 1} group relative flex items-start gap-4 overflow-hidden rounded-[22px] border border-n200/60 border-l-4 bg-white/86 p-5 backdrop-blur-sm transition-all duration-350 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(26,26,46,.08)] md:p-6 ${item.border}`}
             >
               <item.Char />
               <div>
