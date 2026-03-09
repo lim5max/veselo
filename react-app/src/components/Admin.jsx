@@ -185,7 +185,10 @@ export default function Admin() {
                       <span className="ml-2 text-xs text-gray-300 font-mono">#{lead.id}</span>
                     </div>
                   </div>
-                  <span className="text-xs text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full">{formatDate(lead.created_at)}</span>
+                  <div className="flex items-center gap-2">
+                    <PaymentBadge status={lead.payment_status} />
+                    <span className="text-xs text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full">{formatDate(lead.created_at)}</span>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
@@ -232,6 +235,22 @@ export default function Admin() {
         })}
       </div>
     </div>
+  )
+}
+
+function PaymentBadge({ status }) {
+  const styles = {
+    paid: 'bg-green-50 text-green-700 border-green-200',
+    pending: 'bg-yellow-50 text-yellow-700 border-yellow-200',
+    failed: 'bg-red-50 text-red-700 border-red-200',
+    refunded: 'bg-gray-50 text-gray-600 border-gray-200',
+  }
+  const labels = { paid: 'Оплачено', pending: 'Ожидает', failed: 'Не оплачено', refunded: 'Возврат' }
+  const s = status || 'pending'
+  return (
+    <span className={`text-xs font-medium px-2.5 py-1 rounded-full border ${styles[s] || styles.pending}`}>
+      {labels[s] || s}
+    </span>
   )
 }
 

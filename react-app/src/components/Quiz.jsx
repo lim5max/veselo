@@ -65,7 +65,7 @@ const initialData = {
   ...Object.fromEntries(QUESTIONS.map((q) => [q.key, []])),
 }
 
-export default function Quiz() {
+export default function Quiz({ paymentSuccess, paymentFail, onClosePaymentSuccess, onClosePaymentFail }) {
   const [data, setData] = useState(initialData)
   const [status, setStatus] = useState('')
   const [statusType, setStatusType] = useState('info')
@@ -73,6 +73,19 @@ export default function Quiz() {
   const [step, setStep] = useState(0)
   const [showPrivacy, setShowPrivacy] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
+  const [showFail, setShowFail] = useState(false)
+
+  useEffect(() => {
+    if (paymentSuccess) {
+      setShowSuccess(true)
+    }
+  }, [paymentSuccess])
+
+  useEffect(() => {
+    if (paymentFail) {
+      setShowFail(true)
+    }
+  }, [paymentFail])
 
   const isOffline = Array.isArray(data.format) && data.format.includes('offline')
   const stepKey = STEPS[step]
@@ -228,7 +241,7 @@ export default function Quiz() {
       return
     }
 
-    const endpoint = import.meta.env.VITE_LEAD_API_URL || '/api/lead'
+    const endpoint = import.meta.env.VITE_PAYMENT_API_URL || '/api/payment'
 
     try {
       setSubmitting(true)
@@ -249,10 +262,16 @@ export default function Quiz() {
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
 
-      setShowSuccess(true)
-      setStatus('')
-      setData(initialData)
-      setStep(0)
+      const result = await res.json()
+
+      if (result.paymentUrl) {
+        window.location.href = result.paymentUrl
+      } else {
+        setShowSuccess(true)
+        setStatus('')
+        setData(initialData)
+        setStep(0)
+      }
     } catch (err) {
       console.error('Ошибка отправки анкеты:', err)
       setStatusType('error')
@@ -543,7 +562,7 @@ export default function Quiz() {
 
       {/* ── Success Modal ── */}
       {showSuccess && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setShowSuccess(false)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => { setShowSuccess(false); onClosePaymentSuccess?.() }}>
           <div className="absolute inset-0 bg-n900/40 backdrop-blur-sm" />
           <div
             className="relative bg-white rounded-[28px] shadow-[0_32px_80px_rgba(26,26,46,.18)] max-w-[440px] w-full overflow-hidden animate-[scale-pop_.3s_ease-out]"
@@ -566,10 +585,45 @@ export default function Quiz() {
             <div className="px-8 pb-8">
               <button
                 type="button"
-                onClick={() => setShowSuccess(false)}
+                onClick={() => { setShowSuccess(false); onClosePaymentSuccess?.() }}
                 className="w-full py-3.5 bg-coral text-white font-head font-bold text-base rounded-full transition-all duration-200 hover:bg-coral-dk hover:-translate-y-px hover:shadow-[0_6px_20px_rgba(255,165,97,.3)]"
               >
                 Отлично!
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Fail Modal ── */}
+      {showFail && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => { setShowFail(false); onClosePaymentFail?.() }}>
+          <div className="absolute inset-0 bg-n900/40 backdrop-blur-sm" />
+          <div
+            className="relative bg-white rounded-[28px] shadow-[0_32px_80px_rgba(26,26,46,.18)] max-w-[440px] w-full overflow-hidden animate-[scale-pop_.3s_ease-out]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="px-8 pt-10 pb-8 text-center">
+              <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-5">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <path d="M14 14L26 26M26 14L14 26" stroke="#ef4444" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h3 className="font-display font-black text-[1.5rem] text-indigo leading-tight mb-2">Оплата не прошла</h3>
+              <p className="text-n500 text-[0.9375rem] leading-relaxed mb-1">
+                К сожалению, платёж не удался. Попробуйте ещё раз или выберите другой способ оплаты.
+              </p>
+              <p className="text-n400 text-[0.8125rem]">
+                Ваша анкета сохранена — повторная отправка не потребуется.
+              </p>
+            </div>
+            <div className="px-8 pb-8">
+              <button
+                type="button"
+                onClick={() => { setShowFail(false); onClosePaymentFail?.() }}
+                className="w-full py-3.5 bg-coral text-white font-head font-bold text-base rounded-full transition-all duration-200 hover:bg-coral-dk hover:-translate-y-px hover:shadow-[0_6px_20px_rgba(255,165,97,.3)]"
+              >
+                Понятно
               </button>
             </div>
           </div>

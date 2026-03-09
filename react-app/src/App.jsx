@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import useScrollReveal from './hooks/useScrollReveal'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -18,6 +18,19 @@ import Admin from './components/Admin'
 
 export default function App() {
   useScrollReveal()
+  const [paymentSuccess, setPaymentSuccess] = useState(false)
+  const [paymentFail, setPaymentFail] = useState(false)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('payment') === 'success') {
+      setPaymentSuccess(true)
+      window.history.replaceState({}, '', window.location.pathname)
+    } else if (params.get('payment') === 'fail') {
+      setPaymentFail(true)
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+  }, [])
 
   const toQuiz = useCallback(() => {
     document.getElementById('quiz')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -41,7 +54,7 @@ export default function App() {
       <Pricing onQuiz={toQuiz} />
 
       <FAQ />
-      <Quiz />
+      <Quiz paymentSuccess={paymentSuccess} paymentFail={paymentFail} onClosePaymentSuccess={() => setPaymentSuccess(false)} onClosePaymentFail={() => setPaymentFail(false)} />
       <FinalCTA onQuiz={toQuiz} />
       <Footer />
     </>

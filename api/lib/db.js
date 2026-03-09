@@ -29,7 +29,12 @@ export async function ensureTable() {
       comment TEXT,
       answers TEXT,
       source TEXT,
+      order_id TEXT,
+      payment_status TEXT DEFAULT 'pending',
       created_at TEXT DEFAULT (datetime('now'))
     )
   `)
+  // Add columns if table already exists without them
+  await db.execute(`ALTER TABLE leads ADD COLUMN order_id TEXT`).catch(() => {})
+  await db.execute(`ALTER TABLE leads ADD COLUMN payment_status TEXT DEFAULT 'pending'`).catch(() => {})
 }
