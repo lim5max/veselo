@@ -2,39 +2,44 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 const QUESTIONS = [
   {
+    key: 'qTried',
+    title: '1. Какие кружки или занятия ребёнок уже пробовал?',
+    subtitle: 'можно выбрать из списка или вписать своё',
+    options: ['Робототехника', 'Программирование / создание игр', 'Рисование / дизайн', 'Театр / сцена / выступления', 'Танцы / спорт', 'Моделирование / сборка / техника', 'Мультфильмы / анимация', 'Языковые курсы', 'Музыка / вокал'],
+    hasOther: true,
+  },
+  {
+    key: 'qNotFit',
+    title: '2. Что именно не подошло в каком-то из занятий?',
+    subtitle: 'можно выбрать несколько вариантов',
+    options: ['Ребёнку было скучно — не происходило ничего интересного', 'Было слишком сложно — он не понимал, что делать', 'Не понравился педагог', 'Ему было некомфортно в группе', 'Не видел результата — не понимал, зачем это', 'Много теории, мало действия', 'У него не спрашивали, что ему интересно', 'Просто не зашло — не «его»'],
+  },
+  {
     key: 'q6',
-    title: '1. Что ребёнку обычно нравится делать в свободное время?',
-    options: ['Подвижные игры и спорт', 'Творчество (рисование, лепка)', 'Гаджеты и мультфильмы', 'Помогать дома', 'Читать книги', 'Собирать и конструировать', 'Играть в настолки', 'Общаться с друзьями', 'Гулять на улице', 'Отдыхать без дел'],
+    title: '3. Чем он может заниматься сам, без напоминаний?',
+    subtitle: 'можно выбрать несколько',
+    options: ['Игры / гаджеты', 'Конструирование / сборка', 'Рисование / дизайн', 'Придумывание историй, просмотр фильмов', 'Спорт / активные игры', 'Мультфильмы, персонажи, кино', 'Интерес к животным, природе, картам', 'Общение, выступления', 'Языки', 'Музыка / пение'],
+    hasOther: true,
   },
   {
     key: 'q2',
-    title: '2. Как ребёнок обычно чувствует себя среди других детей?',
+    title: '4. Как ребёнок обычно чувствует себя среди других детей?',
     options: ['Легко знакомится и ведёт за собой', 'Сначала присматривается, потом включается', 'Предпочитает 1–2 близких друга', 'Сильно привязан(а) к родителю, тревожится', 'Чаще сам(а) по себе', 'Ориентируется на более активных детей'],
   },
   {
-    key: 'q10',
-    title: '3. Какая роль у ребёнка в компании?',
-    options: ['Инициатор игр и идей', 'Скорее следует за другими', 'Сглаживает конфликты, мирит', 'Любит быть отдельно', 'Часто спорит, может задираться', 'Заступается за других', 'Очень общительный(ая), любит внимание', 'Смотрит со стороны, включается не сразу', 'Тихий(ая), стеснительный(ая)', 'Лидер без лишнего шума'],
-  },
-  {
     key: 'q8',
-    title: '4. В каких условиях ребёнку комфортнее заниматься?',
+    title: '5. В каких условиях ребёнку комфортнее заниматься?',
     options: ['Шумно и много детей', 'Тихо, в небольшой группе', 'Один на один с педагогом', 'Спокойная, «домашняя» атмосфера', 'На улице или на природе', 'Чёткие правила и структура', 'Больше свободы и импровизации', 'Яркая и визуально насыщенная среда', 'Минимум лишних стимулов'],
   },
   {
     key: 'q3',
-    title: '5. Что помогает ребёнку успокоиться?',
-    options: ['Активность и движение', 'Рисование или конструктор', 'Музыка и пение', 'Спокойный разговор с родителем', 'Объятия и телесный контакт', 'Тишина и время в одиночестве', 'Перекус / что-то вкусное'],
+    title: '6. После каких занятий он выходит особенно вдохновлённым?',
+    options: ['Когда сделал что-то своими руками', 'Когда была игровая форма или соревнование', 'Когда сам разобрался в чём-то сложном', 'Когда придумал и реализовал что-то своё'],
   },
   {
     key: 'q9',
-    title: '6. Что чаще всего раздражает ребёнка?',
+    title: '7. Что чаще всего раздражает ребёнка?',
     options: ['Когда приходится долго ждать', 'Когда трогают его/её вещи', 'Фразы типа «ты не справишься»', 'Когда нарушают правила', 'Громкие звуки', 'Когда его/её перебивают', 'Скука и однообразие', 'Когда не принимают в игру', 'Когда просят переделывать', 'Критика в его/её адрес'],
-  },
-  {
-    key: 'q7',
-    title: '7. Как ребёнок реагирует, когда что-то не получается?',
-    options: ['Быстро теряет интерес и бросает', 'Упорно продолжает, даже тяжело', 'Просит помощь у взрослого', 'Переключается на другое занятие', 'Злится, реагирует резко', 'Ищет обходные способы', 'Теряется и замирает', 'Отшучивается, переводит в шутку', 'Расстраивается, плачет', 'Просит подсказку и пробует дальше'],
   },
   {
     key: 'q4',
@@ -52,6 +57,7 @@ const STEPS = ['basic', ...QUESTIONS.map((q) => q.key), 'contacts']
 
 const initialData = {
   childAge: '',
+  childGender: '',
   format: [],
   preferredTime: [],
   city: 'Москва',
@@ -62,6 +68,7 @@ const initialData = {
   telegram: '',
   comment: '',
   consent: false,
+  otherText: {},
   ...Object.fromEntries(QUESTIONS.map((q) => [q.key, []])),
 }
 
@@ -184,8 +191,7 @@ export default function Quiz({ paymentSuccess, paymentFail, onClosePaymentSucces
 
   const isStepValid = useMemo(() => {
     if (stepKey === 'basic') {
-      const base = !!data.childAge
-      return Boolean(base)
+      return Boolean(data.childAge && data.childGender)
     }
 
     if (stepKey === 'contacts') {
@@ -205,7 +211,7 @@ export default function Quiz({ paymentSuccess, paymentFail, onClosePaymentSucces
   }, [data, isOffline, stepKey])
 
   const canSubmit = useMemo(() => {
-    const basic = !!data.childAge
+    const basic = !!(data.childAge && data.childGender)
     const offlineOk = !isOffline || Boolean(data.location)
     const methodsOk = Array.isArray(data.contactMethods) && data.contactMethods.length > 0
     const hasEmail = data.contactMethods.includes('email') ? Boolean(data.email && data.email.trim()) : true
@@ -315,34 +321,59 @@ export default function Quiz({ paymentSuccess, paymentFail, onClosePaymentSucces
           <form onSubmit={submit} className="space-y-5">
             {stepKey === 'basic' && (
               <>
-                <div>
-                  <p className="block text-[0.8125rem] font-semibold text-n700 mb-1.5">Возраст ребёнка</p>
-                  <div className="flex flex-wrap gap-2">
-                    {['3-4 года', '5-6 лет', '7-8 лет', '9-10 лет', '11-12 лет', '13-14 лет'].map((age) => {
-                      const selected = data.childAge === age
-                      return (
-                        <button
-                          key={age}
-                          type="button"
-                          onClick={() => update('childAge', age)}
-                          className={`py-2 px-3 border-2 rounded-full text-[0.8125rem] transition-all ${selected ? 'border-coral bg-coral-lt text-coral-dk font-semibold' : 'border-n200/60 text-n700 hover:border-coral'}`}
-                        >
-                          {age}
-                        </button>
-                      )
-                    })}
+                <div className="space-y-5">
+                  <div>
+                    <p className="block text-[1.05rem] font-bold text-n900 leading-snug mb-3">Расскажите о ребёнке</p>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-[0.8125rem] text-n500 mb-1.5">Возраст</p>
+                        <div className="relative">
+                          <input
+                            type="number"
+                            min="3"
+                            max="17"
+                            inputMode="numeric"
+                            value={data.childAge}
+                            onChange={(e) => {
+                              const v = e.target.value
+                              if (v === '' || (Number(v) >= 1 && Number(v) <= 17)) update('childAge', v)
+                            }}
+                            placeholder="7"
+                            className="w-full py-3 px-4 border-2 border-n200/60 rounded-2xl text-[1.25rem] font-bold text-center bg-white outline-none focus:border-coral transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          />
+                          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[0.8125rem] text-n400 pointer-events-none">лет</span>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[0.8125rem] text-n500 mb-1.5">Пол</p>
+                        <div className="grid grid-cols-2 gap-2 h-[calc(100%-1.75rem)]">
+                          {[{ label: 'Мальчик', value: 'male' }, { label: 'Девочка', value: 'female' }].map((g) => {
+                            const selected = data.childGender === g.value
+                            return (
+                              <button
+                                key={g.value}
+                                type="button"
+                                onClick={() => update('childGender', g.value)}
+                                className={`flex items-center justify-center border-2 rounded-2xl text-[0.875rem] font-semibold transition-all duration-200 ${selected ? 'border-coral bg-coral-lt text-coral-dk shadow-[0_2px_10px_rgba(255,165,97,.12)]' : 'border-n200/60 text-n700 hover:border-coral/50'}`}
+                              >
+                                {g.label}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-
               </>
             )}
 
-            {QUESTIONS.map((q, qi) => (
+            {QUESTIONS.map((q) => (
               stepKey === q.key && (
                 <div key={q.key} className="space-y-4">
                   <div>
                     <span className="block text-[1.05rem] font-bold text-n900 leading-snug">{q.title}</span>
+                    {q.subtitle && <span className="block text-[0.8125rem] text-n400 mt-0.5">({q.subtitle})</span>}
                     <div className="flex items-center gap-2 mt-2">
                       <div className="flex gap-1">
                         {[0, 1, 2].map((i) => (
@@ -378,6 +409,34 @@ export default function Quiz({ paymentSuccess, paymentFail, onClosePaymentSucces
                         </button>
                       )
                     })}
+                    {q.hasOther && (() => {
+                      const otherSelected = Array.isArray(data[q.key]) && data[q.key].includes('Другое')
+                      return (
+                        <div className={`flex items-center gap-2.5 py-2.5 px-4 border-2 rounded-2xl text-[0.8125rem] text-left transition-all duration-200 ${otherSelected ? 'border-coral bg-coral-lt shadow-[0_2px_10px_rgba(255,165,97,.12)]' : 'border-n200/60 hover:border-coral/50 hover:bg-white'}`}>
+                          <button
+                            type="button"
+                            onClick={() => toggleMultiAnswer(q.key, 'Другое')}
+                            className="flex items-center gap-2.5 flex-shrink-0"
+                          >
+                            <div className={`w-5 h-5 rounded-lg border-2 flex items-center justify-center transition-all duration-200 ${otherSelected ? 'border-coral bg-coral' : 'border-n300'}`}>
+                              {otherSelected && (
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                  <path d="M2.5 6.5L4.5 8.5L9.5 3.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                              )}
+                            </div>
+                          </button>
+                          <input
+                            type="text"
+                            placeholder="Другое..."
+                            value={(data.otherText && data.otherText[q.key]) || ''}
+                            onFocus={() => { if (!otherSelected) toggleMultiAnswer(q.key, 'Другое') }}
+                            onChange={(e) => setData((prev) => ({ ...prev, otherText: { ...prev.otherText, [q.key]: e.target.value } }))}
+                            className={`bg-transparent outline-none flex-1 min-w-0 ${otherSelected ? 'text-coral-dk font-semibold' : 'text-n700'}`}
+                          />
+                        </div>
+                      )
+                    })()}
                   </div>
                 </div>
               )

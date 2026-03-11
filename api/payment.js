@@ -34,7 +34,8 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Payment not configured' })
     }
 
-    const origin = req.headers.origin || req.headers.referer?.replace(/\/+$/, '') || 'https://veselo-nine.vercel.app'
+    const siteOrigin = req.headers.origin || req.headers.referer?.replace(/\/+$/, '') || 'https://veselo-nine.vercel.app'
+    const notifyOrigin = 'https://veselo-nine.vercel.app'
     const orderId = `veselo-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`
 
     await db.execute({
@@ -64,9 +65,9 @@ export default async function handler(req, res) {
       Amount: 500,
       OrderId: orderId,
       Description: 'Весело — подбор занятий',
-      SuccessURL: `${origin}/?payment=success`,
-      FailURL: `${origin}/?payment=fail`,
-      NotificationURL: `${origin}/api/payment-notify`,
+      SuccessURL: `${siteOrigin}/?payment=success`,
+      FailURL: `${siteOrigin}/?payment=fail`,
+      NotificationURL: `${notifyOrigin}/api/payment-notify`,
     }
 
     params.Token = generateToken(params, password)
