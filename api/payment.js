@@ -62,7 +62,7 @@ export default async function handler(req, res) {
 
     const params = {
       TerminalKey: terminalKey,
-      Amount: 500,
+      Amount: 20000,
       OrderId: orderId,
       Description: 'Весело — подбор занятий',
       SuccessURL: `${siteOrigin}/?payment=success`,
