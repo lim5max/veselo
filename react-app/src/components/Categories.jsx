@@ -66,13 +66,14 @@ const Blob6 = () => (
 )
 
 /* ---- Bento photo cell ---- */
-function BentoCell({ photo, label, sub, tag, color, Blob, className = '', delay = '' }) {
+function BentoCell({ photo, label, sub, tag, color, Blob, className = '', delay = '', imgPosition = 'center center' }) {
   return (
     <div className={`sr ${delay} group relative rounded-[24px] overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_48px_rgba(26,26,46,.12)] ${className}`}>
       <img
         src={photo}
         alt={label}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        style={{ objectPosition: imgPosition }}
         loading="lazy"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/5" />
@@ -162,6 +163,7 @@ export default function Categories() {
             tag="Регулярные"
             color="#38BDF8"
             Blob={Blob1}
+            imgPosition="center 22%"
             className="md:[grid-area:1/1/3/3] min-h-[280px] md:min-h-0 col-span-2"
             delay="sr-d1"
           />
