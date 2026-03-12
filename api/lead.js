@@ -12,16 +12,20 @@ export default async function handler(req, res) {
 
     const answers = {}
     for (const [key, value] of Object.entries(body)) {
-      if (key.startsWith('q') && /^q\d+$/.test(key)) {
+      if (key.startsWith('q')) {
         answers[key] = value
       }
     }
+    if (body.otherText) {
+      answers.otherText = body.otherText
+    }
 
     await db.execute({
-      sql: `INSERT INTO leads (child_age, format, preferred_time, city, location, parent_name, contact_methods, email, telegram, comment, answers, source, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      sql: `INSERT INTO leads (child_age, child_gender, format, preferred_time, city, location, parent_name, contact_methods, email, telegram, comment, answers, source, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       args: [
         body.childAge || '',
+        body.childGender || '',
         JSON.stringify(body.format || []),
         JSON.stringify(body.preferredTime || []),
         body.city || '',

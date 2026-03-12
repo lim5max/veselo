@@ -18,6 +18,7 @@ export async function ensureTable() {
     CREATE TABLE IF NOT EXISTS leads (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       child_age TEXT,
+      child_gender TEXT,
       format TEXT,
       preferred_time TEXT,
       city TEXT,
@@ -35,6 +36,7 @@ export async function ensureTable() {
     )
   `)
   // Add columns if table already exists without them
+  await db.execute(`ALTER TABLE leads ADD COLUMN child_gender TEXT`).catch(() => {})
   await db.execute(`ALTER TABLE leads ADD COLUMN order_id TEXT`).catch(() => {})
   await db.execute(`ALTER TABLE leads ADD COLUMN payment_status TEXT DEFAULT 'pending'`).catch(() => {})
 }
